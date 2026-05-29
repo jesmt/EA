@@ -21,7 +21,6 @@ etapa = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.info("Dica para a prof: Use as setas do teclado para avançar pelas etapas sem precisar clicar no menu durante o Meet.")
 
 # ETAPA 1: A MISSÃO
 if etapa == "1. A Missão (O Problema)":
@@ -36,7 +35,7 @@ if etapa == "1. A Missão (O Problema)":
     A rede é vendida por metro. Para que o grêmio consiga pagar, **como devemos posicioná-la para usar o menor comprimento possível?**
     """)
 
-    st.image("diagrama.jpg", caption="Esquema da quadra e a rede de proteção.", use_container_width=True)
+    st.image("diagrama.jpg", caption="Esquema da quadra e a rede de proteção.", width=500)
     
     st.subheader("Simulador Interativo")
     # AQUI VOCÊ COLOCA O LINK DE INCORPORAÇÃO DO SEU GEOGEBRA
