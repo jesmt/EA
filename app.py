@@ -43,25 +43,61 @@ if etapa == "1. A Missão (O Problema)":
     geogebra_url = "https://www.geogebra.org/material/iframe/id/fpy3pppp/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" 
     components.iframe(geogebra_url, width=800, height=500)
     
-    st.warning("Pergunte no chat do Meet: O que acontece com o tamanho da rede se amarrarmos a ponta muito longe da esquina?")
+    st.warning("O que acontece com o tamanho da rede se amarrarmos a ponta muito longe da esquina?")
 
 # ETAPA 2: MODELAGEM
 elif etapa == "2. A Lousa Digital (Modelagem)":
     st.title("📐 Colocando no Papel")
-    st.markdown("Para descobrir o valor exato sem ficar apenas no 'olhômetro', precisamos de uma equação que garanta que a rede (reta) encoste no poste $P(1,2)$.")
+    st.markdown("Para descobrir o valor exato sem ficar apenas no 'olhômetro', precisamos traduzir o desenho da rede e dos muros para a linguagem da Matemática.")
     
-    if st.button("Passo 1: A Equação da Reta"):
-        st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
-        st.markdown("Sabemos que a reta corta os muros nos pontos $A(a,0)$ e $B(0,b)$.")
+    # Criamos uma "memória" para saber em qual passo da explicação a aula está
+    if 'passo_aula' not in st.session_state:
+        st.session_state.passo_aula = 0
 
-    if st.button("Passo 2: Passando pelo poste P(1,2)"):
+    st.info("🤔 **Pergunta para a turma:** Se os muros formam um ângulo de 90 graus (como os eixos X e Y), e a rede é uma linha reta que cruza esses muros, alguém lembra de alguma equação que represente uma reta cortando os eixos?")
+
+    # O botão avança o estado da aula para o passo 1
+    if st.button("Revelar Passo 1: A Equação da Reta"):
+        st.session_state.passo_aula = 1
+
+    # Se o passo for 1 ou maior, mostra este bloco (assim ele não some mais!)
+    if st.session_state.passo_aula >= 1:
+        st.markdown("### Passo 1: A Forma Segmentária")
+        st.markdown("""
+        Como nós sabemos exatamente onde a rede encosta nos muros — nos pontos **A(a,0)** do muro horizontal e **B(0,b)** do muro vertical —, a maneira mais prática de descrever essa reta é usando a **Equação Segmentária da Reta**:
+        """)
+        st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
+        
+        st.warning("🗣️ **Discussão:** Muito bem, mas a rede não pode ser amarrada em qualquer lugar solta pelo pátio. Ela tem um obstáculo obrigatório. Qual é e como colocamos isso na fórmula?")
+
+        if st.button("Revelar Passo 2: O Poste Central"):
+            st.session_state.passo_aula = 2
+
+    if st.session_state.passo_aula >= 2:
+        st.markdown("### Passo 2: Passando pelo poste P(1,2)")
+        st.markdown("A rede tem que encostar no poste central. Isso significa que o ponto $P(1,2)$ *pertence* à reta. Então, podemos substituir o $x$ por 1 e o $y$ por 2 na nossa equação:")
         st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
-        st.markdown("Substituímos o $x$ por 1 e o $y$ por 2. Isolando o $b$, descobrimos que a posição no muro vertical depende do muro horizontal:")
+        st.markdown("Isolando o $b$, descobrimos que a posição em que a rede é amarrada no muro vertical ($b$) depende diretamente da posição do muro horizontal ($a$):")
         st.latex(r"b = \frac{2a}{a - 1}")
 
-    if st.button("Passo 3: A Fórmula da Distância"):
-        st.markdown("Pelo Teorema de Pitágoras, o comprimento total da rede ($AB$) será:")
-        st.latex(r"AB = \sqrt{a^2 + b^2} \implies AB = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
+        st.error("💡 **Pergunta Final:** Agora sabemos onde ficam as pontas da rede. Mas o nosso problema é o orçamento! Precisamos saber o *comprimento* da rede. Que figura geométrica o chão, os muros e a rede formam?")
+
+        if st.button("Revelar Passo 3: O Comprimento da Rede"):
+            st.session_state.passo_aula = 3
+
+    if st.session_state.passo_aula >= 3:
+        st.markdown("### Passo 3: Pitágoras e a Fórmula da Distância")
+        st.markdown("Eles formam um Triângulo Retângulo! Pelo Teorema de Pitágoras, o comprimento total da rede (que é a nossa hipotenusa $AB$) será:")
+        st.latex(r"AB = \sqrt{a^2 + b^2}")
+        st.markdown("Como nós já sabemos lá do Passo 2 que o $b$ vale $\\frac{2a}{a-1}$, nós substituímos para ter uma fórmula com uma única variável:")
+        st.latex(r"AB(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
+        
+        st.success("Pronto! Agora temos a modelagem matemática completa. Podemos ir para a próxima etapa testar os valores!")
+        
+        # Botão opcional para o professor esconder tudo e começar de novo se precisar
+        if st.button("🔄 Reiniciar Lousa"):
+            st.session_state.passo_aula = 0
+            st.rerun() # Atualiza a tela imediatamente
 
 # ETAPA 3: TESTES
 elif etapa == "3. Mão na Massa (Testes)":
