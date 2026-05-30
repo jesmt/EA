@@ -115,7 +115,7 @@ elif etapa == "3. Mão na Massa (Testes)":
         # Entrada de dados
         palpite_a = st.number_input("Digite um valor para 'a':", min_value=1.1, max_value=15.0, value=2.0, step=0.1)
         
-       if st.button("Testar Palpite"):
+        if st.button("Testar Palpite"):
             # Cálculos
             b = (2 * palpite_a) / (palpite_a - 1)
             distancia = np.sqrt(palpite_a**2 + b**2)
