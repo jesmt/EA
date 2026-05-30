@@ -26,8 +26,8 @@ st.sidebar.markdown("---")
 if etapa == "1. A Missão (O Problema)":
     st.title("🏐 Salvando as Janelas da Cantina")
     st.markdown("""
-    A quadra de esportes da escola fica numa área onde duas muretas se encontram (formando nossos eixos $x$ e $y$). 
-    Durante os jogos, a bola frequentemente voa e atinge as janelas da cantina. 
+   
+    Durante os jogos na quadra de esportes da escola a bola frequentemente voa e atinge as janelas da cantina. 
     
     Para resolver isso, vamos instalar uma **rede de proteção em linha reta**. Existe um poste de iluminação no meio da área, 
     localizado no ponto **P(1, 2)**, e a rede precisa passar exatamente apoiada nele para não ceder com o vento.
