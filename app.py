@@ -129,15 +129,7 @@ elif etapa == "3. Mão na Massa (Testes)":
             $AB = \sqrt{{{palpite_a}^2 + {b:.2f}^2}} = {distancia:.2f} \text{{ m}}$
             """)
             st.markdown("---")
-            # ---------------------------------------------------
             
-            # Mostrando o cálculo de b
-            st.latex(rf"b = \frac{{2 \cdot {palpite_a}}}{{{palpite_a} - 1}} = {b:.2f} \text{{ m}}")
-            
-            # Mostrando o cálculo da distância AB
-            st.latex(rf"AB = \sqrt{{{palpite_a}^2 + {b:.2f}^2}} = {distancia:.2f} \text{{ m}}")
-            st.markdown("---")
-            # ---------------------------------------------------
             
             # Criando um novo registro
             novo_dado = pd.DataFrame({
