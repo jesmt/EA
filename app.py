@@ -14,10 +14,10 @@ if 'historico' not in st.session_state:
 st.sidebar.title("Roteiro da Aula")
 etapa = st.sidebar.radio(
     "Navegação:",
-    ["1. A Missão (O Problema)", 
-     "2. A Lousa Digital (Modelagem)", 
-     "3. Mão na Massa (Testes)", 
-     "4. A Mágica do Cálculo"]
+    ["1. O Problema", 
+     "2. A Modelagem", 
+     "3. Testes", 
+     "4. E depois?"]
 )
 
 st.sidebar.markdown("---")
@@ -54,7 +54,7 @@ elif etapa == "2. A Lousa Digital (Modelagem)":
     if 'passo_aula' not in st.session_state:
         st.session_state.passo_aula = 0
 
-    st.info("🤔 **Pergunta para a turma:** Se os muros formam um ângulo de 90 graus (como os eixos X e Y), e a rede é uma linha reta que cruza esses muros, alguém lembra de alguma equação que represente uma reta cortando os eixos?")
+    st.info("Se os muros formam um ângulo de 90 graus (como os eixos X e Y), e a rede é uma linha reta que cruza esses muros, alguém lembra de alguma equação que represente uma reta cortando os eixos?")
 
     # O botão avança o estado da aula para o passo 1
     if st.button("Revelar Passo 1: A Equação da Reta"):
@@ -80,7 +80,7 @@ elif etapa == "2. A Lousa Digital (Modelagem)":
         st.markdown("Isolando o $b$, descobrimos que a posição em que a rede é amarrada no muro vertical ($b$) depende diretamente da posição do muro horizontal ($a$):")
         st.latex(r"b = \frac{2a}{a - 1}")
 
-        st.error("💡 **Pergunta Final:** Agora sabemos onde ficam as pontas da rede. Mas o nosso problema é o orçamento! Precisamos saber o *comprimento* da rede. Que figura geométrica o chão, os muros e a rede formam?")
+        st.error("💡 Agora sabemos onde ficam as pontas da rede. Mas o nosso problema é o orçamento! Precisamos saber o *comprimento* da rede. Que figura geométrica o chão, os muros e a rede formam?")
 
         if st.button("Revelar Passo 3: O Comprimento da Rede"):
             st.session_state.passo_aula = 3
