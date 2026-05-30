@@ -171,25 +171,37 @@ elif etapa == "3. Mão na Massa (Testes)":
 
 # ETAPA 4: A MÁGICA DO CÁLCULO
 elif etapa == "4. A Mágica do Cálculo":
-    st.title("✨ A Mágica do Cálculo Diferencial")
+    st.title("✨ A Mágica do Cálculo")
     st.markdown("""
-    Vocês perceberam que, testando valores na tabela, a distância diminui, chega num "fundo do poço" e depois volta a subir. 
-    Fazer isso por tentativa e erro é o que chamamos de **Força Bruta**.
-
-    
-    
-    Mas a Matemática Superior tem uma ferramenta chamada **Derivada**. Ela funciona como um radar que encontra esse "fundo do poço" instantaneamente!
+    Nós encontramos o "fundo do poço" (o menor gasto de rede possível) tateando no escuro, testando números na tabela. 
+    Mas, afinal, será que não dava para usar uma daquelas fórmulas mágicas que aprendemos na escola?
     """)
     
-    if st.button("Revelar o Valor Exato"):
-        st.success("O valor exato descoberto pelo Cálculo é: **a ≈ 2,587**")
+    # Criando o adendo interativo (caixa sanfona)
+    with st.expander("🤔 Adendo: Por que não usar a fórmula do Vértice da Parábola?"):
+        st.markdown("""
+        No 1º ano do Ensino Médio, nós aprendemos que o ponto mais baixo (mínimo) ou mais alto (máximo) de uma parábola pode ser encontrado rapidinho com a fórmula do **Vértice** ($x_v = \\frac{-b}{2a}$).
+        
+        **Exemplo Rápido:** Se o lucro da cantina fosse calculado por uma equação do 2º grau simples como $L(x) = -x^2 + 10x$, o lucro máximo ocorreria em $x = \\frac{-10}{2(-1)} = 5$. Resolvido em segundos!
+        
+        **Qual é o nosso problema então?** A curva que a nossa rede formou **não é uma equação do 2º grau**. Se tentarmos resolver a nossa fórmula da distância algebricamente, ela vira um "monstro" de 4º grau, e a resposta exata exige extrair uma raiz cúbica. A matemática tradicional do Ensino Médio bate num muro aqui e simplesmente não tem ferramentas para resolver isso de forma direta.
+        """)
+        
+    st.markdown("""
+    Para não termos que ficar testando números pelo resto da vida toda vez que formos construir um prédio, uma ponte ou instalar uma rede, os matemáticos inventaram uma ferramenta superior chamada **Derivada** (que vocês estudarão na faculdade!).
+    
+    A Derivada funciona como um radar infalível. Ela consegue achar o ponto mínimo de **qualquer** curva, por mais torta e complexa que ela seja, num piscar de olhos, cortando todo o trabalho braçal!
+    """)
+    
+    if st.button("Revelar o Valor Exato com o Radar do Cálculo"):
+        st.success("O Cálculo Diferencial cravou o valor exato: **a = 1 + \sqrt[3]{4} ≈ 2,587**")
         
         b_exato = (2 * 2.587) / (2.587 - 1)
         dist_exato = np.sqrt(2.587**2 + b_exato**2)
         
         col1, col2 = st.columns(2)
-        col1.metric("Posição em A (muro horizontal)", "2.587 m")
-        col2.metric("Posição em B (muro vertical)", f"{b_exato:.2f} m")
+        col1.metric("Posição exata no muro horizontal (a)", "2.587 m")
+        col2.metric("Posição exata no muro vertical (b)", f"{b_exato:.2f} m")
         
-        st.info(f"🏆 O comprimento MÍNIMO possível para a rede é de **{dist_exato:.2f} metros**!")
-        st.markdown("*(Volte ao GeoGebra na Etapa 1, coloque 'a = 2.59' e confirme visualmente que é ali que a rede fica mais esticada e curta!)*")
+        st.info(f"🏆 O comprimento MÍNIMO possível para poupar o dinheiro do grêmio é de **{dist_exato:.2f} metros**!")
+        st.markdown("*(Dica: Voltem ao GeoGebra na Etapa 1, coloquem o controle em 'a = 2.59' e confirmem com os próprios olhos que é nessa posição que a rede fica mais esticada e curta!)*")
