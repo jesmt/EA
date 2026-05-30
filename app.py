@@ -115,10 +115,21 @@ elif etapa == "3. Mão na Massa (Testes)":
         # Entrada de dados
         palpite_a = st.number_input("Digite um valor para 'a':", min_value=1.1, max_value=15.0, value=2.0, step=0.1)
         
-        if st.button("Testar Palpite"):
+       if st.button("Testar Palpite"):
             # Cálculos
             b = (2 * palpite_a) / (palpite_a - 1)
             distancia = np.sqrt(palpite_a**2 + b**2)
+            
+            # --- NOVIDADE: MOSTRANDO A SUBSTITUIÇÃO NA TELA ---
+            st.success(f"Veja o cálculo para o palpite **a = {palpite_a}**:")
+            
+            # Mostrando o cálculo de b
+            st.latex(rf"b = \frac{{2 \cdot {palpite_a}}}{{{palpite_a} - 1}} = {b:.2f} \text{{ m}}")
+            
+            # Mostrando o cálculo da distância AB
+            st.latex(rf"AB = \sqrt{{{palpite_a}^2 + {b:.2f}^2}} = {distancia:.2f} \text{{ m}}")
+            st.markdown("---")
+            # ---------------------------------------------------
             
             # Criando um novo registro
             novo_dado = pd.DataFrame({
