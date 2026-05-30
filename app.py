@@ -109,7 +109,7 @@ elif etapa == "3. Mão na Massa (Testes)":
     Vamos observar a tabela com atenção: **o tamanho da rede está diminuindo ou aumentando?**
     """)
     
-    col1, col2 = st.columns([1, 2])
+    col1, col2 = st.columns([1.2, 1.2])
     
     with col1:
         # Entrada de dados
@@ -120,8 +120,16 @@ elif etapa == "3. Mão na Massa (Testes)":
             b = (2 * palpite_a) / (palpite_a - 1)
             distancia = np.sqrt(palpite_a**2 + b**2)
             
-            # --- NOVIDADE: MOSTRANDO A SUBSTITUIÇÃO NA TELA ---
-            st.success(f"Veja o cálculo para o palpite **a = {palpite_a}**:")
+           # --- NOVIDADE: MOSTRANDO A SUBSTITUIÇÃO NA TELA ---
+            st.success(rf"""
+            Veja o cálculo para o palpite **a = {palpite_a}**:
+            
+            $b = \frac{{2 \cdot {palpite_a}}}{{{palpite_a} - 1}} = {b:.2f} \text{{ m}}$
+            
+            $AB = \sqrt{{{palpite_a}^2 + {b:.2f}^2}} = {distancia:.2f} \text{{ m}}$
+            """)
+            st.markdown("---")
+            # ---------------------------------------------------
             
             # Mostrando o cálculo de b
             st.latex(rf"b = \frac{{2 \cdot {palpite_a}}}{{{palpite_a} - 1}} = {b:.2f} \text{{ m}}")
@@ -175,6 +183,8 @@ elif etapa == "4. A Mágica do Cálculo":
     st.markdown("""
     Vocês perceberam que, testando valores na tabela, a distância diminui, chega num "fundo do poço" e depois volta a subir. 
     Fazer isso por tentativa e erro é o que chamamos de **Força Bruta**.
+
+    
     
     Mas a Matemática Superior tem uma ferramenta chamada **Derivada**. Ela funciona como um radar que encontra esse "fundo do poço" instantaneamente!
     """)
