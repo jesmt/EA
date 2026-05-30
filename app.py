@@ -102,7 +102,12 @@ elif etapa == "2. A Lousa Digital (Modelagem)":
 # ETAPA 3: TESTES
 elif etapa == "3. Mão na Massa (Testes)":
     st.title("🧪 Laboratório de Testes Numéricos")
-    st.markdown("Agora é com vocês! Mandem no chat valores para $a$ (posição no muro horizontal, deve ser maior que 1). Vamos ver onde a rede fica menor!")
+    st.markdown("""
+    Chegou a hora de tentar poupar o dinheiro do grêmio! 
+    Mandem no chat valores para **$a$** (a distância no muro horizontal onde vamos amarrar a primeira ponta da rede). Lembrem-se que esse valor tem que ser maior que 1.
+    
+    Vamos observar a tabela com atenção: **o tamanho da rede está diminuindo ou aumentando?**
+    """)
     
     col1, col2 = st.columns([1, 2])
     
@@ -124,7 +129,7 @@ elif etapa == "3. Mão na Massa (Testes)":
             
             # Adicionando ao histórico do session_state
             st.session_state.historico = pd.concat([st.session_state.historico, novo_dado], ignore_index=True)
-            # Ordenando a tabela pelo valor de 'a' para o gráfico ficar bonito
+            # Ordenando a tabela pelo valor de 'a' para fazer sentido na leitura
             st.session_state.historico = st.session_state.historico.sort_values(by='Palpite (a)')
             
     with col2:
@@ -132,8 +137,23 @@ elif etapa == "3. Mão na Massa (Testes)":
         st.dataframe(st.session_state.historico, use_container_width=True)
         
     st.markdown("---")
-    if not st.session_state.historico.empty:
-        st.subheader("Comportamento da Distância (Gráfico)")
+    
+    # O PULO DO GATO PEDAGÓGICO: O gráfico só aparece depois de 3 testes!
+    quantidade_testes = len(st.session_state.historico)
+    
+    if quantidade_testes > 0 and quantidade_testes < 3:
+        st.info(f"📌 Vocês já fizeram {quantidade_testes} teste(s). Continuem dando palpites! Precisamos de pelo menos 3 testes diferentes para conseguir visualizar o que está acontecendo com o tamanho da rede.")
+        
+    elif quantidade_testes >= 3:
+        st.subheader("📉 Rastreador de Tamanho (Gráfico)")
+        st.markdown("""
+        Olhar apenas para números numa tabela pode ser confuso. Vamos colocar esses tamanhos que vocês descobriram num gráfico. 
+        
+        **Como ler esse gráfico:** Imaginem que isso é uma montanha-russa do nosso orçamento. Percebam que a linha desce (estamos economizando rede) até chegar num "fundo do poço", e depois volta a subir (estamos gastando mais de novo). 
+        
+        O nosso objetivo é encontrar exatamente os valores que nos deixam lá no ponto mais baixo!
+        """)
+        
         # Plotando a curva baseada nos testes
         chart_data = st.session_state.historico.set_index('Palpite (a)')['Distância da Rede (m)']
         st.line_chart(chart_data)
