@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Laboratório Virtual</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.39.0/build/stlite.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@stlite/mountable@0.39.0/build/stlite.js"></script>
+    <script>
+      stlite.mount(
+        {
+          // 1. Liste aqui as bibliotecas que seu app usa (se usar pandas, coloque aqui também)
+          requirements: ["numpy", "matplotlib"], 
+          
+          // 2. Coloque o nome exato do seu arquivo Python principal
+          entrypoint: "app.py", 
+          
+          files: {
+            "app.py": {
+              url: "app.py" 
+            }
+          }
+        },
+        document.getElementById("root")
+      );
+    </script>
+  </body>
+</html>
