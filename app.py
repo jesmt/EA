@@ -125,11 +125,11 @@ elif etapa == "3. Mão na Massa (Testes)":
             
            # --- NOVIDADE: MOSTRANDO A SUBSTITUIÇÃO NA TELA ---
             st.success(rf"""
-            Veja o cálculo para o palpite **a = {palpite_a}**:
+            Veja o cálculo para o palpite **a = {palpite_a:.2f}**:
             
-            $b = \frac{{2 \cdot {palpite_a}}}{{{palpite_a} - 1}} = {b:.2f} \text{{ m}}$
+            $b = \frac{{2 \cdot {palpite_a:.2f}}}{{{palpite_a:.2f} - 1}} = {b:.2f} \text{{ m}}$
             
-            $AB = \sqrt{{{palpite_a}^2 + {b:.2f}^2}} = {distancia:.2f} \text{{ m}}$
+            $AB = \sqrt{{{palpite_a:.2f}^2 + {b:.2f}^2}} = {distancia:.2f} \text{{ m}}$
             """)
             st.markdown("---")
             
