@@ -35,7 +35,10 @@ if etapa == "1. A Missão (O Problema)":
     A rede é vendida por metro. Para que o grêmio consiga pagar, **como devemos posicioná-la para usar o menor comprimento possível?**
     """)
 
-    st.image("diagrama.jpg", caption="Esquema da quadra e a rede de proteção.", width=500)
+    from PIL import Image
+    
+    img = Image.open("diagrama.jpg")
+    st.image(img, caption="Esquema da quadra e a rede de proteção.", width=500)
     
     st.subheader("Simulador Interativo")
     # AQUI VOCÊ COLOCA O LINK DE INCORPORAÇÃO DO SEU GEOGEBRA
