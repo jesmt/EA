@@ -27,7 +27,7 @@ if etapa == "1. A Missão (O Problema)":
     st.title("🏐 Salvando as Janelas da Cantina")
     st.markdown("""
    
-    No recerio, durante os jogos no pátio da escola, a bola frequentemente voa e atinge as janelas da cantina. 
+    No recreio, durante os jogos no pátio da escola, a bola frequentemente voa e atinge as janelas da cantina. 
     
     Para resolver isso, pretende-se instalar uma **rede de proteção em linha reta**. Existe um poste de iluminação no meio da área, 
     localizado no ponto **P(1, 2)**, e a rede precisa passar exatamente apoiada nele para não ceder com o vento.
