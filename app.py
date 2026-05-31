@@ -100,7 +100,7 @@ elif etapa == "2. A Lousa Digital (Modelagem)":
         # Botão opcional para o professor esconder tudo e começar de novo se precisar
         if st.button("🔄 Reiniciar Lousa"):
             st.session_state.passo_aula = 0
-            st.rerun() # Atualiza a tela imediatamente
+            st.experimental_rerun()# Atualiza a tela imediatamente
 
 # ETAPA 3: TESTES
 elif etapa == "3. Mão na Massa (Testes)":
