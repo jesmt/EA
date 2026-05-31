@@ -11,15 +11,18 @@
     <script>
       stlite.mount(
         {
-          // 1. Liste aqui as bibliotecas que seu app usa (se usar pandas, coloque aqui também)
-          requirements: ["pandas"], 
+          // 1. Adicionamos o "Pillow" para ler a imagem
+          requirements: ["pandas", "numpy", "Pillow"], 
           
-          // 2. Coloque o nome exato do seu arquivo Python principal
           entrypoint: "app.py", 
           
           files: {
             "app.py": {
               url: "app.py" 
+            },
+            // 2. Avisamos o Stlite que a imagem existe e onde ela está
+            "diagrama.jpg": {
+              url: "diagrama.jpg"
             }
           }
         },
