@@ -119,26 +119,25 @@ elif etapa == "3. Mão na Massa (Testes)":
         palpite_a = st.number_input("Digite um valor para 'a':", min_value=1.1, max_value=15.0, value=2.0, step=0.1)
         
         if st.button("Testar Palpite"):
-            # Cálculos
-            b = (2 * palpite_a) / (palpite_a - 1)
-            distancia = np.sqrt(palpite_a**2 + b**2)
+            # Cálculos já com arredondamento na matemática
+            b = round((2 * palpite_a) / (palpite_a - 1), 2)
+            distancia = round(np.sqrt(palpite_a**2 + b**2), 2)
             
-           # --- NOVIDADE: MOSTRANDO A SUBSTITUIÇÃO NA TELA ---
+            # --- NOVIDADE: MOSTRANDO A SUBSTITUIÇÃO NA TELA ---
             st.success(rf"""
             Veja o cálculo para o palpite **a = {palpite_a:.2f}**:
             
-            $b = \frac{{2 \cdot {palpite_a:.2f}}}{{{palpite_a:.2f} - 1}} = {b:.2f} \text{{ m}}$
+            $b = \frac{{2 \cdot {palpite_a:.2f}}}{{{palpite_a:.2f} - 1}} = {b} \text{{ m}}$
             
-            $AB = \sqrt{{{palpite_a:.2f}^2 + {b:.2f}^2}} = {distancia:.2f} \text{{ m}}$
+            $AB = \sqrt{{{palpite_a:.2f}^2 + {b}^2}} = {distancia} \text{{ m}}$
             """)
             st.markdown("---")
             
-            
-            # Criando um novo registro
+            # Criando um novo registro já com os números "limpos"
             novo_dado = pd.DataFrame({
                 'Palpite (a)': [round(palpite_a, 2)],
-                'Valor de b (m)': [round(b, 2)],
-                'Distância da Rede (m)': [round(distancia, 2)]
+                'Valor de b (m)': [b],
+                'Distância da Rede (m)': [distancia]
             })
             
             # Adicionando ao histórico do session_state
