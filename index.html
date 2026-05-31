@@ -12,13 +12,13 @@
       stlite.mount(
         {
           // 1. Adicionamos o "Pillow" para ler a imagem
-          requirements: ["pandas", "numpy", "Pillow", "altair<5.3.0", "typing-extensions"], 
+          requirements: ["pandas", "numpy", "Pillow", "typing-extensions"], 
           
           entrypoint: "app.py", 
           
           files: {
             "app.py": {
-              url: "app.py?v=3" 
+              url: "app.py?v=4"
             },
             // 2. Avisamos o Stlite que a imagem existe e onde ela está
             "diagrama.jpg": {
