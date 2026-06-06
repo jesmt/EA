@@ -14,7 +14,7 @@ if 'historico' not in st.session_state:
 st.sidebar.title("Roteiro da Aula")
 etapa = st.sidebar.radio(
     "Navegação:",
-    ["1. A Missão (O Problema)", 
+    ["1. O Problema", 
      "2. A Lousa Digital (Modelagem)", 
      "3. Mão na Massa (Testes)", 
      "4. A Mágica do Cálculo"]
@@ -23,7 +23,7 @@ etapa = st.sidebar.radio(
 st.sidebar.markdown("---")
 
 # ETAPA 1: A MISSÃO
-if etapa == "1. A Missão (O Problema)":
+if etapa == "1. O Problema":
     st.title("🏐 Salvando as Janelas da Cantina")
     st.markdown("""
    
