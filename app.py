@@ -15,9 +15,9 @@ st.sidebar.title("Roteiro da Aula")
 etapa = st.sidebar.radio(
     "Navegação:",
     ["1. O Problema", 
-     "2. A Lousa Digital (Modelagem)", 
-     "3. Mão na Massa (Testes)", 
-     "4. A Mágica do Cálculo"]
+     "2. Modelagem", 
+     "3. Testes", 
+     "4. Resultado"]
 )
 
 st.sidebar.markdown("---")
@@ -49,7 +49,7 @@ if etapa == "1. O Problema":
     st.warning("O que acontece com o tamanho da rede se amarrarmos a ponta muito longe da esquina?")
 
 # ETAPA 2: MODELAGEM
-elif etapa == "2. A Lousa Digital (Modelagem)":
+elif etapa == "2. Modelagem":
     st.title("📐 Colocando no Papel")
     st.markdown("Para descobrir o valor exato sem ficar apenas no 'olhômetro', precisamos traduzir o desenho da rede e dos muros para a linguagem da Matemática.")
     
@@ -103,7 +103,7 @@ elif etapa == "2. A Lousa Digital (Modelagem)":
             st.experimental_rerun()# Atualiza a tela imediatamente
 
 # ETAPA 3: TESTES
-elif etapa == "3. Mão na Massa (Testes)":
+elif etapa == "3. Testes":
     st.title("🧪 Laboratório de Testes Numéricos")
     st.markdown("""
     Chegou a hora de tentar poupar o dinheiro do grêmio! 
@@ -172,7 +172,7 @@ elif etapa == "3. Mão na Massa (Testes)":
         st.line_chart(chart_data)
 
 # ETAPA 4: A MÁGICA DO CÁLCULO
-elif etapa == "4. A Mágica do Cálculo":
+elif etapa == "4. Resultado":
     st.title("✨ A Mágica do Cálculo")
     st.markdown("""
     Nós encontramos o "fundo do poço" (o menor gasto de rede possível) tateando no escuro, testando números na tabela. 
