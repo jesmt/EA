@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import streamlit.components.v1 as components
+import matplotlib.pyplot as plt
 
 # Configuração da página para ficar mais larga e com título
 st.set_page_config(page_title="Otimização: A Rede da Cantina", layout="wide")
@@ -167,9 +168,22 @@ elif etapa == "3. Testes":
         O nosso objetivo é encontrar exatamente os valores que nos deixam lá no ponto mais baixo!
         """)
         
-        # Plotando a curva baseada nos testes
-        chart_data = st.session_state.historico.set_index('Palpite (a)')['Distância da Rede (m)']
-        st.line_chart(chart_data)
+        # Plotando a curva usando Matplotlib
+        fig, ax = plt.subplots(figsize=(8, 4))
+        
+        # Vamos buscar os dados ao histórico
+        eixo_x = st.session_state.historico['Palpite (a)']
+        eixo_y = st.session_state.historico['Distância da Rede (m)']
+        
+        # Desenhamos a linha e os pontos
+        ax.plot(eixo_x, eixo_y, marker='o', color='royalblue', linestyle='-')
+        ax.set_title('Tamanho da Rede x Posição no Muro Horizontal', fontsize=12)
+        ax.set_xlabel('Valor de a (metros)')
+        ax.set_ylabel('Comprimento da Rede (metros)')
+        ax.grid(True, linestyle='--', alpha=0.7)
+        
+        # Exibe o gráfico no ecrã
+        st.pyplot(fig)
 
 # ETAPA 4: A MÁGICA DO CÁLCULO
 elif etapa == "4. Resultado":
