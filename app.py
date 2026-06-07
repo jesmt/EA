@@ -139,7 +139,6 @@ elif etapa == "3. Testes":
 # =====================================================================
 # ETAPA 4: A MÁGICA DA ÁLGEBRA (Otimização sem Derivadas)
 # =====================================================================
-```python
 # ETAPA 4: RESULTADO E INTERPRETAÇÃO
 elif etapa == "4. Resultado":
 
