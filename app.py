@@ -303,14 +303,14 @@ elif etapa == "2. Modelagem":
         st.success("Se você pensou na **Equação Segmentária da Reta**, acertou na mosca! 🎯")
         st.markdown("Neste caso, os nossos interceptos (os pontos de corte nos eixos) são exatamente as distâncias $p=a$ e $q=b$. A equação da nossa rede será:")
         st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
-        st.markdown("Mas lembre que a rede, a nossa, reta, pode ser "amarrada" de qualquer jeito...")
+        st.markdown("Mas lembre que a rede, a nossa, reta, pode ser amarrada de qualquer jeito...")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # --- PASSO 2 ---
-    st.info("🤔 **Pergunta 2:** Existe uma regra física irrenunciável: a rede deve obrigatoriamente encostar no **poste de sustentação**, que está fixado exatamente na coordenada $P(1,2)$. Geometricamente, se sabemos que um ponto pertence ao traçado de uma reta, o que podemos fazer matematicamente com a equação dela?")
+    st.info("🤔 **Pergunta 2:** A rede deve obrigatoriamente encostar no **poste de sustentação**, que está fixado exatamente na coordenada $P(1,2)$. Geometricamente, se sabemos que um ponto pertence a uma reta, o que podemos fazer com a equação dela?")
 
-    with st.expander("👉 Revelar a Resposta: A Restrição do Poste", expanded=False):
+    with st.expander("👉 Podemos...", expanded=False):
         st.success("Nós podemos **substituir** as coordenadas do poste ($x=1, y=2$) direto na equação da reta! 🎯")
         st.markdown("Ao fazer isso, obrigamos a rede a passar pelo poste:")
         st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
