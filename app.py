@@ -578,29 +578,6 @@ elif etapa == "4. Resultado":
         Mesmo assim, conseguimos localizar seu ponto mínimo utilizando análise gráfica e investigação numérica.
         """)
 
-    # -------------------------------------------------------
-    # CONCLUSÃO PEDAGÓGICA
-    # -------------------------------------------------------
-
-    st.success("""
-    🎯 Conclusão da Investigação
-
-    Conseguimos resolver o problema utilizando apenas ferramentas que já fazem parte do nosso repertório matemático:
-
-    ✔ Equação da reta
-
-    ✔ Equação segmentária
-
-    ✔ Distância entre pontos
-
-    ✔ Construção de tabelas
-
-    ✔ Interpretação de gráficos
-
-    ✔ Análise de máximos e mínimos
-
-    A Matemática nos permitiu tomar uma decisão prática e econômica baseada em evidências.
-    """)
 
     # -------------------------------------------------------
     # CURIOSIDADE AVANÇADA
@@ -650,28 +627,42 @@ elif etapa == "4. Resultado":
             f"🏆 O comprimento mínimo possível da rede é aproximadamente {dist_exato:.2f} metros."
         )
 
-        st.markdown("""
-        Observe que esse valor está muito próximo da região que identificamos experimentalmente nos testes.
-
-        Isso mostra que a investigação realizada pela turma foi capaz de localizar com excelente precisão a solução do problema.
-        """)
+        
 
     st.markdown("---")
 
-    st.markdown("""
-    ### 🌟 Mensagem Final
+    if st.button("🎓 Encerrar a Investigação"):
 
-    A parte mais importante desta atividade não foi descobrir um número.
+        st.balloons()
 
-    O mais importante foi aprender a:
+        st.success("""
+        ## 🏆 Missão Concluída!
 
-    - transformar uma situação real em um modelo matemático;
-    - construir uma função;
-    - interpretar tabelas e gráficos;
-    - usar a Matemática para tomar decisões.
+        Nesta atividade você utilizou a Matemática para resolver um problema real.
 
-    Foi exatamente assim que conseguimos determinar a forma mais econômica de instalar a rede de proteção.
-    """)
+        ### O que vimos?
+
+        ✔ Equação da reta
+
+        ✔ Distância entre pontos
+
+        ✔ Construção de uma função
+
+        ✔ Tabelas de valores
+
+        ✔ Interpretação de gráficos
+    
+        ✔ Análise de mínimos
+
+        ### O que descobrimos?
+
+        Existe uma posição ideal para instalar a rede utilizando a menor quantidade possível de material.
+    
+        Ou seja, a Matemática nos ajudou a tomar uma decisão prática, econômica e baseada em evidências.
+
+        🌟 Mais importante do que encontrar um número foi aprender como transformar um problema do mundo real em um modelo matemático e usar esse modelo para tomar decisões.
+        """)
+
 
 
 
