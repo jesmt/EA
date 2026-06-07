@@ -55,7 +55,7 @@ if etapa == "1. O Problema":
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Modelagem":
     st.title("📐 Revisão")
-    st.markdown("Vamos fazer uma breve revisão sobre retas antes de seguirmos para a análise do problema.")
+    st.markdown("Vamos fazer uma breve revisão sobre equação da reta antes de seguirmos para a análise do problema.")
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -185,7 +185,7 @@ elif etapa == "2. Modelagem":
         # 3. EXEMPLO PRÁTICO
         # ==========================================
         st.markdown("#### ✍️ Exemplo Prático em um Caso Real")
-        st.markdown("Dedução da reta que passa por **A(0,2)** e **B(3,0)**:")
+        st.markdown("Qual a equação da reta que passa por **A(0,2)** e **B(3,0)**:")
         
         matriz_num = [['x', 'y', '1', 'x', 'y'], 
                       ['0', '2', '1', '0', '2'], 
@@ -201,14 +201,14 @@ elif etapa == "2. Modelagem":
 
     # --- 2. EQUAÇÃO REDUZIDA ---
     with st.expander("2️⃣ A Equação Reduzida: $y = mx + q$", expanded=False):
-        st.markdown("Expressa a reta como função explícita de $x$. É a forma mais utilizada no Cálculo Diferencial.")
+        st.markdown("Expressa a reta como função explícita de $x$.")
         st.markdown("#### 🔍 Dedução Algébrica")
         st.markdown("Isolando a variável dependente $y$ na Equação Geral ($Ax + By + C = 0$):")
         st.latex(r"By = -Ax - C \implies y = \left(-\frac{A}{B}\right)x + \left(-\frac{C}{B}\right)")
         st.markdown("Definimos então o **coeficiente angular** $m = -A/B$ e o **coeficiente linear** $q = -C/B$.")
 
         st.markdown("---")
-        st.markdown("#### ✍️ Comportamento Visual do Coeficiente Angular ($m$)")
+        st.markdown("#### ✍️ O Coeficiente Angular ($m$)")
         st.markdown("A inclinação ($m = \\tan \\theta$) dita se a reta sobe, desce ou é constante:")
         
         fig2, axs2 = plt.subplots(1, 4, figsize=(12, 3))
@@ -221,7 +221,7 @@ elif etapa == "2. Modelagem":
 
     # --- 3. EQUAÇÃO SEGMENTÁRIA ---
     with st.expander("3️⃣ A Equação Segmentária: $\\frac{x}{p} + \\frac{y}{q} = 1$", expanded=False):
-        st.markdown("Esta forma é extremamente elegante quando queremos visualizar os exatos pontos onde a reta 'corta' as paredes do plano cartesiano.")
+        st.markdown("Esta forma é permite ver os exatos pontos onde a reta intercepta os eixos.")
         st.markdown("#### 🔍 Dedução Algébrica")
         st.markdown("Partindo de $Ax + By = -C$, dividimos toda a equação pela constante $-C$ para igualar a 1:")
         st.latex(r"\frac{Ax}{-C} + \frac{By}{-C} = \frac{-C}{-C} \implies \frac{x}{(-C/A)} + \frac{y}{(-C/B)} = 1 \implies \frac{x}{p} + \frac{y}{q} = 1")
@@ -249,25 +249,38 @@ elif etapa == "2. Modelagem":
 
     # --- 4. EQUAÇÃO PARAMÉTRICA ---
     with st.expander("4️⃣ A Equação Paramétrica: $x(t), y(t)$", expanded=False):
-        st.markdown("Enquanto as outras formas mostram a reta estática, a paramétrica descreve a **trajetória** e o movimento ao longo do tempo ($t$).")
-        st.markdown("#### 🔍 Dedução Algébrica (Conversão para Cartesiana)")
+        st.markdown("Enquanto as outras formas mostram a reta estática, a paramétrica pode descrever a **trajetória** e o movimento ao longo do tempo ($t$).")
+        st.markdown("#### 🔍 Dedução Algébrica")
         st.markdown("Dado um sistema paramétrico, isolamos o tempo $t$ em ambas as equações para encontrar a relação direta entre $x$ e $y$:")
         st.latex(r"\begin{cases} x = 3t + 4 \implies t = \frac{x-4}{3} \\ y = 2 - 3t \implies t = \frac{2-y}{3} \end{cases} \implies \frac{x-4}{3} = \frac{2-y}{3} \implies \mathbf{x + y - 6 = 0}")
 
         st.markdown("---")
-        st.markdown("#### ✍️ Exemplo Prático Visual (Cinemática)")
-        st.markdown("Acompanhe o movimento da partícula $(x, y)$ a cada segundo $t$:")
+        t.markdown("#### ✍️ Exemplo Prático: O Robô Entregador")
+        st.markdown("""
+        Um robô parte do ponto $(1, 1)$ e caminha em linha reta. Suas coordenadas variam conforme o tempo $t$ (em segundos):
+        """)
+        st.latex(r"\begin{cases} x(t) = 1 + 2t \\ y(t) = 1 + t \end{cases}")
+        
+        st.markdown("Veja onde ele está a cada segundo:")
+        
         fig4, ax4 = plt.subplots(figsize=(8, 3))
-        setup_plot(ax4, "Deslocamento ao longo do tempo (t)")
-        ax4.set_xlim(0, 11); ax4.set_ylim(-5, 6)
-        ax4.plot(np.linspace(0, 11, 100), (6 - np.linspace(0, 11, 100)), color='gray', linestyle='--', alpha=0.5)
-        tempos = [-1, 0, 1, 2]
-        cores = ['#D8BFD8', '#DA70D6', '#BA55D3', '#800080']
+        setup_plot(ax4, "Trajetória do Robô entregador")
+        ax4.set_xlim(0, 7); ax4.set_ylim(0, 4)
+        
+        # Desenha a linha da trajetória
+        ax4.plot([1, 7], [1, 4], color='gray', linestyle='--', alpha=0.5)
+        
+        # Desenha os pontos do robô em cada segundo
+        tempos = [0, 1, 2, 3]
+        cores = ['green', 'yellowgreen', 'orange', 'red']
         for i, t in enumerate(tempos):
-            x_t = 3*t + 4; y_t = 2 - 3*t
-            ax4.plot(x_t, y_t, marker='o', color=cores[i], markersize=10)
-            ax4.annotate(f' t={t}s\n ({x_t},{y_t})', (x_t+0.3, y_t), fontsize=10, fontweight='bold')
+            x_t = 1 + 2*t
+            y_t = 1 + t
+            ax4.plot(x_t, y_t, marker='s', color=cores[i], markersize=10, label=f"t={t}s")
+            ax4.annotate(f' t={t}s\n({x_t},{y_t})', (x_t, y_t+0.2), fontsize=9, fontweight='bold', ha='center')
+        
         st.pyplot(fig4, use_container_width=True)
+        st.caption("Cada quadrado colorido é a posição do robô em um segundo. Note como a cada passo, ele anda 2 unidades em X e 1 unidade em Y.")
 
     st.markdown("<br><br>", unsafe_allow_html=True)
 
