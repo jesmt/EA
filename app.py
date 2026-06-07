@@ -512,13 +512,21 @@ elif etapa == "4. Resultado":
     if resposta == "Existe um ponto onde o comprimento é mínimo.":
 
         st.success(""" 
+        
         Excelente! 
+        
         O gráfico mostra que:
+        
         ✔ inicialmente o comprimento da rede diminui; 
+        
         ✔ existe um ponto mais baixo, chamado **mínimo da função**; 
+        
         ✔ após esse ponto o comprimento volta a aumentar. 
+        
         Isso significa que existe uma posição ideal para instalar a rede utilizando a menor quantidade possível de material. 
+        
         Observe que esse comportamento já aparecia na tabela construída durante os testes. O gráfico apenas tornou essa informação mais fácil de visualizar. 
+       
         """)
 
     elif resposta:
