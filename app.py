@@ -269,48 +269,52 @@ elif etapa == "2. Modelagem":
     st.markdown("<br><br>", unsafe_allow_html=True)
 
     # =====================================================
-    # DIVISÃO 2: MODELAGEM DO PROBLEMA
+    # DIVISÃO 2: MODELAGEM DO PROBLEMA (INVESTIGAÇÃO)
     # =====================================================
-    st.header("🎯 Parte 2: A Modelagem Matemática do Problema")
-    st.markdown("Agora que dominamos o arsenal da geometria analítica, vamos aplicar as ferramentas certas para resolver o problema da rede da cantina. Expanda os passos para acompanhar a dedução formal:")
+    st.header("🎯 Parte 2: A Modelagem Matemática (Investigação)")
+    st.markdown("Agora que dominamos o arsenal da geometria analítica, vamos construir a solução passo a passo. **Tente responder mentalmente às perguntas do professor antes de clicar para revelar a resposta!**")
 
-    with st.expander("Passo 1: Configuração do Modelo Espacial e Escolha da Equação", expanded=False):
-        st.markdown("""
-        A rede de proteção será amarrada ligando os dois muros perpendiculares da escola. 
-        Se adotarmos o canto do muro como a origem $(0,0)$, sabemos perfeitamente que a rede cruzará o muro horizontal numa distância **$a$** (intercepto $p=a$) e o muro vertical numa distância **$b$** (intercepto $q=b$).
-        
-        Ao identificarmos os pontos de interceptação nos eixos $(a,0)$ e $(0,b)$, a ferramenta matemática analítica mais direta e eficiente a ser empregada é a **Equação Segmentária da Reta**:
-        """)
+    # --- PASSO 1 ---
+    st.info("🤔 **Pergunta 1:** Se adotarmos o canto dos muros como a origem $(0,0)$ do nosso plano cartesiano, sabemos que a rede de proteção vai cruzar o muro horizontal numa distância **$a$** e o muro vertical numa distância **$b$**. Baseado na nossa revisão, qual é a ferramenta matemática perfeita para descrever uma reta quando conhecemos exatamente onde ela 'corta' os eixos?")
+
+    with st.expander("👉 Revelar a Resposta: Escolhendo o Modelo Espacial", expanded=False):
+        st.success("Se você pensou na **Equação Segmentária da Reta**, acertou na mosca! 🎯")
+        st.markdown("Neste caso, os nossos interceptos (os pontos de corte nos eixos) são exatamente as distâncias $p=a$ e $q=b$. A equação da nossa rede será:")
         st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
-        st.info("💡 As variáveis $a$ e $b$ representam exatamente as decisões físicas de onde pregar a rede.")
+        st.markdown("Esta equação é o nosso ponto de partida para o problema. Mas ela sozinha não resolve tudo, porque a rede não pode ser amarrada de qualquer jeito...")
 
-    with st.expander("Passo 2: Imposição da Restrição Física (O Poste Central)", expanded=False):
-        st.markdown("""
-        Um detalhe crucial: a rede não pode ficar solta; ela deve obrigatoriamente **encostar no poste de sustentação**, que encontra-se ancorado na coordenada $P(1,2)$.
-        
-        Geometricamente, se o poste pertence ao trajeto da rede, suas coordenadas devem satisfazer a equação. Substituindo $x=1$ e $y=2$ na nossa Equação Segmentária:
-        """)
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # --- PASSO 2 ---
+    st.info("🤔 **Pergunta 2:** Existe uma regra física irrenunciável: a rede deve obrigatoriamente encostar no **poste de sustentação**, que está fixado exatamente na coordenada $P(1,2)$. Geometricamente, se sabemos que um ponto pertence ao traçado de uma reta, o que podemos fazer matematicamente com a equação dela?")
+
+    with st.expander("👉 Revelar a Resposta: A Restrição do Poste", expanded=False):
+        st.success("Nós podemos **substituir** as coordenadas do poste ($x=1, y=2$) direto na equação da reta! 🎯")
+        st.markdown("Ao fazer isso, obrigamos a rede a passar pelo poste:")
         st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
         
-        st.markdown("Otimização requer menos variáveis. Vamos isolar a variável $b$ em função de $a$:")
+        st.markdown("Para facilitar a nossa vida na hora de otimizar, precisamos trabalhar com uma variável só. Vamos isolar a letra $b$ para descobrir como a posição de amarração no muro vertical depende da escolha que fizermos para o muro horizontal:")
         st.latex(r"\frac{2}{b} = 1 - \frac{1}{a} \implies \frac{2}{b} = \frac{a - 1}{a}")
-        st.markdown("Invertendo e multiplicando cruzado:")
+        st.markdown("Invertendo as frações e multiplicando cruzado, chegamos à restrição física:")
         st.latex(r"\mathbf{b = \frac{2a}{a - 1}}")
-        st.warning("⚠️ Isso prova que a posição no muro vertical ($b$) está matematicamente 'amarrada' à escolha que fizermos para o muro horizontal ($a$).")
+        st.markdown("⚠️ **Isso é incrível:** Acabamos de provar que a posição onde vamos amarrar a rede na parede vertical ($b$) está totalmente 'amarrada' pela matemática à escolha que fizermos para a parede horizontal ($a$).")
 
-    with st.expander("Passo 3: Dedução da Função Objetivo (O Comprimento Total)", expanded=False):
-        st.markdown("""
-        O objetivo do grêmio é minimizar gastos, o que significa encontrar o menor comprimento de rede possível.
-        A rede esticada, junto com as paredes, forma a hipotenusa de um triângulo retângulo. Usamos o **Teorema de Pitágoras** (fórmula da distância entre dois pontos) para o comprimento $L$:
-        """)
-        st.latex(r"L = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}")
-        st.latex(r"L = \sqrt{(0 - a)^2 + (b - 0)^2} \implies L = \sqrt{a^2 + b^2}")
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # --- PASSO 3 ---
+    st.info("🤔 **Pergunta 3:** O objetivo principal do grêmio é minimizar gastos, logo, precisamos calcular o **comprimento total da rede esticada**. Olhando de cima para o canto do muro, a parede e a rede, que figura geométrica se forma? Qual teorema famoso nos dá o comprimento da parte mais longa dessa figura?")
+
+    with st.expander("👉 Revelar a Resposta: A Função do Comprimento", expanded=False):
+        st.success("Forma-se um **Triângulo Retângulo** e nós usaremos o **Teorema de Pitágoras** (fórmula da distância)! 🎯")
+        st.markdown("A rede nada mais é do que a hipotenusa desse triângulo. Portanto, o comprimento total $L$ será:")
+        st.latex(r"L = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} \implies L = \sqrt{(0 - a)^2 + (b - 0)^2} \implies L = \sqrt{a^2 + b^2}")
         
-        st.markdown("Substituindo a expressão de $b$ deduzida no Passo 2 dentro de Pitágoras, eliminamos uma incógnita e criamos nossa função final, que depende apenas da nossa escolha de $a$:")
-        st.success("🎉 **Função Objetivo Modelada:**")
-        st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
-        st.markdown("A modelagem matemática concluiu a conversão de um problema físico de engenharia escolar em uma pura função analítica. **Prossiga para a Etapa 3 (Testes) no menu lateral** para descobrir o menor comprimento da rede!")
-
+        st.markdown("Mas espere! No passo anterior, nós descobrimos exatamente quem é o $b$. Vamos substituir essa informação dentro do nosso Pitágoras para fundir tudo em uma letra só:")
+        
+        st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}}")
+        
+        st.markdown("🎉 **Conseguimos!** Acabamos de converter um problema físico de engenharia escolar em uma pura função analítica. Essa é a nossa **Função Objetivo**.")
+        st.markdown("O nosso trabalho investigativo aqui terminou. **Prossiga para a Etapa 3 (Laboratório de Testes) no menu lateral** para jogarmos os valores nessa equação e descobrir qual o menor tamanho possível da rede!")
 # ETAPA 3: TESTES
 elif etapa == "3. Testes":
     st.title("🧪 Laboratório de Testes Numéricos")
