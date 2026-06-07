@@ -54,19 +54,56 @@ elif etapa == "2. Modelagem":
     st.title("📐 Lousa Digital: A Matemática da Reta")
     st.markdown("Revisão detalhada baseada nos fundamentos da Geometria Analítica para equações da reta.")
 
-    # Biblioteca para os gráficos dinâmicos
+    # Inicializa o passo da aula
+    if 'passo_aula' not in st.session_state:
+        st.session_state.passo_aula = 0
+
     import matplotlib.pyplot as plt
     import numpy as np
 
     def setup_plot(ax, title=""):
-        """Configura o visual padrão dos gráficos para manter o design limpo e acadêmico."""
-        ax.axhline(0, color='black', linewidth=1.2)
-        ax.axvline(0, color='black', linewidth=1.2)
-        ax.grid(True, linestyle='--', alpha=0.6)
-        ax.set_title(title, fontsize=10, fontweight='bold')
-        ax.set_xlabel('Eixo X', fontsize=8)
-        ax.set_ylabel('Eixo Y', fontsize=8)
+        ax.axhline(0, color='black', linewidth=1)
+        ax.axvline(0, color='black', linewidth=1)
+        ax.grid(True, linestyle='--', alpha=0.5)
+        ax.set_title(title, fontsize=10)
         return ax
+
+    # Função Mágica para desenhar a Regra de Sarrus igual ao TikZ!
+    def plot_sarrus(matriz, legendas_azul, legendas_vermelha):
+        fig, ax = plt.subplots(figsize=(10, 3.5))
+        ax.axis('off')
+        ax.set_xlim(-4.5, 8.5)
+        ax.set_ylim(-0.8, 2.8)
+
+        # Plotar os textos da matriz
+        for i in range(3):
+            for j in range(5):
+                ax.text(j, 2-i, f"${matriz[i][j]}$", ha='center', va='center', fontsize=16)
+
+        # Barras do determinante
+        ax.plot([-0.5, -0.5], [-0.5, 2.5], color='black', linewidth=2)
+        ax.plot([2.5, 2.5], [-0.5, 2.5], color='black', linewidth=2)
+
+        # Setas Azuis (Principais)
+        for col in range(3):
+            ax.annotate("", xy=(col+2.3, -0.3), xytext=(col-0.3, 2.3),
+                        arrowprops=dict(arrowstyle="->", color="blue", alpha=0.3, lw=3))
+
+        # Setas Vermelhas (Secundárias)
+        for col in range(2, 5):
+            ax.annotate("", xy=(col-2.3, -0.3), xytext=(col+0.3, 2.3),
+                        arrowprops=dict(arrowstyle="->", color="red", alpha=0.3, lw=3))
+
+        # Legendas Azuis (Direita)
+        for i in range(3):
+            ax.text(4.5, 2-i, f"${legendas_azul[i]}$", color='blue', va='center', fontsize=12)
+
+        # Legendas Vermelhas (Esquerda)
+        for i in range(3):
+            ax.text(-1.0, 2-i, f"${legendas_vermelha[i]}$", color='red', ha='right', va='center', fontsize=12)
+
+        plt.tight_layout()
+        return fig
 
     # --- REVISÃO TEÓRICA DETALHADA COM ABAS ---
     with st.expander("📚 Revisão Teórica: As Formas da Equação da Reta", expanded=True):
@@ -77,188 +114,161 @@ elif etapa == "2. Modelagem":
             "4. Equação Paramétrica"
         ])
 
-    # TAB 1: EQUAÇÃO GERAL
-    with t_geral:
-        st.title("Equação Geral da Reta")
-
-        st.markdown("""
-        A **Equação Geral** é a representação mais abrangente da reta no plano cartesiano.
-        Todo ponto $P(x,y)$ que satisfaz a igualdade pertence ao lugar geométrico descrito pela reta.
-        """)
-
-        st.info("Fórmula da Equação Geral")
-        st.latex(r"Ax + By + C = 0")
-
-        st.markdown("""
-        Onde $A$, $B$ e $C$ são constantes reais, sendo $A$ e $B$ não simultaneamente nulos.
-        """)
-
-        # =====================================================
-        # DEDUÇÃO ANALÍTICA
-        # =====================================================
-        with st.expander("🔍 Dedução Analítica (Condição de Alinhamento)", expanded=False):
-            st.markdown("""
-            Para que os pontos conhecidos $A(x_A,y_A)$, $B(x_B,y_B)$ e um ponto genérico
-            $P(x,y)$ pertençam à mesma reta, eles devem ser colineares.
-            A figura abaixo ilustra a construção geométrica utilizando triângulos semelhantes.
-            """)
-
-            fig, ax = plt.subplots(figsize=(6, 3.5))
-            ax.set_xlim(0, 6)
-            ax.set_ylim(0, 5)
-
-            ax.plot([0.2, 6], [0.75 * 0.2 + 0.25, 0.75 * 6 + 0.25], color="black", linewidth=2)
-
-            A = (1, 1)
-            B = (3, 2.5)
-            P = (5, 4)
-
-            ax.scatter(*A, color="black")
-            ax.scatter(*B, color="black")
-            ax.scatter(*P, color="black")
-
-            ax.text(0.8, 1.1, "A")
-            ax.text(2.8, 2.6, "B")
-            ax.text(5.1, 4.1, "P(x,y)")
-
-            ax.plot([1, 3], [1, 1], 'b')
-            ax.plot([3, 3], [1, 2.5], 'b')
-
-            ax.plot([3, 5], [2.5, 2.5], 'teal')
-            ax.plot([5, 5], [2.5, 4], 'teal')
-
-            ax.grid(True)
-            fig.tight_layout()
-
-            _, col_grafico1, _ = st.columns([1, 2, 1])
-            with col_grafico1:
-                st.pyplot(fig, use_container_width=True)
-
-            st.markdown("Da semelhança dos triângulos:")
-            st.latex(r"\frac{x_B-x_A}{x-x_B} = \frac{y_B-y_A}{y-y_B}")
-
-            st.markdown("Multiplicando em cruz e expandindo os termos, reorganizamos a expressão até obter a forma geral:")
-            st.latex(r"x(y_A-y_B) + y(x_B-x_A) + (x_Ay_B-x_By_A) = 0")
-            st.success("Obtivemos a forma estrutural Ax + By + C = 0")
-
-        # =====================================================
-        # DETERMINANTE (SARRUS VISUAL)
-        # =====================================================
-        with st.expander("📐 Dedução por Determinante (Disposição de Sarrus)", expanded=False):
-            st.markdown("""
-            Três pontos estão alinhados quando o determinante da matriz de suas coordenadas é nulo. 
-            Para visualizar a **Regra de Sarrus**, repetimos as duas primeiras colunas à direita da matriz:
-            """)
-
-            st.latex(r"""
-            \begin{matrix}
-            x & y & 1 & \mathbf{|} & x & y \\
-            x_A & y_A & 1 & \mathbf{|} & x_A & y_A \\
-            x_B & y_B & 1 & \mathbf{|} & x_B & y_B
-            \end{matrix} = 0
-            """)
-
-            st.markdown("**1. Diagonais Principais (Multiplicadas da esquerda para a direita, mantendo o sinal $+$):**")
-            st.latex(r"\color{blue}{(x \cdot y_A \cdot 1)} + \color{blue}{(y \cdot 1 \cdot x_B)} + \color{blue}{(1 \cdot x_A \cdot y_B)} \implies x y_A + y x_B + x_A y_B")
-
-            st.markdown("**2. Diagonais Secundárias (Multiplicadas da direita para a esquerda, invertendo o sinal $-$):**")
-            st.latex(r"\color{red}{(1 \cdot y_A \cdot x_B)} + \color{red}{(x \cdot 1 \cdot y_B)} + \color{red}{(y \cdot x_A \cdot 1)} \implies y_A x_B + x y_B + y x_A")
-
-            st.markdown("**3. Agrupamento Final (Principais $-$ Secundárias):**")
-            st.latex(r"(x y_A + y x_B + x_A y_B) - (y_A x_B + x y_B + y x_A) = 0")
-            st.latex(r"x(y_A - y_B) + y(x_B - x_A) + (x_A y_B - x_B y_A) = 0")
-            st.success("Resultando perfeitamente na mesma Equação Geral.")
-
-        # =====================================================
-        # EXEMPLO PRÁTICO (SARRUS VISUAL)
-        # =====================================================
-        with st.expander("✍️ Exemplo Prático com Regra de Sarrus", expanded=True):
-            st.markdown("""
-            Encontre a equação geral da reta que passa pelos pontos dados:
-            - $A(0,2)$
-            - $B(3,0)$
+        # TAB 1: EQUAÇÃO GERAL
+        with t_geral:
+            st.markdown("A **Equação Geral** é a representação mais abrangente da reta no plano cartesiano.")
+            st.latex(r"Ax + By + C = 0")
             
-            Montando a matriz expandida com a técnica de repetição de colunas:
-            """)
+            with st.expander("🔍 Dedução por Determinante (Regra de Sarrus)", expanded=True):
+                st.markdown("Para que três pontos estejam alinhados, o determinante de suas coordenadas deve ser zero. Duplicando as duas primeiras colunas (Regra de Sarrus), temos:")
+                
+                # Desenhando a Sarrus Genérica
+                matriz_gen = [['x', 'y', '1', 'x', 'y'], 
+                              ['x_A', 'y_A', '1', 'x_A', 'y_A'], 
+                              ['x_B', 'y_B', '1', 'x_B', 'y_B']]
+                leg_azul_gen = [r'+ (x \cdot y_A \cdot 1) = +x y_A', 
+                                r'+ (y \cdot 1 \cdot x_B) = +x_B y', 
+                                r'+ (1 \cdot x_A \cdot y_B) = +x_A y_B']
+                leg_verm_gen = [r'- (1 \cdot y_A \cdot x_B) = -x_B y_A', 
+                                r'- (x \cdot 1 \cdot y_B) = -x y_B', 
+                                r'- (y \cdot x_A \cdot 1) = -x_A y']
+                
+                fig_sarrus1 = plot_sarrus(matriz_gen, leg_azul_gen, leg_verm_gen)
+                st.pyplot(fig_sarrus1, use_container_width=True)
+                
+                st.markdown("Somando os resultados obtidos pelas diagonais e igualando a zero:")
+                st.latex(r"xy_A + x_By + x_Ay_B - x_By_A - xy_B - x_Ay = 0")
+                st.latex(r"x(y_A-y_B) + y(x_B-x_A) + (x_Ay_B-x_By_A) = 0")
 
-            st.latex(r"""
-            \begin{matrix}
-            x & y & 1 & \mathbf{|} & x & y \\
-            0 & 2 & 1 & \mathbf{|} & 0 & 2 \\
-            3 & 0 & 1 & \mathbf{|} & 3 & 0
-            \end{matrix} = 0
-            """)
+            with st.expander("✍️ Exemplo Prático com Sarrus", expanded=True):
+                st.markdown("Vamos deduzir a reta que passa por **A(0,2)** e **B(3,0)**:")
+                
+                # Desenhando a Sarrus Numérica
+                matriz_num = [['x', 'y', '1', 'x', 'y'], 
+                              ['0', '2', '1', '0', '2'], 
+                              ['3', '0', '1', '3', '0']]
+                leg_azul_num = [r'+ (x \cdot 2 \cdot 1) = +2x', 
+                                r'+ (y \cdot 1 \cdot 3) = +3y', 
+                                r'+ (1 \cdot 0 \cdot 0) = 0']
+                leg_verm_num = [r'- (1 \cdot 2 \cdot 3) = -6', 
+                                r'- (x \cdot 1 \cdot 0) = 0', 
+                                r'- (y \cdot 0 \cdot 1) = 0']
+                
+                fig_sarrus2 = plot_sarrus(matriz_num, leg_azul_num, leg_verm_num)
+                st.pyplot(fig_sarrus2, use_container_width=True)
+                
+                st.latex(r"(2x + 3y + 0) - (6 + 0 + 0) = 0")
+                st.success("Equação Geral: **2x + 3y - 6 = 0**")
 
-            st.markdown("Desenvolvendo os produtos das linhas diagonais:")
-            st.latex(r"\text{Diagonais Principais (+): } (x \cdot 2 \cdot 1) + (y \cdot 1 \cdot 3) + (1 \cdot 0 \cdot 0) = 2x + 3y + 0")
-            st.latex(r"\text{Diagonais Secundárias (-): } (1 \cdot 2 \cdot 3) + (x \cdot 1 \cdot 0) + (y \cdot 0 \cdot 1) = 6 + 0 + 0")
+        # TAB 2: EQUAÇÃO REDUZIDA
+        with t_reduzida:
+            st.markdown("Expressa a reta como função explícita de $x$. É a mais usada no Cálculo Diferencial.")
+            st.latex(r"y = mx + q")
+            st.markdown("Onde **$m$** é a inclinação (tangente do ângulo) e **$q$** é o corte no eixo y.")
             
-            st.markdown("Subtraindo os dois blocos de resultados:")
-            st.latex(r"(2x + 3y) - (6) = 0 \implies \boxed{2x + 3y - 6 = 0}")
-
-            col1, col2 = st.columns([1, 1])
-            with col1:
-                st.markdown("""
-                ### Verificação de Pertencimento
-                Substituindo pontos conhecidos para validação:
-                - **Para A(0,2):** $2(0) + 3(2) - 6 = 0 \Rightarrow 0 = 0$ (Ok!)
-                - **Para B(3,0):** $2(3) + 3(0) - 6 = 0 \Rightarrow 0 = 0$ (Ok!)
-                - **Para um ponto externo C(-3,4):** $2(-3) + 3(4) - 6 = -6 + 12 - 6 = 0$ (Ok!)
-                """)
-            with col2:
-                fig, ax = plt.subplots(figsize=(4.5, 3.5))
-                x = np.linspace(-4, 6, 200)
-                y = (6 - 2 * x) / 3
-
-                ax.plot(x, y, linewidth=2, color="purple", label="2x + 3y - 6 = 0")
-                ax.scatter([0, 3, -3], [2, 0, 4], color="red", zorder=3)
-                ax.text(0.2, 2.2, "A(0,2)")
-                ax.text(3.2, 0.2, "B(3,0)")
-                ax.text(-2.8, 4.2, "C(-3,4)")
-
-                setup_plot(ax, "Validação Geométrica do Exemplo")
-                ax.legend(fontsize=8)
-                fig.tight_layout()
-                st.pyplot(fig, use_container_width=True)
-
-    # TAB 2: EQUAÇÃO REDUZIDA
-    with t_reduzida:
-        st.markdown("Expressa a reta como função explícita de $x$. É a base do estudo de funções afins e do Cálculo Diferencial.")
-        st.latex(r"y = mx + q")
-        st.markdown("Onde **$m$** é o coeficiente angular (inclinação) e **$q$** é o coeficiente linear (intercepto no eixo $y$).")
-        
-        with st.expander("🔍 Ver Dedução e Comportamento dos 4 Casos do Plano"):
-            st.markdown(r"Isolando $y$ na equação geral $Ax + By + C = 0$ (considerando $B \neq 0$):")
-            st.latex(r"By = -Ax - C \implies y = \left(-\frac{A}{B}\right)x + \left(-\frac{C}{B}\right)")
-            st.markdown(r"Identificamos que: $m = -\frac{A}{B}$ e $q = -\frac{C}{B}$. O valor de $m$ dita a inclinação da reta:")
+            st.markdown("### Comportamento Geométrico do Coeficiente Angular ($m$)")
+            fig, axs = plt.subplots(1, 4, figsize=(12, 3))
             
-            # Gráficos dinâmicos dos 4 casos de m - Corrigido o plano Cartesiano do Caso Vertical
-            fig, axs = plt.subplots(1, 4, figsize=(11, 3))
+            setup_plot(axs[0], "1. Crescente (m > 0)")
+            axs[0].set_xlim(-2, 2); axs[0].set_ylim(-2, 2)
+            axs[0].plot([-2, 2], [-2, 2], color='blue', linewidth=2)
             
-            for ax in axs:
-                setup_plot(ax)
-                ax.set_xlim(-3, 3)
-                ax.set_ylim(-3, 3)
+            setup_plot(axs[1], "2. Decrescente (m < 0)")
+            axs[1].set_xlim(-2, 2); axs[1].set_ylim(-2, 2)
+            axs[1].plot([-2, 2], [2, -2], color='red', linewidth=2)
             
-            axs[0].set_title("1. Crescente (m > 0)", fontsize=9, color="blue")
-            axs[0].plot([-3, 3], [-3, 3], color='blue', linewidth=2, label="y = x")
+            setup_plot(axs[2], "3. Constante (m = 0)")
+            axs[2].set_xlim(-2, 2); axs[2].set_ylim(-2, 2)
+            axs[2].plot([-2, 2], [1, 1], color='green', linewidth=2)
             
-            axs[1].set_title("2. Decrescente (m < 0)", fontsize=9, color="red")
-            axs[1].plot([-3, 3], [3, -3], color='red', linewidth=2, label="y = -x")
-            
-            axs[2].set_title("3. Constante (m = 0)", fontsize=9, color="green")
-            axs[2].plot([-3, 3], [1, 1], color='green', linewidth=2, label="y = 1")
-            
-            # Caso 4 corrigido: agora exibe perfeitamente o plano cartesiano e a reta vertical
-            axs[3].set_title("4. Vertical (m Indef.)", fontsize=9, color="orange")
-            axs[3].axvline(1.5, color='orange', linewidth=2, label="x = 1.5")
+            setup_plot(axs[3], "4. Vertical (m Indef.)")
+            axs[3].set_xlim(-2, 2); axs[3].set_ylim(-2, 2) 
+            axs[3].axvline(1, color='orange', linewidth=2)
             
             for ax in axs: 
-                ax.legend(fontsize=7, loc="upper right")
-                
-            fig.tight_layout()
+                ax.set_xticks([]); ax.set_yticks([])
             st.pyplot(fig, use_container_width=True)
 
+        # TAB 3: EQUAÇÃO SEGMENTÁRIA
+        with t_seg:
+            st.markdown("Representação ideal para visualização imediata dos cortes nos eixos cartesianos.")
+            st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
+            
+            st.markdown("### Visualização no Plano Cartesiano")
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("**Exemplo 1 (Sinais Iguais):** $\\frac{x}{3} + \\frac{y}{2} = 1$")
+                fig1, ax1 = plt.subplots(figsize=(4, 3))
+                setup_plot(ax1)
+                ax1.set_xlim(-1, 4); ax1.set_ylim(-1, 3)
+                ax1.plot([-1.5, 4.5], [3, -1], color='teal', linewidth=2)
+                ax1.plot(3, 0, 'ro'); ax1.annotate('p=3', (3, 0.2), color='red')
+                ax1.plot(0, 2, 'ro'); ax1.annotate('q=2', (0.2, 2), color='red')
+                st.pyplot(fig1, use_container_width=True)
+
+            with col2:
+                st.markdown("**Exemplo 2 (Sinais Distintos):** $\\frac{x}{-2} + \\frac{y}{4} = 1$")
+                fig2, ax2 = plt.subplots(figsize=(4, 3))
+                setup_plot(ax2)
+                ax2.set_xlim(-3, 2); ax2.set_ylim(-1, 5)
+                ax2.plot([-2.5, 0.5], [-1, 5], color='orange', linewidth=2)
+                ax2.plot(-2, 0, 'ro'); ax2.annotate('p=-2', (-2, 0.2), color='red')
+                ax2.plot(0, 4, 'ro'); ax2.annotate('q=4', (0.2, 4), color='red')
+                st.pyplot(fig2, use_container_width=True)
+
+        # TAB 4: EQUAÇÃO PARAMÉTRICA
+        with t_param:
+            st.markdown("Descreve a 'história' do ponto sobre a reta usando uma variável escalar (tempo $t$). É fundamental na cinemática.")
+            st.latex(r"\begin{cases} x = 3t + 4 \\ y = 2 - 3t \end{cases}")
+            
+            st.markdown("### A Ideia de Trajetória e Tempo")
+            fig3, ax3 = plt.subplots(figsize=(6, 3))
+            setup_plot(ax3)
+            ax3.set_xlim(0, 11); ax3.set_ylim(-5, 6)
+            
+            x_vals = np.linspace(0, 11, 100)
+            y_vals = (6 - x_vals)
+            ax3.plot(x_vals, y_vals, color='magenta', linestyle='--', alpha=0.5)
+            
+            tempos = [-1, 0, 1, 2]
+            cores = ['#D8BFD8', '#DA70D6', '#BA55D3', '#800080']
+            for i, t in enumerate(tempos):
+                x_t = 3*t + 4
+                y_t = 2 - 3*t
+                ax3.plot(x_t, y_t, marker='o', color=cores[i], markersize=8)
+                ax3.annotate(f' t={t}s\n ({x_t},{y_t})', (x_t+0.2, y_t), fontsize=9)
+                
+            ax3.set_title("O ponto se desloca ao longo da reta conforme o tempo (t) avança")
+            st.pyplot(fig3, use_container_width=True)
+
+    st.markdown("---")
+    
+    # --- FLUXO DO PROBLEMA DA REDE (Modelagem Acadêmica) ---
+    st.markdown("### 🎯 A Modelagem Matemática do Problema")
+    st.markdown("Para descobrir o comprimento exato da rede e minimizar o custo para a cantina, precisamos traduzir o espaço físico da escola para uma função matemática. Acompanhe a dedução lógica:")
+    
+    st.markdown("**1. A Equação da Rede de Proteção:**")
+    st.markdown("Sabemos que a rede cruza os dois muros (eixos X e Y). Seja $A(a, 0)$ o ponto de fixação no muro horizontal e $B(0, b)$ no vertical. Como conhecemos os interceptos, a **Equação Segmentária** é a ferramenta ideal:")
+    st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
+
+    st.markdown("**2. A Restrição Física (O Poste Central):**")
+    st.markdown("A rede deve obrigatoriamente se apoiar no poste localizado em $P(1,2)$. Substituindo na reta:")
+    st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
+    
+    st.markdown("Isolando a variável $b$, obtemos a relação de dependência:")
+    st.latex(r"b = \frac{2a}{a - 1}")
+
+    st.markdown("**3. A Função Objetivo (O Comprimento da Rede):**")
+    st.markdown("A rede esticada forma um triângulo retângulo com os muros. Pelo **Teorema de Pitágoras**, o comprimento total ($L$) é:")
+    st.latex(r"L = \sqrt{a^2 + b^2}")
+
+    st.markdown("Substituindo $b$, chegamos à nossa função modelada apenas em função da distância $a$:")
+    
+    st.success("Função do Comprimento da Rede:")
+    st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
+    
+    st.markdown("A modelagem está concluída! Na próxima etapa, usaremos esta função para testar valores e encontrar o comprimento mínimo.")
     # TAB 3: EQUAÇÃO SEGMENTÁRIA
     with t_seg:
         st.markdown("Uma representação extremamente elegante quando conhecemos os pontos exatos onde a reta corta os eixos coordenados.")
