@@ -80,34 +80,249 @@ elif etapa == "2. Modelagem":
         ])
 
         # TAB 1: EQUAÇÃO GERAL
-        with t_geral:
-            st.markdown("A representação mais abrangente, aplicável a qualquer reta no plano cartesiano[cite: 8].")
-            st.latex(r"Ax + By + C = 0")
-            st.markdown("Sendo $A$, $B$ e $C$ constantes reais, com $A$ e $B$ não simultaneamente nulos[cite: 12].")
-            
-            with st.expander("🔍 Ver Dedução Analítica (Condição de Alinhamento)"):
-                st.markdown("Para que três pontos estejam alinhados, formamos triângulos semelhantes que mantêm a proporção entre base e altura constante[cite: 13, 30]:")
-                st.latex(r"\frac{x_B - x_A}{x - x_B} = \frac{y_B - y_A}{y - y_B}")
-                st.markdown("Em Álgebra Linear, isso é idêntico a dizer que o determinante da matriz de coordenadas é nulo[cite: 41, 42]:")
-                st.latex(r"\begin{vmatrix} x & y & 1 \\ x_A & y_A & 1 \\ x_B & y_B & 1 \end{vmatrix} = 0")
-                
-            with st.expander("✍️ Exemplo Prático"):
-                col1, col2 = st.columns([1, 1])
-                with col1:
-                    st.markdown("Reta que passa por $A(0,2)$ e $B(3,0)$[cite: 60]. Substituindo no determinante e igualando a zero, consolidamos:")
-                    st.latex(r"2x + 3y - 6 = 0")
-                    st.markdown("Verificação: O ponto $C(-3,4)$ também pertence a esta reta, pois zera a equação[cite: 73, 76].")
-                with col2:
-                    fig, ax = plt.subplots(figsize=(4, 3))
-                    setup_plot(ax)
-                    x_vals = np.array([-4, 5])
-                    y_vals = (6 - 2*x_vals) / 3
-                    ax.plot(x_vals, y_vals, color='navy')
-                    ax.plot([0, 3, -3], [2, 0, 4], 'ro')
-                    ax.text(0.2, 2.2, "A(0,2)")
-                    ax.text(3.2, 0.2, "B(3,0)")
-                    ax.text(-2.8, 4.2, "C(-3,4)")
-                    st.pyplot(fig, use_container_width=True)
+with t_geral:
+
+    st.title("Equação Geral da Reta")
+
+    st.markdown("""
+A **Equação Geral** é a representação mais abrangente da reta no plano cartesiano.
+Todo ponto $P(x,y)$ que satisfaz a igualdade pertence ao lugar geométrico descrito pela reta.
+""")
+
+    st.info("Fórmula da Equação Geral")
+
+    st.latex(r"Ax + By + C = 0")
+
+    st.markdown("""
+Onde:
+
+- $A$, $B$ e $C$ são constantes reais;
+- $A$ e $B$ não podem ser simultaneamente nulos.
+""")
+
+    # =====================================================
+    # DEDUÇÃO ANALÍTICA
+    # =====================================================
+
+    with st.expander("🔍 Dedução Analítica (Condição de Alinhamento)", expanded=False):
+
+        st.markdown("""
+Para que os pontos conhecidos $A(x_A,y_A)$, $B(x_B,y_B)$ e um ponto genérico
+$P(x,y)$ pertençam à mesma reta, eles devem ser colineares.
+
+A figura abaixo ilustra a construção geométrica utilizando triângulos semelhantes.
+""")
+
+        fig, ax = plt.subplots(figsize=(8,5))
+
+        ax.set_xlim(0,6)
+        ax.set_ylim(0,5)
+
+        ax.plot([0.2,6],[0.75*0.2+0.25,0.75*6+0.25],
+                color="black", linewidth=2)
+
+        A=(1,1)
+        B=(3,2.5)
+        P=(5,4)
+
+        ax.scatter(*A,color="black")
+        ax.scatter(*B,color="black")
+        ax.scatter(*P,color="black")
+
+        ax.text(0.8,1.1,"A")
+        ax.text(2.8,2.6,"B")
+        ax.text(5.1,4.1,"P(x,y)")
+
+        ax.plot([1,3],[1,1],'b')
+        ax.plot([3,3],[1,2.5],'b')
+
+        ax.plot([3,5],[2.5,2.5],'teal')
+        ax.plot([5,5],[2.5,4],'teal')
+
+        ax.grid(True)
+
+        st.pyplot(fig,use_container_width=True)
+
+        st.markdown("""
+Da semelhança dos triângulos:
+
+""")
+
+        st.latex(
+            r"\frac{x_B-x_A}{x-x_B}"
+            r"="
+            r"\frac{y_B-y_A}{y-y_B}"
+        )
+
+        st.markdown("Multiplicando em cruz:")
+
+        st.latex(
+            r"(x_B-x_A)(y-y_B)"
+            r"="
+            r"(x-x_B)(y_B-y_A)"
+        )
+
+        st.markdown("Expandindo:")
+
+        st.latex(
+            r"x_By-x_By_B-x_Ay+x_Ay_B"
+            r"="
+            r"xy_B-xy_A-x_By_B+x_By_A"
+        )
+
+        st.markdown("Reorganizando os termos:")
+
+        st.latex(
+            r"x(y_A-y_B)"
+            r"+"
+            r"y(x_B-x_A)"
+            r"+"
+            r"(x_Ay_B-x_By_A)"
+            r"=0"
+        )
+
+        st.success("Obtivemos a forma geral Ax + By + C = 0")
+
+    # =====================================================
+    # DETERMINANTE
+    # =====================================================
+
+    with st.expander("📐 Dedução por Determinante e Regra de Sarrus"):
+
+        st.markdown("""
+A Álgebra Linear mostra que três pontos estão alinhados quando o determinante da matriz formada por suas coordenadas é nulo.
+""")
+
+        st.latex(
+            r"\begin{vmatrix}"
+            r"x & y & 1 \\"
+            r"x_A & y_A & 1 \\"
+            r"x_B & y_B & 1"
+            r"\end{vmatrix}=0"
+        )
+
+        st.markdown("""
+Aplicando a Regra de Sarrus:
+""")
+
+        st.latex(
+            r"xy_A+x_By+x_Ay_B"
+            r"-"
+            r"x_By_A-xy_B-x_Ay=0"
+        )
+
+        st.markdown("Agrupando:")
+
+        st.latex(
+            r"x(y_A-y_B)"
+            r"+"
+            r"y(x_B-x_A)"
+            r"+"
+            r"(x_Ay_B-x_By_A)"
+            r"=0"
+        )
+
+        st.success(
+            "A mesma equação obtida pela semelhança de triângulos."
+        )
+
+    # =====================================================
+    # EXEMPLO PRÁTICO
+    # =====================================================
+
+    with st.expander("✍️ Exemplo Prático", expanded=True):
+
+        st.markdown("""
+Considere a reta que passa pelos pontos:
+
+- $A(0,2)$
+- $B(3,0)$
+""")
+
+        st.markdown("""
+Substituindo os pontos no determinante:
+""")
+
+        st.latex(
+            r"\begin{vmatrix}"
+            r"x & y & 1\\"
+            r"0 & 2 & 1\\"
+            r"3 & 0 & 1"
+            r"\end{vmatrix}=0"
+        )
+
+        st.markdown("Aplicando a Regra de Sarrus:")
+
+        st.latex(
+            r"2x + 3y - 6 = 0"
+        )
+
+        st.success("Equação Geral da reta")
+
+        st.latex(
+            r"\boxed{2x+3y-6=0}"
+        )
+
+        col1, col2 = st.columns([1,1])
+
+        with col1:
+
+            st.markdown("""
+### Verificação Algébrica
+
+**Ponto C(-3,4)**
+
+$$
+2(-3)+3(4)-6=0
+$$
+
+**Ponto A(0,2)**
+
+$$
+2(0)+3(2)-6=0
+$$
+
+**Ponto B(3,0)**
+
+$$
+2(3)+3(0)-6=0
+$$
+
+Todos pertencem à reta.
+""")
+
+        with col2:
+
+            fig, ax = plt.subplots(figsize=(6,4))
+
+            x = np.linspace(-4,6,200)
+            y = (6 - 2*x)/3
+
+            ax.plot(
+                x,
+                y,
+                linewidth=2,
+                label="2x + 3y - 6 = 0"
+            )
+
+            ax.scatter(
+                [0,3,-3],
+                [2,0,4],
+                color="red"
+            )
+
+            ax.text(0.1,2.2,"A(0,2)")
+            ax.text(3.1,0.2,"B(3,0)")
+            ax.text(-2.8,4.2,"C(-3,4)")
+
+            ax.axhline(0,color='black')
+            ax.axvline(0,color='black')
+
+            ax.grid(True)
+
+            ax.legend()
+
+            st.pyplot(fig,use_container_width=True)
 
         # TAB 2: EQUAÇÃO REDUZIDA
         with t_reduzida:
