@@ -449,65 +449,189 @@ elif etapa == "3. Testes":
         # Exibe o gráfico no ecrã
         st.pyplot(fig)
 
-# ETAPA 4: A MÁGICA DO CÁLCULO
+
+# ETAPA 4: RESULTADO E INTERPRETAÇÃO
 elif etapa == "4. Resultado":
-    st.title("✨ A Mágica do Cálculo")
+
+    st.title("🏆 O Que a Matemática Nos Mostrou?")
+
     st.markdown("""
-    Nós encontramos o "fundo do poço" (o menor gasto de rede possível) tateando no escuro, testando números na tabela. 
-    Mas, afinal, será que não dava para usar uma daquelas fórmulas mágicas que aprendemos na escola?
+    Durante a investigação, nós transformamos um problema real em um problema matemático.
+
+    Nosso objetivo era descobrir **como posicionar a rede de proteção utilizando a menor quantidade possível de material**, reduzindo assim os gastos do grêmio estudantil.
+
+    Para isso, construímos uma função que relaciona a posição da rede ao seu comprimento total:
     """)
 
+    st.latex(r"L(a)=\sqrt{a^2+\left(\frac{2a}{a-1}\right)^2}")
 
-    st.markdown("#### Gráfico das funções")
-    
-    # URL mantida
+    st.markdown("""
+    Em vez de tentar adivinhar a resposta, realizamos uma investigação:
+
+    - construímos uma tabela de valores;
+    - testamos diferentes posições para a rede;
+    - analisamos o comportamento da função;
+    - construímos um gráfico para visualizar os resultados.
+
+    Foi exatamente essa análise que nos permitiu localizar a região onde ocorre o menor comprimento possível.
+    """)
+
+    st.markdown("### 📈 O gráfico completo da função")
+
     geogebra_url = "https://www.geogebra.org/material/iframe/id/nypq2fcu/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/true"
-    
-    # Usamos HTML puro para criar um container responsivo
+
     st.markdown(f"""
     <div style="width: 100%; max-width: 800px; margin: 0 auto;">
         <div style="position: relative; padding-bottom: 62.5%; height: 0;">
-            <iframe src="{geogebra_url}" 
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+            <iframe src="{geogebra_url}"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
                     allowfullscreen>
             </iframe>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    
- 
-    # Criando o adendo interativo (caixa sanfona)
-    with st.expander("🤔 Adendo: Por que não usar a fórmula do Vértice da Parábola?"):
-        st.markdown("""
-        No 1º ano do Ensino Médio, nós aprendemos que o ponto mais baixo (mínimo) ou mais alto (máximo) de uma parábola pode ser encontrado rapidinho com a fórmula do **Vértice** ($x_v = \\frac{-b}{2a}$).
-        
-        **Exemplo Rápido:** Se o lucro da cantina fosse calculado por uma equação do 2º grau simples como $L(x) = -x^2 + 10x$, o lucro máximo ocorreria em $x = \\frac{-10}{2(-1)} = 5$. Resolvido em segundos!
-        
-        **Qual é o nosso problema então?** A curva que a nossa rede formou **não é uma equação do 2º grau**. Se tentarmos resolver a nossa fórmula da distância algebricamente, ela vira um "monstro" de 4º grau, e a resposta exata exige extrair uma raiz cúbica. A matemática tradicional do Ensino Médio bate num muro aqui e simplesmente não tem ferramentas para resolver isso de forma direta.
-        """)
-        
     st.markdown("""
-    Para não termos que ficar testando números pelo resto da vida toda vez que formos construir um prédio, uma ponte ou instalar uma rede, os matemáticos inventaram uma ferramenta superior chamada **Derivada** (que vocês estudarão na faculdade!).
-    
-    A Derivada funciona como um radar infalível. Ela consegue achar o ponto mínimo de **qualquer** curva, por mais torta e complexa que ela seja, num piscar de olhos, cortando todo o trabalho braçal!
+    Observe que o gráfico confirma exatamente aquilo que percebemos nos testes:
+
+    - inicialmente o comprimento da rede diminui;
+    - existe um ponto onde a rede atinge seu menor comprimento;
+    - depois desse ponto, o comprimento volta a aumentar.
+
+    Isso significa que encontramos um **ponto de mínimo da função**.
+
+    Os valores obtidos experimentalmente pela turma eram apenas alguns pontos da curva. Quanto mais testes realizássemos, mais o gráfico construído por nós se aproximaria do gráfico real da função.
     """)
-    
-    if st.button("Revelar o Valor Exato com o Radar do Cálculo"):
-        st.success("O Cálculo Diferencial cravou o valor exato: **a = 1 + \sqrt[3]{4} ≈ 2,587**")
-        
-        b_exato = (2 * 2.587) / (2.587 - 1)
-        dist_exato = np.sqrt(2.587**2 + b_exato**2)
-        
+
+    # -------------------------------------------------------
+    # ADENDO SOBRE VÉRTICE
+    # -------------------------------------------------------
+
+    with st.expander("🤔 Por que não usamos a fórmula do vértice da parábola?"):
+
+        st.markdown("""
+        No Ensino Médio aprendemos que o ponto máximo ou mínimo de uma parábola pode ser encontrado usando a fórmula do vértice:
+
+        """)
+
+        st.latex(r"x_v=\frac{-b}{2a}")
+
+        st.markdown("""
+        Essa técnica funciona muito bem para funções quadráticas, como:
+        """)
+
+        st.latex(r"f(x)=-x^2+10x")
+
+        st.markdown("""
+        Entretanto, a função que modela o comprimento da rede é diferente:
+        """)
+
+        st.latex(r"L(a)=\sqrt{a^2+\left(\frac{2a}{a-1}\right)^2}")
+
+        st.markdown("""
+        Ela possui:
+
+        - raiz quadrada;
+        - frações;
+        - variável no denominador.
+
+        Portanto, ela não é uma função do 2º grau e não possui um vértice calculável pela fórmula que já conhecemos.
+
+        Mesmo assim, conseguimos localizar seu ponto mínimo utilizando análise gráfica e investigação numérica.
+        """)
+
+    # -------------------------------------------------------
+    # CONCLUSÃO PEDAGÓGICA
+    # -------------------------------------------------------
+
+    st.success("""
+    🎯 Conclusão da Investigação
+
+    Conseguimos resolver o problema utilizando apenas ferramentas que já fazem parte do nosso repertório matemático:
+
+    ✔ Equação da reta
+
+    ✔ Equação segmentária
+
+    ✔ Distância entre pontos
+
+    ✔ Construção de tabelas
+
+    ✔ Interpretação de gráficos
+
+    ✔ Análise de máximos e mínimos
+
+    A Matemática nos permitiu tomar uma decisão prática e econômica baseada em evidências.
+    """)
+
+    # -------------------------------------------------------
+    # CURIOSIDADE AVANÇADA
+    # -------------------------------------------------------
+
+    st.markdown("### ✨ Curiosidade Matemática")
+
+    st.markdown("""
+    Será que existe uma maneira de encontrar o valor exato desse mínimo sem precisar testar vários números?
+
+    Sim.
+
+    Em cursos mais avançados de Matemática, Engenharia, Física e Computação existe uma área chamada **Cálculo Diferencial**, que estuda justamente como localizar pontos de máximo e mínimo em funções.
+
+    Essa ferramenta permite encontrar o valor exato do mínimo da nossa função.
+    """)
+
+    if st.button("Mostrar o valor exato encontrado pelo Cálculo"):
+
+        a_exato = 2.587
+        b_exato = (2 * a_exato) / (a_exato - 1)
+        dist_exato = np.sqrt(a_exato**2 + b_exato**2)
+
+        st.success("""
+        O valor exato encontrado pelo Cálculo Diferencial é:
+
+        a = 1 + ∛4 ≈ 2,587
+        """)
+
         col1, col2 = st.columns(2)
-        col1.metric("Posição exata no muro horizontal (a)", "2.587 m")
-        col2.metric("Posição exata no muro vertical (b)", f"{b_exato:.2f} m")
-        
-        st.info(f"🏆 O comprimento MÍNIMO possível para poupar o dinheiro do grêmio é de **{dist_exato:.2f} metros**!")
-        st.markdown("*(Dica: Voltem ao GeoGebra na Etapa 1, coloquem o controle em 'a = 2.59' e confirmem com os próprios olhos que é nessa posição que a rede fica mais esticada e curta!)*")
 
+        with col1:
+            st.metric(
+                "Posição ideal no muro horizontal (a)",
+                "2.587 m"
+            )
 
+        with col2:
+            st.metric(
+                "Posição correspondente no muro vertical (b)",
+                f"{b_exato:.2f} m"
+            )
 
+        st.info(
+            f"🏆 O comprimento mínimo possível da rede é aproximadamente {dist_exato:.2f} metros."
+        )
+
+        st.markdown("""
+        Observe que esse valor está muito próximo da região que identificamos experimentalmente nos testes.
+
+        Isso mostra que a investigação realizada pela turma foi capaz de localizar com excelente precisão a solução do problema.
+        """)
+
+    st.markdown("---")
+
+    st.markdown("""
+    ### 🌟 Mensagem Final
+
+    A parte mais importante desta atividade não foi descobrir um número.
+
+    O mais importante foi aprender a:
+
+    - transformar uma situação real em um modelo matemático;
+    - construir uma função;
+    - interpretar tabelas e gráficos;
+    - usar a Matemática para tomar decisões.
+
+    Foi exatamente assim que conseguimos determinar a forma mais econômica de instalar a rede de proteção.
+    """)
 
 
 
