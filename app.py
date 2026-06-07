@@ -111,8 +111,58 @@ elif etapa == "2. Modelagem":
     # --- 1. EQUAÇÃO GERAL ---
     with st.expander("1️⃣ A Equação Geral: $Ax + By + C = 0$", expanded=False):
         st.markdown("A **Equação Geral** é a representação mais abrangente. Todo ponto $P(x,y)$ que satisfaz a igualdade pertence à reta.")
-        st.markdown("#### 🔍 Dedução Algébrica (Condição de Alinhamento)")
-        st.markdown("Para que três pontos estejam alinhados, o determinante de suas coordenadas deve ser zero. Aplicando a **Regra de Sarrus** (duplicando colunas):")
+        
+        # ==========================================
+        # 1. DEDUÇÃO GEOMÉTRICA
+        # ==========================================
+        st.markdown("#### 📐 Dedução Geométrica (Semelhança de Triângulos)")
+        st.markdown("Para que os pontos $A(x_A, y_A)$, $B(x_B, y_B)$ e um ponto genérico $P(x, y)$ formem uma reta, eles devem ser colineares. Ao projetá-los, formamos triângulos retângulos semelhantes:")
+        
+        # Gráfico da Dedução Geométrica
+        fig_geom, ax_geom = plt.subplots(figsize=(7, 4))
+        ax_geom.set_xlim(0, 6); ax_geom.set_ylim(0, 5)
+        
+        # Reta principal
+        ax_geom.plot([0.2, 6], [0.75 * 0.2 + 0.25, 0.75 * 6 + 0.25], color="black", linewidth=1.5)
+        
+        # Pontos A, B, P
+        A, B, P = (1, 1), (3, 2.5), (5, 4)
+        ax_geom.scatter([A[0], B[0], P[0]], [A[1], B[1], P[1]], color="black", zorder=5)
+        ax_geom.text(A[0]-0.3, A[1]+0.2, "A", fontsize=12)
+        ax_geom.text(B[0]-0.3, B[1]+0.2, "B", fontsize=12)
+        ax_geom.text(P[0]-0.4, P[1]+0.2, "P(x,y)", fontsize=12)
+        
+        # Triângulos
+        ax_geom.plot([A[0], B[0]], [A[1], A[1]], 'b-', lw=2.5) # Base 1
+        ax_geom.plot([B[0], B[0]], [A[1], B[1]], 'b-', lw=2.5) # Altura 1
+        ax_geom.plot([B[0], P[0]], [B[1], B[1]], color='teal', lw=2.5) # Base 2
+        ax_geom.plot([P[0], P[0]], [B[1], P[1]], color='teal', lw=2.5) # Altura 2
+        
+        # Projeções nos eixos
+        kwargs_proj = {'color': 'gray', 'linestyle': '--', 'alpha': 0.5}
+        ax_geom.plot([A[0], 0], [A[1], A[1]], **kwargs_proj); ax_geom.plot([A[0], A[0]], [A[1], 0], **kwargs_proj)
+        ax_geom.plot([B[0], 0], [B[1], B[1]], **kwargs_proj); ax_geom.plot([B[0], B[0]], [B[1], 0], **kwargs_proj)
+        ax_geom.plot([P[0], 0], [P[1], P[1]], **kwargs_proj); ax_geom.plot([P[0], P[0]], [P[1], 0], **kwargs_proj)
+        
+        # Ajuste dos Eixos
+        ax_geom.set_xticks([A[0], B[0], P[0]]); ax_geom.set_xticklabels(['$x_A$', '$x_B$', '$x$'], fontsize=12)
+        ax_geom.set_yticks([A[1], B[1], P[1]]); ax_geom.set_yticklabels(['$y_A$', '$y_B$', '$y$'], fontsize=12)
+        ax_geom.spines['top'].set_visible(False); ax_geom.spines['right'].set_visible(False)
+        
+        st.pyplot(fig_geom, use_container_width=True)
+        
+        st.markdown("Pela proporção entre as bases e alturas dos triângulos destacados, temos:")
+        st.latex(r"\frac{x_B - x_A}{x - x_B} = \frac{y_B - y_A}{y - y_B}")
+        st.markdown("Multiplicando cruzado e agrupando os termos de $x$ e $y$, chegamos à estrutura polinomial da reta:")
+        st.latex(r"x(y_A - y_B) + y(x_B - x_A) + (x_A y_B - x_B y_A) = 0")
+
+        st.markdown("---")
+
+        # ==========================================
+        # 2. DEDUÇÃO POR DETERMINANTE
+        # ==========================================
+        st.markdown("#### 🔢 Dedução Algébrica (Matrizes)")
+        st.markdown("A Álgebra Linear nos dá um 'atalho' para essa mesma conta. Para que três pontos estejam alinhados, o determinante de suas coordenadas deve ser zero. Aplicando a **Regra de Sarrus**:")
         
         matriz_gen = [['x', 'y', '1', 'x', 'y'], 
                       ['x_A', 'y_A', '1', 'x_A', 'y_A'], 
@@ -127,6 +177,10 @@ elif etapa == "2. Modelagem":
         st.latex(r"x(y_A-y_B) + y(x_B-x_A) + (x_Ay_B-x_By_A) = 0")
 
         st.markdown("---")
+        
+        # ==========================================
+        # 3. EXEMPLO PRÁTICO
+        # ==========================================
         st.markdown("#### ✍️ Exemplo Prático em um Caso Real")
         st.markdown("Dedução da reta que passa por **A(0,2)** e **B(3,0)**:")
         
