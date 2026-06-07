@@ -453,7 +453,7 @@ elif etapa == "3. Testes":
 # ETAPA 4: RESULTADO E INTERPRETAÇÃO
 elif etapa == "4. Resultado":
 
-    st.title("🏆 O Que a Matemática Nos Mostrou?")
+    st.title("🏆 Resultados e interpretações")
 
     st.markdown("""
     Ao longo desta atividade, transformamos um problema real em um problema matemático.
@@ -511,12 +511,14 @@ elif etapa == "4. Resultado":
 
     if resposta == "Existe um ponto onde o comprimento é mínimo.":
 
-        st.success("""
-        Excelente!
-
-        A curva primeiro desce, atinge um ponto mais baixo e depois volta a subir.
-
-        Isso significa que existe uma posição ideal para instalar a rede.
+        st.success(""" 
+        Excelente! 
+        O gráfico mostra que:
+        ✔ inicialmente o comprimento da rede diminui; 
+        ✔ existe um ponto mais baixo, chamado **mínimo da função**; 
+        ✔ após esse ponto o comprimento volta a aumentar. 
+        Isso significa que existe uma posição ideal para instalar a rede utilizando a menor quantidade possível de material. 
+        Observe que esse comportamento já aparecia na tabela construída durante os testes. O gráfico apenas tornou essa informação mais fácil de visualizar. 
         """)
 
     elif resposta:
@@ -528,87 +530,7 @@ elif etapa == "4. Resultado":
         """)
 
    
-    st.markdown("""
-    ### 🔍 Lendo o gráfico da função
 
-    Durante os testes nós descobrimos que alguns valores para **a** produziam redes muito longas, enquanto outros pareciam mais econômicos.
-
-    Agora podemos observar o comportamento completo da função.
-    """)
-
-    st.info("""
-    Observe apenas a curva vermelha, que representa os valores possíveis para o nosso problema
-    (1,1 ≤ a ≤ 10).
-
-    Tente responder:
-
-    • O que acontece com o comprimento da rede quando a aumenta logo após 1?
-
-    • Em que região a rede parece atingir seu menor comprimento?
-
-    • O que acontece se continuarmos aumentando a indefinidamente?
-    """)
-
-    st.markdown("""
-    ### 📈 O que o gráfico revela?
-
-    A curva vermelha possui três comportamentos importantes:
-
-    **1️⃣ Inicialmente ela desce**
-
-    Quando escolhemos valores de **a** um pouco maiores que 1, o comprimento da rede diminui rapidamente.
-
-    Isso significa que estamos encontrando posições cada vez mais econômicas para instalar a rede.
-
-    **2️⃣ Existe um ponto mais baixo**
-
-    Chega um momento em que a curva atinge seu ponto mais baixo.
-
-    Nesse ponto encontramos o menor comprimento possível para a rede.
-
-    Em linguagem matemática, dizemos que a função possui um **ponto de mínimo**.
-
-    **3️⃣ Depois ela volta a subir**
-
-    A partir desse ponto, aumentar o valor de **a** faz a rede voltar a crescer.
-
-    Ou seja, continuar afastando a amarração não gera economia; pelo contrário, passa a desperdiçar material.
-    """)
-    
-    st.success("""
-    🎯 O mais interessante é que nós já havíamos percebido esse comportamento antes mesmo de ver o gráfico completo.
-
-    A tabela construída pela turma mostrava exatamente essa tendência:
-
-    ✔ os valores diminuíam;
-
-    ✔ chegavam a uma região de mínimo;
-
-    ✔ e depois voltavam a aumentar.
-
-    O gráfico apenas tornou visível aquilo que os dados já estavam indicando.
-    """)
-
-    st.markdown("""
-    ### 📊 O que aprendemos sobre funções?
-
-    Nesta atividade a função não apareceu apenas como uma fórmula.
-
-    Ela serviu para descrever uma situação real.
-
-    Cada valor de **a** produz:
-
-    - um valor correspondente de **b**;
-    - um comprimento específico para a rede.
-
-    Por isso podemos interpretar a função como uma máquina:
-
-    👉 escolhemos uma posição para a amarração;
-
-    👉 a função calcula automaticamente o comprimento da rede.
-
-    O gráfico mostra todos esses resultados ao mesmo tempo.
-    """)
 
    
     # -------------------------------------------------------
