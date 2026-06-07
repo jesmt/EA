@@ -364,15 +364,17 @@ elif etapa == "3. Testes":
     
     img = Image.open("diagrama.jpg")
     st.image(img, caption="", width=400)
-    col1, col2 = st.columns([1.2, 1.2])
-
 
     st.warning("""
     ⚠️ **Atenção às restrições:** Nosso poste está fixado em $x=1$. 
     Se tentarmos amarrar a rede exatamente em $a=1$, a rede ficará paralela ao muro vertical e nunca o tocará. 
     Por isso, nosso palpite para 'a' deve ser **sempre maior que 1**.
     """)
+
     
+    col1, col2 = st.columns([1.2, 1.2])
+
+   
     with col1:
         # Entrada de dados
         palpite_a = st.number_input("Digite um valor para 'a':", min_value=1.1, max_value=15.0, value=2.0, step=0.1)
