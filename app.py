@@ -354,8 +354,13 @@ elif etapa == "3. Testes":
     with col_eq2:
         st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 2}\right)^2}}")
     
-    st.latex(r"\mathbf{b = \frac{2a}{a - 1}}")
-    st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}}")
+    st.markdown("""
+    **Desafio:** Como não conseguimos "bater o olho" e saber o mínimo dessa função, vamos realizar uma **investigação numérica**. 
+    Testem valores para **$a$** (distância no muro horizontal, lembrando que $a > 2$ para que o poste em $x=2$ seja alcançável) e observem a tabela e o gráfico.
+    
+    * O valor de $L(a)$ cai e depois sobe?
+    * Existe um ponto onde a rede começa a ficar maior novamente?
+    """)
     
     col1, col2 = st.columns([1.2, 1.2])
     
