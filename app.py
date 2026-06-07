@@ -52,93 +52,155 @@ if etapa == "1. O Problema":
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Modelagem":
     st.title("📐 Lousa Digital: A Matemática da Reta")
-    st.markdown("Revisão detalhada baseada no nosso material de Geometria Analítica.")
+    st.markdown("Revisão detalhada baseada nos fundamentos da Geometria Analítica para equações da reta[cite: 1, 4].")
 
-    # Inicializa o passo da aula
+    # Inicializa o passo da aula para o problema específico
     if 'passo_aula' not in st.session_state:
         st.session_state.passo_aula = 0
 
-    # --- EXPANDER COM A REVISÃO TEÓRICA DETALHADA ---
-    with st.expander("📚 Revisão Teórica: As Formas da Reta", expanded=True):
-        tab1, tab2, tab3, tab4, tab5 = st.tabs(["Alinhamento", "Geral", "Reduzida", "Segmentária", "Paramétrica"])
+    # Biblioteca para os gráficos dinâmicos
+    import matplotlib.pyplot as plt
+    import numpy as np
 
-        # Função para gráficos mais compactos
-        def plot_compacto(fig, ax):
-            ax.grid(True, linestyle='--', alpha=0.6)
-            plt.tight_layout(pad=0.5)
-            return fig
+    def setup_plot(ax, title=""):
+        """Configura o visual padrão dos gráficos para manter o design limpo."""
+        ax.axhline(0, color='black',linewidth=1)
+        ax.axvline(0, color='black',linewidth=1)
+        ax.grid(True, linestyle='--', alpha=0.5)
+        ax.set_title(title, fontsize=10)
+        return ax
 
-        with tab1:
-            st.markdown("### 1. Condição de Alinhamento")
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown("Os pontos A, B e C são colineares se o determinante for zero:")
-                st.latex(r"\begin{vmatrix} x_A & y_A & 1 \\ x_B & y_B & 1 \\ x_C & y_C & 1 \end{vmatrix} = 0")
-            with col2:
-                st.markdown("Ou pela igualdade das razões (semelhança de triângulos):")
-                st.latex(r"\frac{x_B - x_A}{x_C - x_B} = \frac{y_B - y_A}{y_C - y_B}")
+    # --- REVISÃO TEÓRICA DETALHADA COM ABAS ---
+    with st.expander("📚 Revisão Teórica: As Formas da Equação da Reta", expanded=True):
+        t_geral, t_reduzida, t_seg, t_param = st.tabs([
+            "1. Equação Geral", 
+            "2. Equação Reduzida", 
+            "3. Equação Segmentária", 
+            "4. Equação Paramétrica"
+        ])
 
-        with tab2:
-            st.markdown("### 2. Equação Geral")
-            st.markdown("Toda reta no plano cartesiano associa-se a uma equação:")
-            st.latex(r"ax + by + c = 0")
-            st.markdown("*Exemplo:* Reta por $Q(4,3)$ e $R(0,7) \rightarrow 4x + 4y - 28 = 0$")
+        # TAB 1: EQUAÇÃO GERAL
+        with t_geral:
+            st.markdown("A representação mais abrangente, aplicável a qualquer reta no plano cartesiano[cite: 8].")
+            st.latex(r"Ax + By + C = 0")
+            st.markdown("Sendo $A$, $B$ e $C$ constantes reais, com $A$ e $B$ não simultaneamente nulos[cite: 12].")
+            
+            with st.expander("🔍 Ver Dedução Analítica (Condição de Alinhamento)"):
+                st.markdown("Para que três pontos estejam alinhados, formamos triângulos semelhantes que mantêm a proporção entre base e altura constante[cite: 13, 30]:")
+                st.latex(r"\frac{x_B - x_A}{x - x_B} = \frac{y_B - y_A}{y - y_B}")
+                st.markdown("Em Álgebra Linear, isso é idêntico a dizer que o determinante da matriz de coordenadas é nulo[cite: 41, 42]:")
+                st.latex(r"\begin{vmatrix} x & y & 1 \\ x_A & y_A & 1 \\ x_B & y_B & 1 \end{vmatrix} = 0")
+                
+            with st.expander("✍️ Exemplo Prático"):
+                col1, col2 = st.columns([1, 1])
+                with col1:
+                    st.markdown("Reta que passa por $A(0,2)$ e $B(3,0)$[cite: 60]. Substituindo no determinante e igualando a zero, consolidamos:")
+                    st.latex(r"2x + 3y - 6 = 0")
+                    st.markdown("Verificação: O ponto $C(-3,4)$ também pertence a esta reta, pois zera a equação[cite: 73, 76].")
+                with col2:
+                    fig, ax = plt.subplots(figsize=(4, 3))
+                    setup_plot(ax)
+                    x_vals = np.array([-4, 5])
+                    y_vals = (6 - 2*x_vals) / 3
+                    ax.plot(x_vals, y_vals, color='navy')
+                    ax.plot([0, 3, -3], [2, 0, 4], 'ro')
+                    ax.text(0.2, 2.2, "A(0,2)")
+                    ax.text(3.2, 0.2, "B(3,0)")
+                    ax.text(-2.8, 4.2, "C(-3,4)")
+                    st.pyplot(fig, use_container_width=True)
 
-        with tab3:
-            st.markdown("### 3. Forma Reduzida (y = mx + q)")
-            st.markdown("Dedução: Isolando $y$ em $ax + by + c = 0$")
-            st.latex(r"y = \underbrace{\left(-\frac{a}{b}\right)}_{m}x + \underbrace{\left(-\frac{c}{b}\right)}_{q}")
-            st.markdown("- **m:** Coeficiente angular ($m = \tan \theta$).")
-            st.markdown("- **q:** Coeficiente linear (corte no eixo y).")
+        # TAB 2: EQUAÇÃO REDUZIDA
+        with t_reduzida:
+            st.markdown("Expressa a reta como função explícita de $x$. É a mais usada no Cálculo Diferencial[cite: 91, 93].")
+            st.latex(r"y = mx + q")
+            st.markdown("Onde **$m$** é o coeficiente angular (inclinação) e **$q$** é o coeficiente linear (corte na origem)[cite: 96].")
+            
+            with st.expander("🔍 Ver Dedução e Comportamento"):
+                st.markdown("Isolando $y$ em $Ax + By + C = 0$ (onde $B \neq 0$)[cite: 97, 98]:")
+                st.latex(r"y = \left(-\frac{A}{B}\right)x + \left(-\frac{C}{B}\right) \implies m = -\frac{A}{B}, \, q = -\frac{C}{B}")
+                st.markdown("O coeficiente **$m = \tan \theta = \frac{\Delta y}{\Delta x}$** dita o comportamento[cite: 104]:")
+                
+                # Gráficos dinâmicos dos 4 casos de m
+                fig, axs = plt.subplots(1, 4, figsize=(10, 2.5))
+                setup_plot(axs[0], "1. Crescente (m > 0)")
+                axs[0].plot([-2, 2], [-2, 2], color='blue') # [cite: 111]
+                
+                setup_plot(axs[1], "2. Decrescente (m < 0)")
+                axs[1].plot([-2, 2], [2, -2], color='red') # [cite: 112]
+                
+                setup_plot(axs[2], "3. Constante (m = 0)")
+                axs[2].plot([-2, 2], [1, 1], color='green') # [cite: 114]
+                
+                setup_plot(axs[3], "4. Vertical (m Indef.)")
+                axs[3].axvline(1, color='orange') # [cite: 116, 120]
+                
+                for ax in axs: ax.set_xticks([]); ax.set_yticks([])
+                st.pyplot(fig, use_container_width=True)
 
-        with tab4:
-            st.markdown("### 4. Forma Segmentária")
-            col1, col2 = st.columns(2)
-            with col1:
-                st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
-                st.markdown("- $p$ e $q$ são os interceptos nos eixos.")
-                st.markdown("- Se sinais de $p, q$ iguais: $m < 0$ (decrescente).")
-                st.markdown("- Se sinais de $p, q$ opostos: $m > 0$ (crescente).")
-            with col2:
-                fig, ax = plt.subplots(figsize=(3, 2.5))
-                ax.plot([3, 0], [0, 2])
-                ax.fill_between([0, 3], [2, 0], color='teal', alpha=0.1)
-                st.pyplot(plot_compacto(fig, ax), use_container_width=True)
+        # TAB 3: EQUAÇÃO SEGMENTÁRIA
+        with t_seg:
+            st.markdown("Representação otimizada para identificação imediata das interseções nos eixos, útil para calcular áreas[cite: 124, 125].")
+            st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
+            
+            with st.expander("🔍 Ver Dedução"):
+                st.markdown("Na Equação Geral, transpomos a constante e dividimos tudo por $-C$[cite: 129, 131]:")
+                st.latex(r"\frac{x}{(-C/A)} + \frac{y}{(-C/B)} = 1 \implies p = -\frac{C}{A}, \, q = -\frac{C}{B}")
+            
+            with st.expander("✍️ Exemplo e Análise Visual"):
+                col1, col2 = st.columns([1, 1])
+                with col1:
+                    st.markdown("Equação do Exemplo Prático: $\frac{x}{-2} + \frac{y}{4} = 1$[cite: 161].")
+                    st.markdown("- Intercepto em $x$: $p = -2$\n- Intercepto em $y$: $q = 4$ [cite: 162]")
+                    st.markdown("Sinais diferentes de $p$ e $q$ implicam $m > 0$ (reta crescente)[cite: 163, 164, 166].")
+                with col2:
+                    fig, ax = plt.subplots(figsize=(4, 3))
+                    setup_plot(ax)
+                    ax.plot([-3, 2], [-2, 8], color='orange')
+                    ax.plot([-2, 0], [0, 4], 'ro')
+                    ax.text(-2.5, -0.5, "(-2,0)", color='red')
+                    ax.text(0.2, 4, "(0,4)", color='red')
+                    st.pyplot(fig, use_container_width=True)
 
-        with tab5:
-            st.markdown("### 5. Forma Paramétrica")
-            st.markdown("Usa um parâmetro $t$ para definir as coordenadas:")
+        # TAB 4: EQUAÇÃO PARAMÉTRICA
+        with t_param:
+            st.markdown("Descreve a 'história' do ponto sobre a reta usando uma variável escalar (tempo $t$), muito útil na cinemática[cite: 176, 177].")
             st.latex(r"\begin{cases} x = f_1(t) \\ y = f_2(t) \end{cases}")
-            st.markdown("Para obter a geral, isole $t$ em ambas e iguale:")
-            st.latex(r"t = \frac{x-4}{3} = \frac{2-y}{3}")
+            
+            with st.expander("✍️ Conversão para Cartesiana"):
+                st.markdown("Dado $x = 3t + 4$ e $y = 2 - 3t$[cite: 182]. Isolando $t$ em ambas:")
+                st.latex(r"t = \frac{x-4}{3} \quad \text{e} \quad t = \frac{2-y}{3}")
+                st.markdown("Igualando as expressões para eliminar o parâmetro $t$[cite: 181, 184]:")
+                st.latex(r"\frac{x-4}{3} = \frac{2-y}{3} \implies x - 4 = 2 - y \implies x + y - 6 = 0")
 
     st.markdown("---")
     
     # --- FLUXO DO PROBLEMA DA REDE ---
     st.markdown("### 🎯 Voltando ao Problema da Cantina")
+    st.markdown("Dada a revisão acima, como modelamos a linha reta de rede de proteção?")
     
-    if st.button("Revelar Passo 1: A Equação da Rede"):
-        st.session_state.passo_aula = 1
+    col_botoes, col_conteudo = st.columns([1, 2])
+    
+    with col_botoes:
+        if st.button("Revelar Passo 1 ➡️"): st.session_state.passo_aula = max(st.session_state.passo_aula, 1)
+        if st.button("Revelar Passo 2 ➡️"): st.session_state.passo_aula = max(st.session_state.passo_aula, 2)
+        if st.button("Revelar Passo 3 ➡️"): st.session_state.passo_aula = max(st.session_state.passo_aula, 3)
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("🔄 Reiniciar Lousa"):
+            st.session_state.passo_aula = 0
+            st.rerun()
 
-    if st.session_state.passo_aula >= 1:
-        st.markdown("Como temos os pontos de intercepto $(a,0)$ e $(0,b)$, a **Segmentária** é a melhor escolha:")
-        st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
-        if st.button("Revelar Passo 2: O Poste Central P(1,2)"):
-            st.session_state.passo_aula = 2
-
-    if st.session_state.passo_aula >= 2:
-        st.markdown("Substituindo $P(1,2)$ na equação:")
-        st.latex(r"\frac{1}{a} + \frac{2}{b} = 1 \implies b = \frac{2a}{a - 1}")
-        if st.button("Revelar Passo 3: O Comprimento (Pitágoras)"):
-            st.session_state.passo_aula = 3
-
-    if st.session_state.passo_aula >= 3:
-        st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
-        st.success("Modelagem concluída!")
-
-    if st.button("🔄 Reiniciar Lousa"):
-        st.session_state.passo_aula = 0
-        st.rerun()
+    with col_conteudo:
+        if st.session_state.passo_aula >= 1:
+            st.info("**Passo 1: Escolha da Equação**\n\nComo conhecemos os interceptos nos muros (eixos $x$ e $y$), a **Forma Segmentária** é a mais direta[cite: 124]:")
+            st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
+            
+        if st.session_state.passo_aula >= 2:
+            st.warning("**Passo 2: Amarração no Poste**\n\nA rede precisa encostar no poste em $P(1,2)$. Substituindo na equação:")
+            st.latex(r"\frac{1}{a} + \frac{2}{b} = 1 \implies b = \frac{2a}{a - 1}")
+            
+        if st.session_state.passo_aula >= 3:
+            st.success("**Passo 3: A Função Objetivo**\n\nUsamos Pitágoras para expressar o comprimento $L$ em função apenas de $a$:")
+            st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
         
 # ETAPA 3: TESTES
 elif etapa == "3. Testes":
