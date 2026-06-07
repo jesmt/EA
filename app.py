@@ -331,12 +331,14 @@ elif etapa == "2. Modelagem":
         st.markdown("A rede nada mais é do que a hipotenusa desse triângulo. Portanto, o comprimento total $L$ será:")
         st.latex(r"L = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} \implies L = \sqrt{(0 - a)^2 + (b - 0)^2} \implies L = \sqrt{a^2 + b^2}")
         
-        st.markdown("Mas espere! No passo anterior, nós descobrimos exatamente quem é o $b$. Vamos substituir essa informação dentro do nosso Pitágoras para fundir tudo em uma letra só:")
+        st.markdown("No passo anterior, nós descobrimos exatamente quem é o $b$. Vamos substituir:")
         
         st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}}")
         
-        st.markdown("🎉 **Conseguimos!** Acabamos de converter um problema físico de engenharia escolar em uma pura função analítica. Essa é a nossa **Função Objetivo**.")
-        st.markdown("O nosso trabalho investigativo aqui terminou. **Prossiga para a Etapa 3 (Laboratório de Testes) no menu lateral** para jogarmos os valores nessa equação e descobrir qual o menor tamanho possível da rede!")
+        st.markdown("🎉 Agora temos uma função para o nosso problema! Vamos examiná-la no Laboratório de Testes.")
+        #st.markdown("O nosso trabalho investigativo aqui terminou. **Prossiga para a Etapa 3 (Laboratório de Testes) no menu lateral** para jogarmos os valores nessa equação e descobrir qual o menor tamanho possível da rede!")
+
+
 # ETAPA 3: TESTES
 elif etapa == "3. Testes":
     st.title("🧪 Laboratório de Testes Numéricos")
