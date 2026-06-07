@@ -139,115 +139,190 @@ elif etapa == "3. Testes":
 # =====================================================================
 # ETAPA 4: A MÁGICA DA ÁLGEBRA (Otimização sem Derivadas)
 # =====================================================================
+```python
+# ETAPA 4: RESULTADO E INTERPRETAÇÃO
 elif etapa == "4. Resultado":
-    st.title("✨ A Prova Matemática: Otimização com Álgebra")
+
+    st.title("🏆 O Que a Matemática Nos Mostrou?")
+
     st.markdown("""
-    Nós observamos na tabela que o menor valor parece ocorrer quando $a=4$ e $b=4$. Mas em matemática, não podemos confiar apenas no "olhômetro" ou na intuição de que "por ser simétrico, deve ser igual". Precisamos provar!
-    
-    A grande sacada aqui é que podemos encontrar esse ponto de mínimo absoluto sem usar nenhuma matemática de faculdade (Cálculo). Vamos usar apenas o que aprendemos no **1º Ano do Ensino Médio**: Equação do 2º Grau!
+    Ao longo desta atividade, transformamos um problema real em um problema matemático.
+
+    Nosso objetivo era descobrir qual posição da rede utiliza a menor quantidade possível de material.
     """)
-    
-    st.markdown("---")
 
-    # --- PASSO 1: SOMA E PRODUTO ---
-    st.info("🤔 **Investigação 1:** Vamos voltar à equação da nossa restrição (o poste). Se multiplicarmos toda a equação pelo MMC ($ab$), o que acontece com a relação entre $a$ e $b$?")
-    
-    with st.expander("👉 Revelar a Dedução: Soma e Produto", expanded=False):
-        st.markdown("A partir da nossa restrição do poste, vamos manipular a fração:")
-        st.latex(r"\frac{2}{a} + \frac{2}{b} = 1")
-        st.markdown("Multiplicando todos os termos por $ab$ (para sumir com os denominadores):")
-        st.latex(r"2b + 2a = ab \implies \mathbf{ab = 2(a + b)}")
-        
-        st.markdown("""
-        Olhe com atenção para essa última equação. Ela nos diz que a **multiplicação** de $a$ e $b$ é igual ao dobro da **soma** deles! 
-        Se chamarmos a soma de **$S$** ($S = a+b$) e o produto de **$P$** ($P = ab$), acabamos de descobrir que:
+    st.latex(r"L(a)=\sqrt{a^2+\left(\frac{2a}{a-1}\right)^2}")
+
+    st.markdown("""
+    Para encontrar essa posição, construímos tabelas, realizamos testes e analisamos o comportamento da função.
+    """)
+
+    # -------------------------------------------------------
+    # GEOGEBRA
+    # -------------------------------------------------------
+
+    st.subheader("📈 O gráfico da função")
+
+    geogebra_url = "https://www.geogebra.org/material/iframe/id/nypq2fcu/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/true"
+
+    st.markdown(f"""
+    <div style="width: 100%; max-width: 800px; margin: 0 auto;">
+        <div style="position: relative; padding-bottom: 62.5%; height: 0;">
+            <iframe src="{geogebra_url}"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.info("""
+    Observe a curva vermelha.
+
+    Ela representa os valores possíveis para o nosso problema.
+
+    Antes de continuar, tente responder às perguntas abaixo apenas observando o gráfico.
+    """)
+
+    # -------------------------------------------------------
+    # QUIZ INTERATIVO
+    # -------------------------------------------------------
+
+    resposta = st.radio(
+        "Qual das afirmações descreve melhor o comportamento da curva?",
+        [
+            "O comprimento da rede só aumenta.",
+            "O comprimento da rede só diminui.",
+            "Existe um ponto onde o comprimento é mínimo.",
+            "O gráfico representa uma reta."
+        ]
+    )
+
+    if resposta == "Existe um ponto onde o comprimento é mínimo.":
+
+        st.success("""
+        Excelente!
+
+        A curva primeiro desce, atinge um ponto mais baixo e depois volta a subir.
+
+        Isso significa que existe uma posição ideal para instalar a rede.
         """)
-        st.latex(r"\mathbf{P = 2S}")
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    elif resposta:
 
-    # --- PASSO 2: A EQUAÇÃO DO 2º GRAU ---
-    st.info("🤔 **Investigação 2:** Na álgebra, se conhecemos a Soma ($S$) e o Produto ($P$) de dois números, sabemos que eles são as raízes de uma equação do 2º grau: $x^2 - Sx + P = 0$. O que acontece se trocarmos o $P$ por $2S$ nessa equação?")
-    
-    with st.expander("👉 Revelar a Dedução: O Delta de Bhaskara", expanded=False):
-        st.markdown("Substituindo $P = 2S$ na equação genérica, descobrimos que os nossos pedaços de muro ($a$ e $b$) são as raízes desta exata equação:")
-        st.latex(r"x^2 - Sx + 2S = 0")
-        
-        st.markdown("""
-        Para que os muros $a$ e $b$ existam no mundo real (como distâncias físicas), essa equação **precisa ter raízes reais**. 
-        Qual é a regra de Bhaskara para que existam raízes reais? O discriminante (Delta) tem que ser maior ou igual a zero! ($\Delta \ge 0$)
+        st.error("""
+        Observe novamente a curva vermelha.
+
+        Perceba que ela diminui, atinge um valor mínimo e depois volta a crescer.
         """)
-        
-        st.latex(r"\Delta = (-S)^2 - 4 \cdot 1 \cdot (2S) \ge 0")
-        st.latex(r"\mathbf{S^2 - 8S \ge 0}")
-        
-        st.markdown("Como as distâncias são positivas ($S > 0$), podemos dividir por $S$:")
-        st.latex(r"S - 8 \ge 0 \implies \mathbf{S \ge 8}")
-        
-        st.success("🚨 **Descoberta Incrível:** Nós acabamos de provar matematicamente que a **menor soma possível** para os dois pedaços de rede amarrados no muro ($a+b$) é 8 metros!")
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    # -------------------------------------------------------
+    # LEITURA DO GRÁFICO
+    # -------------------------------------------------------
 
-    # --- PASSO 3: O GOLPE FINAL ---
-    st.info("🤔 **Investigação 3:** Nós queremos a situação de menor gasto possível, ou seja, o limite extremo onde a soma é mínima ($S = 8$). Mas lembre-se da aula de Bhaskara: o que acontece com as duas raízes de uma equação quando o Delta é exatamente ZERO?")
-    
-    with st.expander("👉 Revelar a Prova Final: Por que a = b?", expanded=False):
-        st.markdown("Se escolhermos a soma mínima ($S = 8$), o nosso cálculo do passo anterior fica:")
-        st.latex(r"\Delta = 8^2 - 8(8) = 64 - 64 = 0")
-        
-        st.markdown("""
-        Quando $\Delta = 0$, a fórmula de Bhaskara nos dá **duas raízes idênticas** ($x_1 = x_2$). 
-        Como as nossas raízes são $a$ e $b$, isso PROVA, sem sombra de dúvidas, que no ponto de menor custo, obrigatoriamente:
-        """)
-        st.latex(r"\mathbf{a = b}")
-        
-        st.markdown("Se a soma deles é 8 ($a + b = 8$) e eles são iguais:")
-        st.latex(r"\mathbf{a = 4 \quad \text{e} \quad b = 4}")
-        
-        st.success("🎉 **Vencemos a Otimização!** Provamos de forma irrefutável que a configuração mais econômica exige $a=4$ e $b=4$.")
+    st.subheader("🔍 O que o gráfico revela?")
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("""
+    Ao analisar a curva observamos três fatos importantes:
 
-    # --- CONCLUSÃO E GRÁFICO ---
-    st.markdown("### 🏆 O Resultado Final para o Grêmio")
-    col1, col2 = st.columns([1, 1])
-    
+    **1️⃣ A rede fica cada vez menor**
+
+    Quando aumentamos o valor de **a** logo após 1, o comprimento da rede diminui rapidamente.
+
+    **2️⃣ Existe um ponto mais baixo**
+
+    Em determinado momento a curva atinge seu menor valor.
+
+    Esse é o ponto de mínimo da função.
+
+    **3️⃣ Depois a rede volta a crescer**
+
+    Continuar aumentando **a** não gera economia.
+
+    Pelo contrário: a quantidade de material necessária volta a aumentar.
+    """)
+
+    # -------------------------------------------------------
+    # CONEXÃO COM A TABELA
+    # -------------------------------------------------------
+
+    st.subheader("📊 Ligando o gráfico aos testes")
+
+    st.success("""
+    O mais interessante é que nós já havíamos percebido esse comportamento antes mesmo de visualizar o gráfico completo.
+
+    A tabela construída durante a investigação mostrava exatamente a mesma tendência:
+
+    ✔ os valores diminuíam;
+
+    ✔ chegavam a uma região de mínimo;
+
+    ✔ depois voltavam a crescer.
+
+    O gráfico apenas tornou esse comportamento mais fácil de enxergar.
+    """)
+
+    # -------------------------------------------------------
+    # O QUE APRENDEMOS
+    # -------------------------------------------------------
+
+    st.subheader("🎯 O que aprendemos?")
+
+    col1, col2 = st.columns(2)
+
     with col1:
-        st.markdown("Agora que temos a prova algébrica de que $a=4$ e $b=4$, basta jogar na fórmula original de Pitágoras para descobrirmos o tamanho exato da rede de proteção a ser comprada:")
-        st.latex(r"L = \sqrt{a^2 + b^2}")
-        st.latex(r"L = \sqrt{4^2 + 4^2}")
-        st.latex(r"L = \sqrt{16 + 16} = \sqrt{32}")
-        st.latex(r"\mathbf{L \approx 5.65 \text{ metros}}")
-        st.info("Parabéns! Vocês acabaram de resolver um problema complexo de otimização de engenharia utilizando apenas as propriedades da parábola do 1º ano do Ensino Médio!")
-        
+        st.success("""
+        ✔ Equação da reta
+
+        ✔ Equação segmentária
+
+        ✔ Distância entre pontos
+        """)
+
     with col2:
-        # Gráfico final da rede posicionada
-        import matplotlib.pyplot as plt
-        import numpy as np
-        fig_final, ax_final = plt.subplots(figsize=(5, 4))
-        
-        ax_final.axhline(0, color='black', linewidth=1)
-        ax_final.axvline(0, color='black', linewidth=1)
-        ax_final.set_xlim(-1, 6)
-        ax_final.set_ylim(-1, 6)
-        ax_final.grid(True, linestyle='--', alpha=0.5)
-        
-        # Muros
-        ax_final.plot([0, 5], [0, 0], color='gray', linewidth=4, label="Muro Horizontal")
-        ax_final.plot([0, 0], [0, 5], color='gray', linewidth=4, label="Muro Vertical")
-        
-        # A rede ótima
-        ax_final.plot([4, 0], [0, 4], color='magenta', linewidth=3, label="Rede de Proteção Ótima")
-        
-        # Poste e pontos
-        ax_final.plot(2, 2, 'ko', markersize=8)
-        ax_final.text(2.2, 2.2, "Poste P(2,2)", fontweight='bold')
-        ax_final.plot(4, 0, 'mo', markersize=6)
-        ax_final.text(3.5, 0.3, "a = 4")
-        ax_final.plot(0, 4, 'mo', markersize=6)
-        ax_final.text(0.2, 4.2, "b = 4")
-        
-        ax_final.set_title("O Posicionamento Perfeito", fontweight='bold')
-        ax_final.legend(loc='upper right', fontsize=8)
-        
-        st.pyplot(fig_final, use_container_width=True)
+        st.success("""
+        ✔ Construção de tabelas
+
+        ✔ Interpretação de gráficos
+
+        ✔ Análise de mínimos
+        """)
+
+    st.info("""
+    Utilizando apenas ferramentas do Ensino Médio, conseguimos determinar a forma mais econômica de instalar a rede.
+    """)
+
+    # -------------------------------------------------------
+    # CURIOSIDADE MATEMÁTICA
+    # -------------------------------------------------------
+
+    with st.expander("✨ Curiosidade: existe uma resposta exata?"):
+
+        st.markdown("""
+        Nossa investigação localizou com bastante precisão a região onde ocorre o mínimo da função.
+
+        Em cursos mais avançados existe uma ferramenta chamada **Cálculo Diferencial**, capaz de confirmar matematicamente esse resultado.
+        """)
+
+        a_exato = 1 + np.cbrt(4)
+        b_exato = (2 * a_exato) / (a_exato - 1)
+        dist_exato = np.sqrt(a_exato**2 + b_exato**2)
+
+        st.latex(r"a = 1+\sqrt[3]{4}")
+
+        st.metric(
+            "Valor aproximado de a",
+            f"{a_exato:.3f} m"
+        )
+
+        st.metric(
+            "Comprimento mínimo da rede",
+            f"{dist_exato:.2f} m"
+        )
+
+        st.success("""
+        Observe que esse valor aparece exatamente na região identificada por nós através da análise da tabela e do gráfico.
+
+        Ou seja: a investigação realizada pela turma chegou muito perto da solução matemática exata.
+        """)
+```
