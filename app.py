@@ -315,18 +315,18 @@ elif etapa == "2. Modelagem":
         st.markdown("Ao fazer isso, obrigamos a rede a passar pelo poste:")
         st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
         
-        st.markdown("Para facilitar a nossa vida na hora de otimizar, precisamos trabalhar com uma variável só. Vamos isolar a letra $b$ para descobrir como a posição de amarração no muro vertical depende da escolha que fizermos para o muro horizontal:")
+        st.markdown("Para facilitar vamos trabalhar com uma variável só. Vamos isolar a letra $b$ para descobrir como a posição de amarração no muro vertical depende da escolha que fizermos para o muro horizontal:")
         st.latex(r"\frac{2}{b} = 1 - \frac{1}{a} \implies \frac{2}{b} = \frac{a - 1}{a}")
-        st.markdown("Invertendo as frações e multiplicando cruzado, chegamos à restrição física:")
+        st.markdown("Invertendo as frações e multiplicando cruzado, temos:")
         st.latex(r"\mathbf{b = \frac{2a}{a - 1}}")
-        st.markdown("⚠️ **Isso é incrível:** Acabamos de provar que a posição onde vamos amarrar a rede na parede vertical ($b$) está totalmente 'amarrada' pela matemática à escolha que fizermos para a parede horizontal ($a$).")
+        #st.markdown("⚠️ **Isso é incrível:** Acabamos de provar que a posição onde vamos amarrar a rede na parede vertical ($b$) está totalmente 'amarrada' pela matemática à escolha que fizermos para a parede horizontal ($a$).")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # --- PASSO 3 ---
     st.info("🤔 **Pergunta 3:** O objetivo principal do grêmio é minimizar gastos, logo, precisamos calcular o **comprimento total da rede esticada**. Olhando de cima para o canto do muro, a parede e a rede, que figura geométrica se forma? Qual teorema famoso nos dá o comprimento da parte mais longa dessa figura?")
 
-    with st.expander("👉 Revelar a Resposta: A Função do Comprimento", expanded=False):
+    with st.expander("👉 Podemos achar o comprimento usando...", expanded=False):
         st.success("Forma-se um **Triângulo Retângulo** e nós usaremos o **Teorema de Pitágoras** (fórmula da distância)! 🎯")
         st.markdown("A rede nada mais é do que a hipotenusa desse triângulo. Portanto, o comprimento total $L$ será:")
         st.latex(r"L = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} \implies L = \sqrt{(0 - a)^2 + (b - 0)^2} \implies L = \sqrt{a^2 + b^2}")
