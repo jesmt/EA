@@ -295,7 +295,7 @@ elif etapa == "2. Modelagem":
     from PIL import Image
     
     img = Image.open("diagrama.jpg")
-    #st.image(img, caption="Esquema da quadra e a rede de proteção.", width=500)
+    st.image(img, caption="", width=500)
 
     st.info("🤔 **Pergunta 1:** Se adotarmos o canto dos muros como a origem $(0,0)$ do nosso plano cartesiano, sabemos que a rede de proteção vai cruzar o muro horizontal numa distância **$a$** e o muro vertical numa distância **$b$**. Baseado na nossa revisão, qual é a equação da reta para descrever uma reta quando conhecemos exatamente onde ela 'corta' os eixos?")
 
