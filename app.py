@@ -492,7 +492,6 @@ elif etapa == "4. Resultado":
     """, unsafe_allow_html=True)
 
 
-
     st.markdown("""
     ### 🔍 Lendo o gráfico da função
 
@@ -539,19 +538,43 @@ elif etapa == "4. Resultado":
 
     Ou seja, continuar afastando a amarração não gera economia; pelo contrário, passa a desperdiçar material.
     """)
+    
+    st.success("""
+    🎯 O mais interessante é que nós já havíamos percebido esse comportamento antes mesmo de ver o gráfico completo.
 
-    st.markdown("""
-    Observe que o gráfico confirma exatamente aquilo que percebemos nos testes:
+    A tabela construída pela turma mostrava exatamente essa tendência:
 
-    - inicialmente o comprimento da rede diminui;
-    - existe um ponto onde a rede atinge seu menor comprimento;
-    - depois desse ponto, o comprimento volta a aumentar.
+    ✔ os valores diminuíam;
 
-    Isso significa que encontramos um **ponto de mínimo da função**.
+    ✔ chegavam a uma região de mínimo;
 
-    Os valores obtidos experimentalmente pela turma eram apenas alguns pontos da curva. Quanto mais testes realizássemos, mais o gráfico construído por nós se aproximaria do gráfico real da função.
+    ✔ e depois voltavam a aumentar.
+
+    O gráfico apenas tornou visível aquilo que os dados já estavam indicando.
     """)
 
+    st.markdown("""
+    ### 📊 O que aprendemos sobre funções?
+
+    Nesta atividade a função não apareceu apenas como uma fórmula.
+
+    Ela serviu para descrever uma situação real.
+
+    Cada valor de **a** produz:
+
+    - um valor correspondente de **b**;
+    - um comprimento específico para a rede.
+
+    Por isso podemos interpretar a função como uma máquina:
+
+    👉 escolhemos uma posição para a amarração;
+
+    👉 a função calcula automaticamente o comprimento da rede.
+
+    O gráfico mostra todos esses resultados ao mesmo tempo.
+    """)
+
+   
     # -------------------------------------------------------
     # ADENDO SOBRE VÉRTICE
     # -------------------------------------------------------
