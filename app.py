@@ -52,56 +52,83 @@ if etapa == "1. O Problema":
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Modelagem":
     st.title("📐 Colocando no Papel")
-    st.markdown("Para descobrir o valor exato sem ficar apenas no 'olhômetro', precisamos traduzir o desenho da rede e dos muros para a linguagem da Matemática.")
+    st.markdown("Para descobrir o valor exato, precisamos traduzir o desenho da rede e dos muros para a linguagem da Matemática.")
     
-    # Criamos uma "memória" para saber em qual passo da explicação a aula está
+    # --- NOVA SEÇÃO: A REVISÃO (O "Flashback") ---
+    with st.expander("📚 Flashback: O 'Kit de Sobrevivência' das Retas"):
+        st.markdown("A geometria analítica é como um armário: dependendo do problema, escolhemos a 'roupa' (equação) certa para a reta.")
+        
+        tab1, tab2, tab3 = st.tabs(["Segmentária (A nossa!)", "Geral (A universal)", "Reduzida (A clássica)"])
+
+        with tab1:
+            st.markdown("### 1. Forma Segmentária (A mais prática!)")
+            st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
+            st.markdown("""
+            * **Por que usar:** Como a rede corta os eixos (muros) em pontos específicos $a$ e $b$, essa equação já nos dá a resposta pronta.
+            * **Visual:** O $a$ e o $b$ são exatamente os lugares onde a rede toca os muros!
+            """)
+
+        with tab2:
+            st.markdown("### 2. Forma Geral")
+            st.latex(r"ax + by + c = 0")
+            st.markdown("É a forma mais bruta e universal. Toda reta pode ser escrita assim, mas não nos diz de cara onde ela corta os eixos.")
+
+        with tab3:
+            st.markdown("### 3. Forma Reduzida")
+            st.latex(r"y = mx + q")
+            st.markdown("""
+            * **$m$:** Inclinação (taxa de variação).
+            * **$q$:** Onde corta o eixo Y.
+            """)
+
+        st.markdown("---")
+        st.subheader("🛠️ Laboratório: Brincando com as Retas")
+        st.markdown("Mova os pontos no GeoGebra abaixo para ver a equação mudar. Note como a **Segmentária** se ajusta quando tocamos os eixos.")
+        
+        # Link do GeoGebra (Substitua pelo seu link correto)
+        geogebra_url = "https://www.geogebra.org/material/iframe/id/fpy3pppp/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false"
+        components.iframe(geogebra_url, width=800, height=450)
+
+    # --- LÓGICA DO PROBLEMA (Continuação) ---
     if 'passo_aula' not in st.session_state:
         st.session_state.passo_aula = 0
 
-    st.info("Se os muros formam um ângulo de 90 graus (como os eixos X e Y), e a rede é uma linha reta que cruza esses muros, alguém lembra de alguma equação que represente uma reta cortando os eixos?")
+    st.markdown("---")
+    st.info("Agora que relembramos as ferramentas, vamos ao nosso problema!")
 
-    # O botão avança o estado da aula para o passo 1
     if st.button("Revelar Passo 1: A Equação da Reta"):
         st.session_state.passo_aula = 1
 
-    # Se o passo for 1 ou maior, mostra este bloco (assim ele não some mais!)
     if st.session_state.passo_aula >= 1:
-        st.markdown("### Passo 1: A Forma Segmentária")
-        st.markdown("""
-        Como nós sabemos exatamente onde a rede encosta nos muros — nos pontos **A(a,0)** do muro horizontal e **B(0,b)** do muro vertical —, a maneira mais prática de descrever essa reta é usando a **Equação Segmentária da Reta**:
-        """)
+        st.markdown("### Passo 1: A Forma Segmentária na Prática")
+        st.markdown("Já que sabemos que a rede encosta nos muros nos pontos **A(a,0)** e **B(0,b)**, usamos a equação:")
         st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
         
-        st.warning("🗣️ **Discussão:** Muito bem, mas a rede não pode ser amarrada em qualquer lugar solta pelo pátio. Ela tem um obstáculo obrigatório. Qual é e como colocamos isso na fórmula?")
+        st.warning("🗣️ **Discussão:** A rede tem um obstáculo obrigatório. Qual é o ponto que ela NÃO pode ignorar?")
 
         if st.button("Revelar Passo 2: O Poste Central"):
             st.session_state.passo_aula = 2
 
     if st.session_state.passo_aula >= 2:
         st.markdown("### Passo 2: Passando pelo poste P(1,2)")
-        st.markdown("A rede tem que encostar no poste central. Isso significa que o ponto $P(1,2)$ *pertence* à reta. Então, podemos substituir o $x$ por 1 e o $y$ por 2 na nossa equação:")
+        st.markdown("Se $P(1,2)$ pertence à reta, substituímos $x=1$ e $y=2$:")
         st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
-        st.markdown("Isolando o $b$, descobrimos que a posição em que a rede é amarrada no muro vertical ($b$) depende diretamente da posição do muro horizontal ($a$):")
+        st.markdown("Isolando o $b$, descobrimos a relação entre a posição dos dois muros:")
         st.latex(r"b = \frac{2a}{a - 1}")
-
-        st.error("💡 Agora sabemos onde ficam as pontas da rede. Mas o nosso problema é o orçamento! Precisamos saber o *comprimento* da rede. Que figura geométrica o chão, os muros e a rede formam?")
 
         if st.button("Revelar Passo 3: O Comprimento da Rede"):
             st.session_state.passo_aula = 3
 
     if st.session_state.passo_aula >= 3:
-        st.markdown("### Passo 3: Pitágoras e a Fórmula da Distância")
-        st.markdown("Eles formam um Triângulo Retângulo! Pelo Teorema de Pitágoras, o comprimento total da rede (que é a nossa hipotenusa $AB$) será:")
-        st.latex(r"AB = \sqrt{a^2 + b^2}")
-        st.markdown("Como nós já sabemos lá do Passo 2 que o $b$ vale $\\frac{2a}{a-1}$, nós substituímos para ter uma fórmula com uma única variável:")
+        st.markdown("### Passo 3: Pitágoras")
+        st.markdown("O comprimento da rede é a hipotenusa:")
         st.latex(r"AB(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
         
-        st.success("Pronto! Agora temos a modelagem matemática completa. Podemos ir para a próxima etapa testar os valores!")
+        st.success("Modelagem pronta!")
         
-        # Botão opcional para o professor esconder tudo e começar de novo se precisar
         if st.button("🔄 Reiniciar Lousa"):
             st.session_state.passo_aula = 0
-            st.experimental_rerun()# Atualiza a tela imediatamente
+            st.rerun()
 
 # ETAPA 3: TESTES
 elif etapa == "3. Testes":
