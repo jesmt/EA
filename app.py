@@ -491,6 +491,55 @@ elif etapa == "4. Resultado":
     </div>
     """, unsafe_allow_html=True)
 
+
+
+    st.markdown("""
+    ### 🔍 Lendo o gráfico da função
+
+    Durante os testes nós descobrimos que alguns valores para **a** produziam redes muito longas, enquanto outros pareciam mais econômicos.
+
+    Agora podemos observar o comportamento completo da função.
+    """)
+
+    st.info("""
+    Observe apenas a curva vermelha, que representa os valores possíveis para o nosso problema
+    (1,1 ≤ a ≤ 10).
+
+    Tente responder:
+
+    • O que acontece com o comprimento da rede quando a aumenta logo após 1?
+
+    • Em que região a rede parece atingir seu menor comprimento?
+
+    • O que acontece se continuarmos aumentando a indefinidamente?
+    """)
+
+    st.markdown("""
+    ### 📈 O que o gráfico revela?
+
+    A curva vermelha possui três comportamentos importantes:
+
+    **1️⃣ Inicialmente ela desce**
+
+    Quando escolhemos valores de **a** um pouco maiores que 1, o comprimento da rede diminui rapidamente.
+
+    Isso significa que estamos encontrando posições cada vez mais econômicas para instalar a rede.
+
+    **2️⃣ Existe um ponto mais baixo**
+
+    Chega um momento em que a curva atinge seu ponto mais baixo.
+
+    Nesse ponto encontramos o menor comprimento possível para a rede.
+
+    Em linguagem matemática, dizemos que a função possui um **ponto de mínimo**.
+
+    **3️⃣ Depois ela volta a subir**
+
+    A partir desse ponto, aumentar o valor de **a** faz a rede voltar a crescer.
+
+    Ou seja, continuar afastando a amarração não gera economia; pelo contrário, passa a desperdiçar material.
+    """)
+
     st.markdown("""
     Observe que o gráfico confirma exatamente aquilo que percebemos nos testes:
 
