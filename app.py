@@ -457,27 +457,30 @@ elif etapa == "4. Resultado":
     Mas, afinal, será que não dava para usar uma daquelas fórmulas mágicas que aprendemos na escola?
     """)
 
-    st.subheader("Gráfico das funções")
-    # AQUI VOCÊ COLOCA O LINK DE INCORPORAÇÃO DO SEU GEOGEBRA
-    # Substitua a string abaixo pelo link gerado no site do GeoGebra (Compartilhar > Incorporar)
-    geogebra_url = "https://www.geogebra.org/material/iframe/id/nypq2fcu/width/2560/height/1260/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/true" 
+    
+    # Use um título simples com markdown para controlar melhor a margem
+    st.markdown("#### Gráfico das funções")
+    
+    # URL ajustada (remova o width/height gigante da URL!)
+    # GeoGebra incorpora melhor se você não definir um tamanho absurdo na URL
+    geogebra_url = "https://www.geogebra.org/material/iframe/id/nypq2fcu/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/true"
+    
+    # Renderize o iframe
     components.iframe(geogebra_url, width=800, height=500, scrolling=False)
 
-
+    # CSS para "puxar" o expander para cima do espaço que sobrou
     st.markdown("""
         <style>
-        /* Remove a margem abaixo do componente Iframe */
-        div[data-testid="stIframe"] {
-            margin-bottom: -60px !important;
-            padding-bottom: 0px !important;
+        /* Remove o espaço do container pai do iframe */
+        .element-container:has(iframe) {
+            margin-bottom: -40px !important;
         }
-        /* Remove o padding do container que envolve o Iframe */
-        div.stIframe {
-            margin-bottom: -60px !important;
+        /* Remove espaço extra do header do expander */
+        .streamlit-expanderHeader {
+            margin-top: -10px !important;
         }
         </style>
     """, unsafe_allow_html=True)
-
 
 
 
