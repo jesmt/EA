@@ -347,6 +347,13 @@ elif etapa == "3. Testes":
     
     Olhando para a fórmula abaixo, não é óbvio determinar qual o valor de $a$ que torna a rede o mais curta possível, pois temos variáveis no denominador e uma raiz quadrada:
     """)
+    
+    col_eq1, col_eq2 = st.columns(2)
+    with col_eq1:
+        st.latex(r"\mathbf{b(a) = \frac{2a}{a - 2}}")
+    with col_eq2:
+        st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 2}\right)^2}}")
+    
     st.latex(r"\mathbf{b = \frac{2a}{a - 1}}")
     st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}}")
     
