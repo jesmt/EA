@@ -652,18 +652,18 @@ elif etapa == "4. Resultado":
 
     if st.button("Confirmar o resultado com o Cálculo"):
 
-    a_exato = 1 + np.cbrt(4)
+        a_exato = 1 + np.cbrt(4)
 
-    b_exato = (2 * a_exato) / (a_exato - 1)
+        b_exato = (2 * a_exato) / (a_exato - 1)
 
-    dist_exato = np.sqrt(a_exato**2 + b_exato**2)
+        dist_exato = np.sqrt(a_exato**2 + b_exato**2)
 
-    st.success(
-        f"""
-        O Cálculo confirma que o ponto mínimo ocorre em:
+        st.success(
+            f"""
+            O Cálculo confirma que o ponto mínimo ocorre em:
 
-        a = 1 + ∛4 ≈ {a_exato:.3f}
-        """
+            a = 1 + ∛4 ≈ {a_exato:.3f}
+            """
     )
 
         col1, col2 = st.columns(2)
