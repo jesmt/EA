@@ -419,13 +419,17 @@ elif etapa == "3. Testes":
         st.info(f"📌 Vocês já fizeram {quantidade_testes} teste(s). Continuem dando palpites! Precisamos de pelo menos 3 testes diferentes para conseguir visualizar o que está acontecendo com o tamanho da rede.")
         
     elif quantidade_testes >= 3:
-        st.subheader("📉 Rastreador de Tamanho (Gráfico)")
+        st.subheader("📉 Análise de Tendência da Função L(a)")
         st.markdown("""
-        Olhar apenas para números numa tabela pode ser confuso. Vamos colocar esses tamanhos que vocês descobriram num gráfico. 
+        Observar apenas os dados isolados na tabela nos oferece uma visão pontual, mas limitada. A representação gráfica permite identificar o **comportamento da função** $L(a)$ em todo o intervalo testado.
         
-        **Como ler esse gráfico:** Imaginem que isso é uma montanha-russa do nosso orçamento. Percebam que a linha desce (estamos economizando rede) até chegar num "fundo do poço", e depois volta a subir (estamos gastando mais de novo). 
+        **Como interpretar o gráfico:**
+        - **Tendência de Decréscimo:** Identifique o intervalo onde a inclinação da curva é negativa; aqui, a variação de $a$ promove uma redução no comprimento total da rede.
+        - **Ponto de Inflexão (Mínimo Local):** A curva apresenta uma região de mudança onde o comprimento da rede atinge seu valor mínimo absoluto. 
+        - **Tendência de Crescimento:** Note que, a partir de determinado ponto, o aumento de $a$ passa a exigir um comprimento maior de rede, indicando o comportamento da função após o valor crítico.
         
-        O nosso objetivo é encontrar exatamente os valores que nos deixam lá no ponto mais baixo!
+        **Por que confiar neste resultado?**
+        O gráfico é uma representação contínua da nossa função $L(a) = \sqrt{a^2 + b^2}$. A precisão visual deste gráfico depende da densidade de pontos que vocês testaram. Quanto mais pontos coletarmos próximos ao valor crítico, mais clara será a localização do **ponto de mínimo**, que representa o valor de $a$ que otimiza o custo do material para o grêmio.
         """)
         
         # Plotando a curva usando Matplotlib
