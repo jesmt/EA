@@ -350,14 +350,12 @@ elif etapa == "3. Testes":
     
     col_eq1, col_eq2 = st.columns(2)
     with col_eq1:
-        st.latex(r"\mathbf{b(a) = \frac{2a}{a - 2}}")
+        st.latex(r"\mathbf{b(a) = \frac{2a}{a - 1}}")
     with col_eq2:
-        st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 2}\right)^2}}")
+        st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}}")
     
     st.markdown("""
-    **Desafio:** Vamos realizar uma **investigação numérica**. 
-    Testem valores para **$a$** (distância no muro horizontal, lembrando que $a > 2$ para que o poste em $x=2$ seja alcançável) e observem a tabela e o gráfico.
-    
+    **Desafio:** Vamos realizar uma **investigação numérica** testando valores para **$a$**.
     * O valor de $L(a)$ cai e depois sobe?
     * Existe um ponto onde a rede começa a ficar maior novamente?
     """)
@@ -367,6 +365,13 @@ elif etapa == "3. Testes":
     img = Image.open("diagrama.jpg")
     st.image(img, caption="", width=400)
     col1, col2 = st.columns([1.2, 1.2])
+
+
+    st.warning("""
+    ⚠️ **Atenção às restrições:** Nosso poste está fixado em $x=1$. 
+    Se tentarmos amarrar a rede exatamente em $a=1$, a rede ficará paralela ao muro vertical e nunca o tocará. 
+    Por isso, nosso palpite para 'a' deve ser **sempre maior que 1**.
+    """)
     
     with col1:
         # Entrada de dados
