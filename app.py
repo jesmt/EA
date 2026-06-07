@@ -41,7 +41,7 @@ if etapa == "1. O Problema":
     img = Image.open("diagrama.jpg")
     st.image(img, caption="Esquema da quadra e a rede de proteção.", width=500)
 
-    st.warning(" Mova o ponto **A**. O que acontece com o tamanho da rede se amarrarmos a ponta muito longe da esquina?")
+    st.warning(" Mova o ponto **A** no simulador abaixo e verifique o que acontece com o tamanho da rede se amarrarmos a ponta muito longe da esquina.")
 
 
     st.subheader("Simulador")
