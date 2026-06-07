@@ -276,7 +276,7 @@ elif etapa == "2. Modelagem":
 
     # --- PASSO 1 ---
 
-     from PIL import Image
+    from PIL import Image
     
     img = Image.open("diagrama.jpg")
     st.image(img, caption="Esquema da quadra e a rede de proteção.", width=500)
