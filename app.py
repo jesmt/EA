@@ -52,23 +52,20 @@ if etapa == "1. O Problema":
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Modelagem":
     st.title("📐 Lousa Digital: A Matemática da Reta")
-    st.markdown("Revisão detalhada baseada nos fundamentos da Geometria Analítica para equações da reta.")
-
-    # Inicializa o passo da aula
-    if 'passo_aula' not in st.session_state:
-        st.session_state.passo_aula = 0
+    st.markdown("Bem-vindos ao laboratório matemático! Antes de resolvermos o problema da rede da cantina, precisamos construir as nossas ferramentas de trabalho.")
 
     import matplotlib.pyplot as plt
     import numpy as np
 
     def setup_plot(ax, title=""):
-        ax.axhline(0, color='black', linewidth=1)
-        ax.axvline(0, color='black', linewidth=1)
-        ax.grid(True, linestyle='--', alpha=0.5)
-        ax.set_title(title, fontsize=10)
+        """Configura o visual padrão dos gráficos para manter o design limpo."""
+        ax.axhline(0, color='black', linewidth=1.2)
+        ax.axvline(0, color='black', linewidth=1.2)
+        ax.grid(True, linestyle='--', alpha=0.7)
+        ax.set_title(title, fontsize=11, fontweight='bold')
         return ax
 
-    # Função Mágica para desenhar a Regra de Sarrus igual ao TikZ!
+    # Função Mágica para desenhar a Regra de Sarrus
     def plot_sarrus(matriz, legendas_azul, legendas_vermelha):
         fig, ax = plt.subplots(figsize=(10, 3.5))
         ax.axis('off')
@@ -105,309 +102,211 @@ elif etapa == "2. Modelagem":
         plt.tight_layout()
         return fig
 
-    # --- REVISÃO TEÓRICA DETALHADA COM ABAS ---
-    with st.expander("📚 Revisão Teórica: As Formas da Equação da Reta", expanded=True):
-        t_geral, t_reduzida, t_seg, t_param = st.tabs([
-            "1. Equação Geral", 
-            "2. Equação Reduzida", 
-            "3. Equação Segmentária", 
-            "4. Equação Paramétrica"
-        ])
+    # =====================================================
+    # PARTE 1: INVESTIGAÇÃO TEÓRICA PROGRESSIVA
+    # =====================================================
+    st.markdown("### 🔬 Parte 1: Investigação das Equações da Reta")
+    st.markdown("Na geometria analítica, uma mesma reta pode 'vestir' diferentes equações dependendo do que queremos descobrir. Clique nos botões abaixo para investigar cada uma delas:")
 
-        # TAB 1: EQUAÇÃO GERAL
-        with t_geral:
-            st.markdown("A **Equação Geral** é a representação mais abrangente da reta no plano cartesiano.")
-            st.latex(r"Ax + By + C = 0")
-            
-            with st.expander("🔍 Dedução por Determinante (Regra de Sarrus)", expanded=True):
-                st.markdown("Para que três pontos estejam alinhados, o determinante de suas coordenadas deve ser zero. Duplicando as duas primeiras colunas (Regra de Sarrus), temos:")
-                
-                # Desenhando a Sarrus Genérica
-                matriz_gen = [['x', 'y', '1', 'x', 'y'], 
-                              ['x_A', 'y_A', '1', 'x_A', 'y_A'], 
-                              ['x_B', 'y_B', '1', 'x_B', 'y_B']]
-                leg_azul_gen = [r'+ (x \cdot y_A \cdot 1) = +x y_A', 
-                                r'+ (y \cdot 1 \cdot x_B) = +x_B y', 
-                                r'+ (1 \cdot x_A \cdot y_B) = +x_A y_B']
-                leg_verm_gen = [r'- (1 \cdot y_A \cdot x_B) = -x_B y_A', 
-                                r'- (x \cdot 1 \cdot y_B) = -x y_B', 
-                                r'- (y \cdot x_A \cdot 1) = -x_A y']
-                
-                fig_sarrus1 = plot_sarrus(matriz_gen, leg_azul_gen, leg_verm_gen)
-                st.pyplot(fig_sarrus1, use_container_width=True)
-                
-                st.markdown("Somando os resultados obtidos pelas diagonais e igualando a zero:")
-                st.latex(r"xy_A + x_By + x_Ay_B - x_By_A - xy_B - x_Ay = 0")
-                st.latex(r"x(y_A-y_B) + y(x_B-x_A) + (x_Ay_B-x_By_A) = 0")
+    # Menu de navegação interno estilo "Pills" / Radio Horizontal
+    forma_escolhida = st.radio(
+        "Selecione o modelo matemático para explorar:",
+        ["1. Equação Geral", "2. Equação Reduzida", "3. Equação Segmentária", "4. Equação Paramétrica"],
+        horizontal=True,
+        label_visibility="collapsed"
+    )
 
-            with st.expander("✍️ Exemplo Prático com Sarrus", expanded=True):
-                st.markdown("Vamos deduzir a reta que passa por **A(0,2)** e **B(3,0)**:")
-                
-                # Desenhando a Sarrus Numérica
-                matriz_num = [['x', 'y', '1', 'x', 'y'], 
-                              ['0', '2', '1', '0', '2'], 
-                              ['3', '0', '1', '3', '0']]
-                leg_azul_num = [r'+ (x \cdot 2 \cdot 1) = +2x', 
-                                r'+ (y \cdot 1 \cdot 3) = +3y', 
-                                r'+ (1 \cdot 0 \cdot 0) = 0']
-                leg_verm_num = [r'- (1 \cdot 2 \cdot 3) = -6', 
-                                r'- (x \cdot 1 \cdot 0) = 0', 
-                                r'- (y \cdot 0 \cdot 1) = 0']
-                
-                fig_sarrus2 = plot_sarrus(matriz_num, leg_azul_num, leg_verm_num)
-                st.pyplot(fig_sarrus2, use_container_width=True)
-                
-                st.latex(r"(2x + 3y + 0) - (6 + 0 + 0) = 0")
-                st.success("Equação Geral: **2x + 3y - 6 = 0**")
+    st.markdown("---")
 
-        # TAB 2: EQUAÇÃO REDUZIDA
-        with t_reduzida:
-            st.markdown("Expressa a reta como função explícita de $x$. É a mais usada no Cálculo Diferencial.")
-            st.latex(r"y = mx + q")
-            st.markdown("Onde **$m$** é a inclinação (tangente do ângulo) e **$q$** é o corte no eixo y.")
+    if forma_escolhida == "1. Equação Geral":
+        st.markdown("#### A Equação Geral: $Ax + By + C = 0$")
+        st.markdown("É a representação mais abrangente. Todo ponto $P(x,y)$ que satisfaz a igualdade pertence à reta.")
+        
+        st.info("💡 **Como descobrir?** Se conhecemos dois pontos da reta, usamos a condição de alinhamento com um terceiro ponto genérico $P(x,y)$ através do **Determinante**.")
+        
+        with st.expander("🔍 Investigar a Dedução Algébrica (Regra de Sarrus)", expanded=False):
+            st.markdown("Ao duplicarmos as duas primeiras colunas da matriz de coordenadas, calculamos o determinante multiplicando as diagonais:")
+            matriz_gen = [['x', 'y', '1', 'x', 'y'], 
+                          ['x_A', 'y_A', '1', 'x_A', 'y_A'], 
+                          ['x_B', 'y_B', '1', 'x_B', 'y_B']]
+            leg_azul_gen = [r'+ (x \cdot y_A \cdot 1) = +x y_A', 
+                            r'+ (y \cdot 1 \cdot x_B) = +x_B y', 
+                            r'+ (1 \cdot x_A \cdot y_B) = +x_A y_B']
+            leg_verm_gen = [r'- (1 \cdot y_A \cdot x_B) = -x_B y_A', 
+                            r'- (x \cdot 1 \cdot y_B) = -x y_B', 
+                            r'- (y \cdot x_A \cdot 1) = -x_A y']
             
-            st.markdown("### Comportamento Geométrico do Coeficiente Angular ($m$)")
-            fig, axs = plt.subplots(1, 4, figsize=(12, 3))
+            st.pyplot(plot_sarrus(matriz_gen, leg_azul_gen, leg_verm_gen), use_container_width=True)
+            st.latex(r"x(y_A-y_B) + y(x_B-x_A) + (x_Ay_B-x_By_A) = 0")
+
+        with st.expander("✍️ Aplicar em um Caso Real: Pontos A(0,2) e B(3,0)", expanded=False):
+            st.markdown("Substituindo os números na matriz, o padrão se repete de forma simplificada:")
+            matriz_num = [['x', 'y', '1', 'x', 'y'], 
+                          ['0', '2', '1', '0', '2'], 
+                          ['3', '0', '1', '3', '0']]
+            leg_azul_num = [r'+ (x \cdot 2 \cdot 1) = +2x', 
+                            r'+ (y \cdot 1 \cdot 3) = +3y', 
+                            r'+ (1 \cdot 0 \cdot 0) = 0']
+            leg_verm_num = [r'- (1 \cdot 2 \cdot 3) = -6', 
+                            r'- (x \cdot 1 \cdot 0) = 0', 
+                            r'- (y \cdot 0 \cdot 1) = 0']
             
-            setup_plot(axs[0], "1. Crescente (m > 0)")
-            axs[0].set_xlim(-2, 2); axs[0].set_ylim(-2, 2)
-            axs[0].plot([-2, 2], [-2, 2], color='blue', linewidth=2)
+            st.pyplot(plot_sarrus(matriz_num, leg_azul_num, leg_verm_num), use_container_width=True)
+            st.success("Equação Geral deduzida: **2x + 3y - 6 = 0**")
+
+    elif forma_escolhida == "2. Equação Reduzida":
+        st.markdown("#### A Equação Reduzida: $y = mx + q$")
+        st.markdown("Expressa a reta como função explícita de $x$. Fundamental para o Cálculo Diferencial pois escancara a **inclinação** da reta.")
+        
+        st.markdown("### O Comportamento da Inclinação ($m$)")
+        st.markdown("O coeficiente angular $m$ dita como a reta se comporta visualmente no plano:")
+        
+        fig, axs = plt.subplots(1, 4, figsize=(12, 3.5))
+        
+        setup_plot(axs[0], "1. Crescente (m > 0)")
+        axs[0].set_xlim(-2, 2); axs[0].set_ylim(-2, 2)
+        axs[0].plot([-2, 2], [-2, 2], color='blue', linewidth=2.5)
+        
+        setup_plot(axs[1], "2. Decrescente (m < 0)")
+        axs[1].set_xlim(-2, 2); axs[1].set_ylim(-2, 2)
+        axs[1].plot([-2, 2], [2, -2], color='red', linewidth=2.5)
+        
+        setup_plot(axs[2], "3. Constante (m = 0)")
+        axs[2].set_xlim(-2, 2); axs[2].set_ylim(-2, 2)
+        axs[2].plot([-2, 2], [1, 1], color='green', linewidth=2.5)
+        
+        setup_plot(axs[3], "4. Vertical (m Indef.)")
+        axs[3].set_xlim(-2, 2); axs[3].set_ylim(-2, 2) 
+        axs[3].axvline(1, color='orange', linewidth=2.5)
+        
+        # Mantendo a grade visível, mas ocultando apenas os textos dos eixos para ficar limpo
+        for ax in axs: 
+            ax.set_xticklabels([])
+            ax.set_yticklabels([])
+        st.pyplot(fig, use_container_width=True)
+        st.caption("*Nota: Na reta vertical, não existe função $y = f(x)$, a equação é apenas $x = k$.*")
+
+    elif forma_escolhida == "3. Equação Segmentária":
+        st.markdown("#### A Equação Segmentária: $\\frac{x}{p} + \\frac{y}{q} = 1$")
+        st.markdown("Uma representação visualmente elegante: se você sabe onde a reta corta as paredes (eixos), você já tem a equação pronta!")
+        
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.info("""
+            **Por que ela é útil?**
+            - O número debaixo do $x$ ($p$) é onde a reta corta o eixo horizontal.
+            - O número debaixo do $y$ ($q$) é onde corta o eixo vertical.
+            - Permite calcular a área do triângulo rapidamente: $Area = \frac{|p \cdot q|}{2}$
+            """)
+            st.markdown("Dada a reta: **$\\frac{x}{-2} + \\frac{y}{4} = 1$**")
+            st.markdown("Corta em $x = -2$ e $y = 4$. A área do triângulo formado é $\\frac{|-2 \cdot 4|}{2} = 4$.")
             
-            setup_plot(axs[1], "2. Decrescente (m < 0)")
-            axs[1].set_xlim(-2, 2); axs[1].set_ylim(-2, 2)
-            axs[1].plot([-2, 2], [2, -2], color='red', linewidth=2)
+        with col2:
+            fig, ax = plt.subplots(figsize=(5, 3.8))
+            setup_plot(ax, r"Interceptos e Área")
+            ax.set_xlim(-4, 2)
+            ax.set_ylim(-1, 5)
             
-            setup_plot(axs[2], "3. Constante (m = 0)")
-            axs[2].set_xlim(-2, 2); axs[2].set_ylim(-2, 2)
-            axs[2].plot([-2, 2], [1, 1], color='green', linewidth=2)
+            x_vals = np.linspace(-4, 2, 100)
+            y_vals = 4 * (1 - x_vals/(-2))
+            ax.plot(x_vals, y_vals, color='orange', linewidth=2.5)
             
-            setup_plot(axs[3], "4. Vertical (m Indef.)")
-            axs[3].set_xlim(-2, 2); axs[3].set_ylim(-2, 2) 
-            axs[3].axvline(1, color='orange', linewidth=2)
+            # Destacando interceptos
+            ax.plot(-2, 0, 'ro', markersize=8, zorder=4)
+            ax.plot(0, 4, 'ro', markersize=8, zorder=4)
+            ax.text(-3.3, -0.6, "p = -2", color='red', fontweight='bold')
+            ax.text(0.2, 4.1, "q = 4", color='red', fontweight='bold')
             
-            for ax in axs: 
-                ax.set_xticks([]); ax.set_yticks([])
+            # Área colorida
+            ax.fill_between([-2, 0], [0, 4], color='orange', alpha=0.2, label="Área = 4 u.a.")
+            ax.legend(loc="lower right")
             st.pyplot(fig, use_container_width=True)
 
-        # TAB 3: EQUAÇÃO SEGMENTÁRIA
-        with t_seg:
-            st.markdown("Representação ideal para visualização imediata dos cortes nos eixos cartesianos.")
-            st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
+    elif forma_escolhida == "4. Equação Paramétrica":
+        st.markdown("#### As Equações Paramétricas")
+        st.latex(r"\begin{cases} x = f_1(t) \\ y = f_2(t) \end{cases}")
+        st.markdown("As formas anteriores mostram a reta como um objeto estático. A equação paramétrica traz a reta à vida: ela descreve a **trajetória** e a **velocidade** de um objeto de acordo com o tempo ($t$).")
+        
+        with st.expander("Cinemática Visual: O movimento no tempo", expanded=True):
+            st.markdown("Imagine uma partícula cuja posição obedece ao sistema: **$x = 3t + 4$** e **$y = 2 - 3t$**")
             
-            st.markdown("### Visualização no Plano Cartesiano")
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                st.markdown("**Exemplo 1 (Sinais Iguais):** $\\frac{x}{3} + \\frac{y}{2} = 1$")
-                fig1, ax1 = plt.subplots(figsize=(4, 3))
-                setup_plot(ax1)
-                ax1.set_xlim(-1, 4); ax1.set_ylim(-1, 3)
-                ax1.plot([-1.5, 4.5], [3, -1], color='teal', linewidth=2)
-                ax1.plot(3, 0, 'ro'); ax1.annotate('p=3', (3, 0.2), color='red')
-                ax1.plot(0, 2, 'ro'); ax1.annotate('q=2', (0.2, 2), color='red')
-                st.pyplot(fig1, use_container_width=True)
-
-            with col2:
-                st.markdown("**Exemplo 2 (Sinais Distintos):** $\\frac{x}{-2} + \\frac{y}{4} = 1$")
-                fig2, ax2 = plt.subplots(figsize=(4, 3))
-                setup_plot(ax2)
-                ax2.set_xlim(-3, 2); ax2.set_ylim(-1, 5)
-                ax2.plot([-2.5, 0.5], [-1, 5], color='orange', linewidth=2)
-                ax2.plot(-2, 0, 'ro'); ax2.annotate('p=-2', (-2, 0.2), color='red')
-                ax2.plot(0, 4, 'ro'); ax2.annotate('q=4', (0.2, 4), color='red')
-                st.pyplot(fig2, use_container_width=True)
-
-        # TAB 4: EQUAÇÃO PARAMÉTRICA
-        with t_param:
-            st.markdown("Descreve a 'história' do ponto sobre a reta usando uma variável escalar (tempo $t$). É fundamental na cinemática.")
-            st.latex(r"\begin{cases} x = 3t + 4 \\ y = 2 - 3t \end{cases}")
-            
-            st.markdown("### A Ideia de Trajetória e Tempo")
-            fig3, ax3 = plt.subplots(figsize=(6, 3))
-            setup_plot(ax3)
-            ax3.set_xlim(0, 11); ax3.set_ylim(-5, 6)
+            fig, ax = plt.subplots(figsize=(8, 3))
+            setup_plot(ax, "A partícula avança ao longo da reta conforme o tempo (t) passa")
+            ax.set_xlim(0, 11); ax.set_ylim(-5, 6)
             
             x_vals = np.linspace(0, 11, 100)
             y_vals = (6 - x_vals)
-            ax3.plot(x_vals, y_vals, color='magenta', linestyle='--', alpha=0.5)
+            ax.plot(x_vals, y_vals, color='gray', linestyle='--', alpha=0.5)
             
             tempos = [-1, 0, 1, 2]
             cores = ['#D8BFD8', '#DA70D6', '#BA55D3', '#800080']
             for i, t in enumerate(tempos):
                 x_t = 3*t + 4
                 y_t = 2 - 3*t
-                ax3.plot(x_t, y_t, marker='o', color=cores[i], markersize=8)
-                ax3.annotate(f' t={t}s\n ({x_t},{y_t})', (x_t+0.2, y_t), fontsize=9)
+                ax.plot(x_t, y_t, marker='o', color=cores[i], markersize=10)
+                ax.annotate(f' t={t}s\n ({x_t},{y_t})', (x_t+0.3, y_t), fontsize=10, fontweight='bold')
                 
-            ax3.set_title("O ponto se desloca ao longo da reta conforme o tempo (t) avança")
-            st.pyplot(fig3, use_container_width=True)
+            st.pyplot(fig, use_container_width=True)
 
-    st.markdown("---")
-    
-    # --- FLUXO DO PROBLEMA DA REDE (Modelagem Acadêmica) ---
-    st.markdown("### 🎯 A Modelagem Matemática do Problema")
-    st.markdown("Para descobrir o comprimento exato da rede e minimizar o custo para a cantina, precisamos traduzir o espaço físico da escola para uma função matemática. Acompanhe a dedução lógica:")
-    
-    st.markdown("**1. A Equação da Rede de Proteção:**")
-    st.markdown("Sabemos que a rede cruza os dois muros (eixos X e Y). Seja $A(a, 0)$ o ponto de fixação no muro horizontal e $B(0, b)$ no vertical. Como conhecemos os interceptos, a **Equação Segmentária** é a ferramenta ideal:")
-    st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
-    st.markdown("**2. A Restrição Física (O Poste Central):**")
-    st.markdown("A rede deve obrigatoriamente se apoiar no poste localizado em $P(1,2)$. Substituindo na reta:")
-    st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
-    
-    st.markdown("Isolando a variável $b$, obtemos a relação de dependência:")
-    st.latex(r"b = \frac{2a}{a - 1}")
-
-    st.markdown("**3. A Função Objetivo (O Comprimento da Rede):**")
-    st.markdown("A rede esticada forma um triângulo retângulo com os muros. Pelo **Teorema de Pitágoras**, o comprimento total ($L$) é:")
-    st.latex(r"L = \sqrt{a^2 + b^2}")
-
-    st.markdown("Substituindo $b$, chegamos à nossa função modelada apenas em função da distância $a$:")
-    
-    st.success("Função do Comprimento da Rede:")
-    st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
-    
-    st.markdown("A modelagem está concluída! Na próxima etapa, usaremos esta função para testar valores e encontrar o comprimento mínimo.")
-    # TAB 3: EQUAÇÃO SEGMENTÁRIA
-    with t_seg:
-        st.markdown("Uma representação extremamente elegante quando conhecemos os pontos exatos onde a reta corta os eixos coordenados.")
-        st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
-        
-        with st.expander("🔍 Ver Dedução Algébrica"):
-            st.markdown("Partindo da Equação Geral, transpomos a constante $C$ e dividimos todos os termos por $-C$:")
-            st.latex(r"Ax + By = -C \implies \frac{Ax}{-C} + \frac{By}{-C} = 1 \implies \frac{x}{(-C/A)} + \frac{y}{(-C/B)} = 1")
-            st.markdown("Substituindo as frações do denominador por $p$ e $q$, chegamos à forma segmentária.")
-        
-        with st.expander("✍️ Análise Visual de Área Interceptada", expanded=True):
-            col1, col2 = st.columns([1, 1])
-            with col1:
-                st.markdown(r"""
-                ### Exemplo Geométrico
-                Dada a equação segmentária:
-                $$\frac{x}{-2} + \frac{y}{4} = 1$$
-                
-                Desta forma, identificamos visualmente os eixos sem conta alguma:
-                - **Intercepto horizontal ($x$):** Corta em $p = -2 \rightarrow$ Ponto $(-2,0)$
-                - **Intercepto vertical ($y$):** Corta em $q = 4 \rightarrow$ Ponto $(0,4)$
-                
-                **Cálculo Prático de Área:** Esta equação é perfeita para problemas de otimização geométrica porque a área do triângulo formado entre a reta e os eixos é dada de imediato por:
-                $$\text{Área} = \frac{|p \cdot q|}{2} = \frac{|-2 \cdot 4|}{2} = 4 \text{ u.a.}$$
-                """)
-            with col2:
-                fig, ax = plt.subplots(figsize=(5, 3.8))
-                setup_plot(ax, r"Interceptos Visuais e Área da Equação Segmentária")
-                ax.set_xlim(-4, 2)
-                ax.set_ylim(-1, 5)
-                
-                # Reta plotada
-                x_vals = np.linspace(-4, 2, 100)
-                y_vals = 4 * (1 - x_vals/(-2))
-                ax.plot(x_vals, y_vals, color='orange', linewidth=2)
-                
-                # Destacando interceptos nos eixos de forma muito explícita
-                ax.plot(-2, 0, 'ro', markersize=8, zorder=4)
-                ax.plot(0, 4, 'ro', markersize=8, zorder=4)
-                ax.text(-2.8, -0.6, "p = -2\n(-2,0)", color='red', fontweight='bold', fontsize=9)
-                ax.text(0.2, 4.1, "q = 4\n(0,4)", color='red', fontweight='bold', fontsize=9)
-                
-                # Preenchimento do triângulo da área sob os eixos
-                ax.fill_between([-2, 0], [0, 4], color='orange', alpha=0.2, label="Área Interceptada (4 u.a.)")
-                ax.legend(fontsize=8)
-                
-                fig.tight_layout()
-                st.pyplot(fig, use_container_width=True)
-
-    # TAB 4: EQUAÇÃO PARAMÉTRICA
-    with t_param:
-        st.markdown("Descreve a posição dos pontos da reta utilizando uma variável auxiliar $t$, chamada de parâmetro.")
-        st.latex(r"\begin{cases} x = f_1(t) \\ y = f_2(t) \end{cases}")
-        
-        with st.markdown("""
-        ### 💡 Por que a Equação Paramétrica é Importante? (A Intuição da Cinemática)
-        Enquanto as equações anteriores (geral, reduzida) mostram apenas o *lugar estático* da reta no espaço, as equações paramétricas explicam a **dinâmica e a trajetória de um corpo**. Ela responde não só *onde* a reta está, mas *como* e em qual *direção* um objeto se desloca ao longo do tempo $t$.
-        
-        **Exemplo Físico:** Imagine uma partícula se movendo em linha reta no plano onde sua posição horizontal e vertical mudam a cada segundo conforme o sistema abaixo:
-        """):
-            st.latex(r"\begin{cases} x(t) = 1 + 2t \\ y(t) = -1 + 3t \end{cases}")
-            
-            st.markdown("""
-            - No instante $t = 0$: a partícula está na coordenada inicial $(1, -1)$.
-            - No instante $t = 1$: a partícula deslocou-se para a coordenada $(3, 2)$.
-            
-            O vetor diretor da velocidade desse movimento é dado pelos coeficientes de $t$, ou seja, $\vec{v} = (2, 3)$.
-            """)
-        
-        with st.expander("✍️ Conversão para a Forma Cartesiana (Eliminação de Parâmetro)"):
-            st.markdown("Para sabermos qual a equação geral dessa trajetória no plano, isolamos o tempo $t$ em ambas as equações:")
-            st.latex(r"x = 3t + 4 \implies t = \frac{x-4}{3}")
-            st.latex(r"y = 2 - 3t \implies t = \frac{2-y}{3}")
-            st.markdown("Como o tempo $t$ é único, igualamos as duas expressões para eliminá-lo:")
-            st.latex(r"\frac{x-4}{3} = \frac{2-y}{3} \implies x - 4 = 2 - y \implies \boxed{x + y - 6 = 0}")
-
-    st.markdown("---")
-    
     # =====================================================
-    # FLUXO DO PROBLEMA DA REDE - SELETOR ACADÊMICO
+    # PARTE 2: A MODELAGEM MATEMÁTICA DO PROBLEMA
     # =====================================================
-    st.markdown("## 🎯 Resolução Cadenciada do Problema da Cantina")
-    st.markdown("Utilizando os conceitos revisados acima na lousa digital, faremos a modelagem formal da linha reta ocupada pela rede de proteção.")
+    st.markdown("### 🎯 Parte 2: O Desafio da Cantina")
+    st.markdown("Agora que dominamos o arsenal da geometria analítica, vamos traduzir o espaço físico da escola (muros e poste) para uma linguagem matemática rigorosa. Deslize o controle abaixo para avançar na dedução lógica da função:")
     
-    # Substituição dos botões antigos por um seletor progressivo muito mais elegante
+    # Seletor Deslizante para a Investigação Progressiva
     fase_aula = st.select_slider(
-        "Selecione a fase da modelagem analítica para acompanhar o desenvolvimento:",
+        "Arraste para avançar na resolução:",
         options=[
-            "Fase 1: Configuração do Modelo Espacial", 
-            "Fase 2: Imposição da Restrição Física", 
-            "Fase 3: Dedução Analítica da Função Objetivo"
+            "1. Espaço Físico", 
+            "2. O Poste (Restrição)", 
+            "3. O Comprimento (Distância)",
+            "4. A Função Final"
         ]
     )
     
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("---")
     
-    if fase_aula == "Fase 1: Configuração do Modelo Espacial":
-        st.markdown("### 🏛️ Fase 1: Escolha Estratégica da Equação")
+    if fase_aula == "1. Espaço Físico":
+        st.markdown("#### Passo 1: Escolhendo o Modelo Ideal")
         st.markdown("""
-        Como a rede de proteção deve ligar os dois muros perpendiculares da cantina, sabemos que ela cruzará o eixo horizontal $x$ em uma distância $a$ da origem, e o eixo vertical $y$ em uma distância $b$.
+        A rede de proteção será amarrada ligando os dois muros perpendiculares da escola. 
+        Se adotarmos o canto do muro como a origem $(0,0)$, a rede cruzará o eixo horizontal $X$ numa distância **$a$** e o eixo vertical $Y$ numa distância **$b$**.
         
-        Conhecendo explicitamente os interceptos $(a,0)$ e $(0,b)$, a ferramenta matemática ideal e mais elegante para iniciar nossa modelagem é a **Equação Segmentária da Reta**:
+        Como conhecemos exatamente os locais de corte (os interceptos $(a,0)$ e $(0,b)$), a ferramenta matemática mais natural para descrever a rede é a **Equação Segmentária**:
         """)
         st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
-        st.info("Aqui, as variáveis independentes do nosso problema de otimização passam a ser os comprimentos dos muros $a$ e $b$.")
-            
-    elif fase_aula == "Fase 2: Imposição da Restrição Física":
-        st.markdown("### 📌 Fase 2: Fixação da Reta no Poste")
+        st.info("💡 **Conclusão da Fase:** O nosso problema agora se resume a descobrir os valores perfeitos para as variáveis de posicionamento $a$ e $b$. Arraste o controle para a próxima fase.")
+
+    elif fase_aula == "2. O Poste (Restrição)":
+        st.markdown("#### Passo 2: A Matemática da Restrição")
         st.markdown("""
-        O problema impõe uma restrição física intransponível: a rede precisa obrigatoriamente tangenciar/encostar no poste de sustentação fixado na coordenada exata $P(1,2)$. 
+        A rede não pode ficar solta: ela precisa **obrigatoriamente tangenciar o poste** de sustentação que fica na coordenada exata **$P(1,2)$**.
         
-        Para que o ponto $P(1,2)$ pertença ao lugar geométrico da reta da rede, suas coordenadas devem satisfazer a equação segmentária escolhida. Substituímos $x=1$ e $y=2$:
+        Na geometria analítica, se um ponto pertence a uma reta, ele deve satisfazer sua equação. Substituindo $x=1$ e $y=2$ na equação da nossa rede:
         """)
         st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
-        st.markdown("Para conseguirmos equacionar o problema usando apenas uma variável, isolamos a variável $b$ em função de $a$:")
-        st.latex(r"\frac{2}{b} = 1 - \frac{1}{a} \implies \frac{2}{b} = \frac{a - 1}{a}")
-        st.markdown("Invertendo ambos os membros da igualdade:")
-        st.latex(r"\frac{b}{2} = \frac{a}{a - 1} \implies \boxed{b = \frac{2a}{a - 1}}")
-        st.warning("Esta relação prova que o ponto de fixação no muro vertical depende estritamente de onde a rede intersectará o chão horizontal.")
+        st.markdown("Isolando a variável $b$, obtemos a relação de dependência entre as duas paredes:")
+        st.latex(r"\frac{2}{b} = 1 - \frac{1}{a} \implies \frac{2}{b} = \frac{a - 1}{a} \implies \boxed{b = \frac{2a}{a - 1}}")
+        st.warning("⚠️ **Conclusão da Fase:** Provamos matematicamente que o local onde amarramos a rede no muro vertical ($b$) está totalmente preso/amarrado ao local onde escolhemos amarrar no muro horizontal ($a$). Arraste para a próxima fase.")
             
-    elif fase_aula == "Fase 3: Dedução Analítica da Função Objetivo":
-        st.markdown("### 📐 Fase 3: Demonstração e Dedução Passo a Passo da Função do Comprimento")
+    elif fase_aula in ["3. O Comprimento (Distância)", "4. A Função Final"]:
+        st.markdown("#### Passo 3: Minimizando o Custo (Distância)")
         st.markdown("""
-        Queremos encontrar o comprimento linear total $L$ da rede de proteção esticada. Geometricamente, o comprimento da rede é exatamente a **distância euclidiana** entre as duas extremidades de fixação nos muros: o ponto $A(a,0)$ e o ponto $B(0,b)$.
-        
-        Aplicando a fórmula clássica da distância entre dois pontos no plano cartesiano (decorrente direta do Teorema de Pitágoras no triângulo retângulo da cantina):
+        O grêmio estudantil quer economizar. Precisamos calcular o **comprimento total $L$ da rede esticada**. 
+        Como a rede forma um triângulo retângulo com os muros da escola, aplicamos o **Teorema de Pitágoras** (que é a base da fórmula de Distância entre dois Pontos):
         """)
         st.latex(r"L = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2}")
         st.latex(r"L = \sqrt{(0 - a)^2 + (b - 0)^2} \implies L = \sqrt{a^2 + b^2}")
         
-        st.markdown("""
-        Como demonstrado na fase anterior, a restrição física do poste nos deu uma equação para $b$ baseada apenas na variável $a$:
-        $$b = \frac{2a}{a - 1}$$
-        
-        Substituindo agora essa expressão de $b$ dentro da raiz do nosso modelo de distância, eliminamos uma incógnita e deduzimos a **Função Objetivo Otimizável** final:
-        """)
-        st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
-        st.success("🎉 Chegamos à Função Objetivo matemática que modela o comprimento total da rede em função apenas da distância horizontal 'a'.")
-# ETAPA 3: TESTES
+        if fase_aula == "4. A Função Final":
+            st.markdown("Para criarmos uma função otimizável que dependa de uma única decisão, substituímos o valor de $b$ que isolamos na Fase 2 dentro da nossa equação de Pitágoras:")
+            
+            st.success("🎉 **Modelagem Concluída! Chegamos à Função Objetivo:**")
+            st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
+            st.markdown("Nós acabamos de converter um problema de engenharia física do pátio da escola em uma pura função matemática $L(a)$. **Avançe para a Etapa 3 (Laboratório de Testes) na barra lateral** para começarmos a procurar o menor comprimento possível!")# ETAPA 3: TESTES
 
 elif etapa == "3. Testes":
     st.title("🧪 Laboratório de Testes Numéricos")
