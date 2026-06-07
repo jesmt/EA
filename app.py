@@ -341,13 +341,15 @@ elif etapa == "2. Modelagem":
 
 # ETAPA 3: TESTES
 elif etapa == "3. Testes":
-    st.title("🧪 Laboratório de Testes Numéricos")
+    st.title("🧪 Laboratório de Testes ")
     st.markdown("""
     Chegou a hora de tentar poupar o dinheiro do grêmio! 
     Mandem no chat valores para **$a$** (a distância no muro horizontal onde vamos amarrar a primeira ponta da rede). Lembrem-se que esse valor tem que ser maior que 1.
     
     Vamos observar a tabela com atenção: **o tamanho da rede está diminuindo ou aumentando?**
     """)
+    st.latex(r"\mathbf{b = \frac{2a}{a - 1}}")
+    st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}}")
     
     col1, col2 = st.columns([1.2, 1.2])
     
