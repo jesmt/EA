@@ -505,7 +505,8 @@ elif etapa == "4. Resultado":
             "O comprimento da rede só diminui.",
             "Existe um ponto onde o comprimento é mínimo.",
             "O gráfico representa uma reta."
-        ]
+        ],
+        index=None
     )
 
     if resposta == "Existe um ponto onde o comprimento é mínimo.":
