@@ -55,7 +55,7 @@ if etapa == "1. O Problema":
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Revisão":
     st.title("📐")
-    st.markdown("Vamos fazer uma breve revisão sobre **retas** antes de seguirmos para a análise do problema.")
+    st.markdown("Vamos fazer uma breve revisão sobre retas antes de seguirmos para a análise do problema.")
 
     import matplotlib.pyplot as plt
     import numpy as np
