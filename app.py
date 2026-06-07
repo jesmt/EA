@@ -7,6 +7,39 @@ import matplotlib.pyplot as plt
 # Configuração da página para ficar mais larga e com título
 st.set_page_config(page_title="Otimização: A Rede da Cantina", layout="wide")
 
+# ==========================================
+# INJEÇÃO DE CSS PARA AUMENTAR AS FONTES
+# ==========================================
+st.markdown("""
+    <style>
+    /* Aumenta o texto padrão, parágrafos e listas */
+    p, li, .stMarkdown, .stText {
+        font-size: 20px !important;
+    }
+    
+    /* Aumenta o texto dos alertas (st.info, st.warning, st.success) */
+    .stAlert p {
+        font-size: 20px !important;
+    }
+    
+    /* Aumenta o tamanho das fórmulas Matemáticas (LaTeX) */
+    .katex {
+        font-size: 1.3em !important;
+    }
+    
+    /* Aumenta o texto dos botões */
+    .stButton>button {
+        font-size: 18px !important;
+    }
+    
+    /* Aumenta as opções do menu lateral (radio buttons) */
+    .stRadio label {
+        font-size: 18px !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+
 # Inicializando o "Session State" para guardar os palpites da turma sem apagar a tabela
 if 'historico' not in st.session_state:
     st.session_state.historico = pd.DataFrame(columns=['Palpite (a)', 'Valor de b (m)', 'Distância da Rede (m)'])
