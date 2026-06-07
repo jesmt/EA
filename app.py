@@ -456,27 +456,22 @@ elif etapa == "4. Resultado":
     st.title("🏆 O Que a Matemática Nos Mostrou?")
 
     st.markdown("""
-    Durante a investigação, nós transformamos um problema real em um problema matemático.
-
-    Nosso objetivo era descobrir **como posicionar a rede de proteção utilizando a menor quantidade possível de material**, reduzindo assim os gastos do grêmio estudantil.
-
+    Ao longo desta atividade, transformamos um problema real em um problema matemático.
+    Nosso objetivo era descobrir qual posição da rede utiliza a menor quantidade possível de material.
     Para isso, construímos uma função que relaciona a posição da rede ao seu comprimento total:
     """)
 
     st.latex(r"L(a)=\sqrt{a^2+\left(\frac{2a}{a-1}\right)^2}")
 
     st.markdown("""
-    Em vez de tentar adivinhar a resposta, realizamos uma investigação:
-
-    - construímos uma tabela de valores;
-    - testamos diferentes posições para a rede;
-    - analisamos o comportamento da função;
-    - construímos um gráfico para visualizar os resultados.
-
-    Foi exatamente essa análise que nos permitiu localizar a região onde ocorre o menor comprimento possível.
+    Para encontrar essa posição, construímos tabelas, realizamos testes e analisamos o comportamento da função.
     """)
 
-    st.markdown("### 📈 O gráfico completo da função")
+    # -------------------------------------------------------
+    # GEOGEBRA
+    # -------------------------------------------------------
+
+    st.subheader("📈 O gráfico da função")
 
     geogebra_url = "https://www.geogebra.org/material/iframe/id/nypq2fcu/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/true"
 
@@ -491,6 +486,71 @@ elif etapa == "4. Resultado":
     </div>
     """, unsafe_allow_html=True)
 
+    st.info("""
+    Observe a curva vermelha.
+
+    Ela representa os valores possíveis para o nosso problema.
+
+    Antes de continuar, tente responder às perguntas abaixo apenas observando o gráfico.
+    """)
+
+    # -------------------------------------------------------
+    # QUIZ INTERATIVO
+    # -------------------------------------------------------
+
+    resposta = st.radio(
+        "Qual das afirmações descreve melhor o comportamento da curva?",
+        [
+            "O comprimento da rede só aumenta.",
+            "O comprimento da rede só diminui.",
+            "Existe um ponto onde o comprimento é mínimo.",
+            "O gráfico representa uma reta."
+        ]
+    )
+
+    if resposta == "Existe um ponto onde o comprimento é mínimo.":
+
+        st.success("""
+        Excelente!
+
+        A curva primeiro desce, atinge um ponto mais baixo e depois volta a subir.
+
+        Isso significa que existe uma posição ideal para instalar a rede.
+        """)
+
+    elif resposta:
+
+        st.error("""
+        Observe novamente a curva vermelha.
+
+        Perceba que ela diminui, atinge um valor mínimo e depois volta a crescer.
+        """)
+
+    # -------------------------------------------------------
+    # LEITURA DO GRÁFICO
+    # -------------------------------------------------------
+
+    st.subheader("🔍 O que o gráfico revela?")
+
+    st.markdown("""
+    Ao analisar a curva observamos três fatos importantes:
+
+    **1️⃣ A rede fica cada vez menor**
+
+    Quando aumentamos o valor de **a** logo após 1, o comprimento da rede diminui rapidamente.
+
+    **2️⃣ Existe um ponto mais baixo**
+
+    Em determinado momento a curva atinge seu menor valor.
+
+    Esse é o ponto de mínimo da função.
+
+    **3️⃣ Depois a rede volta a crescer**
+
+    Continuar aumentando **a** não gera economia.
+
+    Pelo contrário: a quantidade de material necessária volta a aumentar.
+    """)
 
     st.markdown("""
     ### 🔍 Lendo o gráfico da função
