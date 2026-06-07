@@ -60,55 +60,42 @@ elif etapa == "2. Modelagem":
 
     # --- EXPANDER COM A REVISÃO TEÓRICA DETALHADA ---
     with st.expander("📚 Revisão Teórica: As Formas da Reta", expanded=True):
-        st.markdown("Use as abas abaixo para navegar pelos conceitos fundamentais.")
-        
         tab1, tab2, tab3, tab4 = st.tabs(["Alinhamento", "Geral", "Reduzida", "Segmentária"])
 
+        # Função auxiliar para configurar o gráfico de forma compacta
+        def plot_compacto(fig, ax):
+            ax.grid(True, linestyle='--', alpha=0.6)
+            plt.tight_layout(pad=0.5) # Remove margens inúteis ao redor do gráfico
+            return fig
+
         with tab1:
-            st.markdown("### 1. Condição de Alinhamento (Determinante)")
-            st.markdown("Três pontos são colineares se o determinante formado pelas suas coordenadas for nulo[cite: 15, 21]:")
-            st.latex(r"""
-            \begin{vmatrix} 
-            x & y & 1 \\ 
-            x_A & y_A & 1 \\ 
-            x_B & y_B & 1 
-            \end{vmatrix} = 0
-            """)
-            
-            # Matplotlib exemplo: 3 pontos alinhados
-            fig, ax = plt.subplots(figsize=(5, 3))
-            ax.plot([0, 2, 4], [0, 1, 2], 'ro-')
-            ax.set_title("Pontos Colineares (Determinante = 0)")
-            ax.grid(True)
-            st.pyplot(fig)
+            c1, c2 = st.columns([1, 1]) # Coluna 1: Texto | Coluna 2: Gráfico
+            with c1:
+                st.markdown("### 1. Condição de Alinhamento")
+                st.latex(r"\det = 0")
+            with c2:
+                fig, ax = plt.subplots(figsize=(3, 2)) # Gráfico menor
+                ax.plot([0, 2, 4], [0, 1, 2], 'ro-')
+                st.pyplot(plot_compacto(fig, ax), use_container_width=True)
 
         with tab2:
             st.markdown("### 2. Equação Geral")
-            st.markdown("Toda reta no plano cartesiano associa-se a uma equação da forma[cite: 62, 64]:")
             st.latex(r"ax + by + c = 0")
-            st.markdown("Onde $a, b, c \in \mathbb{R}$ e pelo menos um entre $a$ ou $b$ é diferente de zero.")
 
         with tab3:
-            st.markdown("### 3. Forma Reduzida (Isolando y)")
-            st.markdown("Dada a geral $ax + by + c = 0$, isolamos $y$ para encontrar a inclinação[cite: 96, 97]:")
-            st.latex(r"by = -ax - c \implies y = \underbrace{\left(-\frac{a}{b}\right)}_{m}x + \underbrace{\left(-\frac{c}{b}\right)}_{q}")
-            st.markdown("Onde **$m$** é o coeficiente angular e **$q$** o coeficiente linear.")
-            
-            # Matplotlib exemplo: y = mx + q
-            fig, ax = plt.subplots(figsize=(5, 3))
-            x = np.linspace(-2, 4, 100)
-            ax.plot(x, 0.5*x + 1, label="y = 0.5x + 1")
-            ax.axhline(0, color='black', linewidth=0.5); ax.axvline(0, color='black', linewidth=0.5)
-            ax.set_title("Equação Reduzida: Inclinação e Intercepto")
-            ax.legend()
-            st.pyplot(fig)
+            c1, c2 = st.columns([1, 1])
+            with c1:
+                st.markdown("### 3. Forma Reduzida")
+                st.latex(r"y = mx + q")
+            with c2:
+                fig, ax = plt.subplots(figsize=(3, 2))
+                x = np.linspace(-1, 3, 100)
+                ax.plot(x, 0.5*x + 1)
+                st.pyplot(plot_compacto(fig, ax), use_container_width=True)
 
         with tab4:
             st.markdown("### 4. Forma Segmentária")
-            st.markdown("Dada pela interseção com os eixos[cite: 105, 147]:")
             st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
-            st.markdown("Isolando o termo independente igualando a 1[cite: 105, 147]:")
-            st.latex(r"\frac{ax}{-c} + \frac{by}{-c} = 1 \implies \frac{x}{(-c/a)} + \frac{y}{(-c/b)} = 1")
 
     st.markdown("---")
     
