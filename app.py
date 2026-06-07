@@ -52,7 +52,7 @@ if etapa == "1. O Problema":
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Modelagem":
     st.title("📐 Lousa Digital: A Matemática da Reta")
-    st.markdown("Revisão detalhada baseada nos fundamentos da Geometria Analítica para equações da reta[cite: 1, 4].")
+    st.markdown("Revisão detalhada baseada nos fundamentos da Geometria Analítica para equações da reta.")
 
     # Inicializa o passo da aula para o problema específico
     if 'passo_aula' not in st.session_state:
@@ -64,8 +64,8 @@ elif etapa == "2. Modelagem":
 
     def setup_plot(ax, title=""):
         """Configura o visual padrão dos gráficos para manter o design limpo."""
-        ax.axhline(0, color='black',linewidth=1)
-        ax.axvline(0, color='black',linewidth=1)
+        ax.axhline(0, color='black', linewidth=1)
+        ax.axvline(0, color='black', linewidth=1)
         ax.grid(True, linestyle='--', alpha=0.5)
         ax.set_title(title, fontsize=10)
         return ax
@@ -79,313 +79,257 @@ elif etapa == "2. Modelagem":
             "4. Equação Paramétrica"
         ])
 
-        # TAB 1: EQUAÇÃO GERAL
-with t_geral:
-
-    st.title("Equação Geral da Reta")
-
-    st.markdown("""
-A **Equação Geral** é a representação mais abrangente da reta no plano cartesiano.
-Todo ponto $P(x,y)$ que satisfaz a igualdade pertence ao lugar geométrico descrito pela reta.
-""")
-
-    st.info("Fórmula da Equação Geral")
-
-    st.latex(r"Ax + By + C = 0")
-
-    st.markdown("""
-Onde:
-
-- $A$, $B$ e $C$ são constantes reais;
-- $A$ e $B$ não podem ser simultaneamente nulos.
-""")
-
-    # =====================================================
-    # DEDUÇÃO ANALÍTICA
-    # =====================================================
-
-    with st.expander("🔍 Dedução Analítica (Condição de Alinhamento)", expanded=False):
+    # TAB 1: EQUAÇÃO GERAL
+    with t_geral:
+        st.title("Equação Geral da Reta")
 
         st.markdown("""
-Para que os pontos conhecidos $A(x_A,y_A)$, $B(x_B,y_B)$ e um ponto genérico
-$P(x,y)$ pertençam à mesma reta, eles devem ser colineares.
+        A **Equação Geral** é a representação mais abrangente da reta no plano cartesiano.
+        Todo ponto $P(x,y)$ que satisfaz a igualdade pertence ao lugar geométrico descrito pela reta.
+        """)
 
-A figura abaixo ilustra a construção geométrica utilizando triângulos semelhantes.
-""")
-
-        fig, ax = plt.subplots(figsize=(8,5))
-
-        ax.set_xlim(0,6)
-        ax.set_ylim(0,5)
-
-        ax.plot([0.2,6],[0.75*0.2+0.25,0.75*6+0.25],
-                color="black", linewidth=2)
-
-        A=(1,1)
-        B=(3,2.5)
-        P=(5,4)
-
-        ax.scatter(*A,color="black")
-        ax.scatter(*B,color="black")
-        ax.scatter(*P,color="black")
-
-        ax.text(0.8,1.1,"A")
-        ax.text(2.8,2.6,"B")
-        ax.text(5.1,4.1,"P(x,y)")
-
-        ax.plot([1,3],[1,1],'b')
-        ax.plot([3,3],[1,2.5],'b')
-
-        ax.plot([3,5],[2.5,2.5],'teal')
-        ax.plot([5,5],[2.5,4],'teal')
-
-        ax.grid(True)
-
-        st.pyplot(fig,use_container_width=True)
+        st.info("Fórmula da Equação Geral")
+        st.latex(r"Ax + By + C = 0")
 
         st.markdown("""
-Da semelhança dos triângulos:
+        Onde:
+        - $A$, $B$ e $C$ são constantes reais;
+        - $A$ e $B$ não podem ser simultaneamente nulos.
+        """)
 
-""")
-
-        st.latex(
-            r"\frac{x_B-x_A}{x-x_B}"
-            r"="
-            r"\frac{y_B-y_A}{y-y_B}"
-        )
-
-        st.markdown("Multiplicando em cruz:")
-
-        st.latex(
-            r"(x_B-x_A)(y-y_B)"
-            r"="
-            r"(x-x_B)(y_B-y_A)"
-        )
-
-        st.markdown("Expandindo:")
-
-        st.latex(
-            r"x_By-x_By_B-x_Ay+x_Ay_B"
-            r"="
-            r"xy_B-xy_A-x_By_B+x_By_A"
-        )
-
-        st.markdown("Reorganizando os termos:")
-
-        st.latex(
-            r"x(y_A-y_B)"
-            r"+"
-            r"y(x_B-x_A)"
-            r"+"
-            r"(x_Ay_B-x_By_A)"
-            r"=0"
-        )
-
-        st.success("Obtivemos a forma geral Ax + By + C = 0")
-
-    # =====================================================
-    # DETERMINANTE
-    # =====================================================
-
-    with st.expander("📐 Dedução por Determinante e Regra de Sarrus"):
-
-        st.markdown("""
-A Álgebra Linear mostra que três pontos estão alinhados quando o determinante da matriz formada por suas coordenadas é nulo.
-""")
-
-        st.latex(
-            r"\begin{vmatrix}"
-            r"x & y & 1 \\"
-            r"x_A & y_A & 1 \\"
-            r"x_B & y_B & 1"
-            r"\end{vmatrix}=0"
-        )
-
-        st.markdown("""
-Aplicando a Regra de Sarrus:
-""")
-
-        st.latex(
-            r"xy_A+x_By+x_Ay_B"
-            r"-"
-            r"x_By_A-xy_B-x_Ay=0"
-        )
-
-        st.markdown("Agrupando:")
-
-        st.latex(
-            r"x(y_A-y_B)"
-            r"+"
-            r"y(x_B-x_A)"
-            r"+"
-            r"(x_Ay_B-x_By_A)"
-            r"=0"
-        )
-
-        st.success(
-            "A mesma equação obtida pela semelhança de triângulos."
-        )
-
-    # =====================================================
-    # EXEMPLO PRÁTICO
-    # =====================================================
-
-    with st.expander("✍️ Exemplo Prático", expanded=True):
-
-        st.markdown("""
-Considere a reta que passa pelos pontos:
-
-- $A(0,2)$
-- $B(3,0)$
-""")
-
-        st.markdown("""
-Substituindo os pontos no determinante:
-""")
-
-        st.latex(
-            r"\begin{vmatrix}"
-            r"x & y & 1\\"
-            r"0 & 2 & 1\\"
-            r"3 & 0 & 1"
-            r"\end{vmatrix}=0"
-        )
-
-        st.markdown("Aplicando a Regra de Sarrus:")
-
-        st.latex(
-            r"2x + 3y - 6 = 0"
-        )
-
-        st.success("Equação Geral da reta")
-
-        st.latex(
-            r"\boxed{2x+3y-6=0}"
-        )
-
-        col1, col2 = st.columns([1,1])
-
-        with col1:
-
+        # =====================================================
+        # DEDUÇÃO ANALÍTICA
+        # =====================================================
+        with st.expander("🔍 Dedução Analítica (Condição de Alinhamento)", expanded=False):
             st.markdown("""
-### Verificação Algébrica
+            Para que os pontos conhecidos $A(x_A,y_A)$, $B(x_B,y_B)$ e um ponto genérico
+            $P(x,y)$ pertençam à mesma reta, eles devem ser colineares.
 
-**Ponto C(-3,4)**
+            A figura abaixo ilustra a construção geométrica utilizando triângulos semelhantes.
+            """)
 
-$$
-2(-3)+3(4)-6=0
-$$
+            fig, ax = plt.subplots(figsize=(8, 5))
+            ax.set_xlim(0, 6)
+            ax.set_ylim(0, 5)
 
-**Ponto A(0,2)**
+            ax.plot([0.2, 6], [0.75 * 0.2 + 0.25, 0.75 * 6 + 0.25], color="black", linewidth=2)
 
-$$
-2(0)+3(2)-6=0
-$$
+            A = (1, 1)
+            B = (3, 2.5)
+            P = (5, 4)
 
-**Ponto B(3,0)**
+            ax.scatter(*A, color="black")
+            ax.scatter(*B, color="black")
+            ax.scatter(*P, color="black")
 
-$$
-2(3)+3(0)-6=0
-$$
+            ax.text(0.8, 1.1, "A")
+            ax.text(2.8, 2.6, "B")
+            ax.text(5.1, 4.1, "P(x,y)")
 
-Todos pertencem à reta.
-""")
+            ax.plot([1, 3], [1, 1], 'b')
+            ax.plot([3, 3], [1, 2.5], 'b')
 
-        with col2:
-
-            fig, ax = plt.subplots(figsize=(6,4))
-
-            x = np.linspace(-4,6,200)
-            y = (6 - 2*x)/3
-
-            ax.plot(
-                x,
-                y,
-                linewidth=2,
-                label="2x + 3y - 6 = 0"
-            )
-
-            ax.scatter(
-                [0,3,-3],
-                [2,0,4],
-                color="red"
-            )
-
-            ax.text(0.1,2.2,"A(0,2)")
-            ax.text(3.1,0.2,"B(3,0)")
-            ax.text(-2.8,4.2,"C(-3,4)")
-
-            ax.axhline(0,color='black')
-            ax.axvline(0,color='black')
+            ax.plot([3, 5], [2.5, 2.5], 'teal')
+            ax.plot([5, 5], [2.5, 4], 'teal')
 
             ax.grid(True)
+            st.pyplot(fig, use_container_width=True)
 
-            ax.legend()
+            st.markdown("Da semelhança dos triângulos:")
+            st.latex(
+                r"\frac{x_B-x_A}{x-x_B}"
+                r"="
+                r"\frac{y_B-y_A}{y-y_B}"
+            )
 
-            st.pyplot(fig,use_container_width=True)
+            st.markdown("Multiplicando em cruz:")
+            st.latex(
+                r"(x_B-x_A)(y-y_B)"
+                r"="
+                r"(x-x_B)(y_B-y_A)"
+            )
 
-        # TAB 2: EQUAÇÃO REDUZIDA
-        with t_reduzida:
-            st.markdown("Expressa a reta como função explícita de $x$. É a mais usada no Cálculo Diferencial[cite: 91, 93].")
-            st.latex(r"y = mx + q")
-            st.markdown("Onde **$m$** é o coeficiente angular (inclinação) e **$q$** é o coeficiente linear (corte na origem)[cite: 96].")
-            
-            with st.expander("🔍 Ver Dedução e Comportamento"):
-                st.markdown("Isolando $y$ em $Ax + By + C = 0$ (onde $B \neq 0$)[cite: 97, 98]:")
-                st.latex(r"y = \left(-\frac{A}{B}\right)x + \left(-\frac{C}{B}\right) \implies m = -\frac{A}{B}, \, q = -\frac{C}{B}")
-                st.markdown("O coeficiente **$m = \tan \theta = \frac{\Delta y}{\Delta x}$** dita o comportamento[cite: 104]:")
-                
-                # Gráficos dinâmicos dos 4 casos de m
-                fig, axs = plt.subplots(1, 4, figsize=(10, 2.5))
-                setup_plot(axs[0], "1. Crescente (m > 0)")
-                axs[0].plot([-2, 2], [-2, 2], color='blue') # [cite: 111]
-                
-                setup_plot(axs[1], "2. Decrescente (m < 0)")
-                axs[1].plot([-2, 2], [2, -2], color='red') # [cite: 112]
-                
-                setup_plot(axs[2], "3. Constante (m = 0)")
-                axs[2].plot([-2, 2], [1, 1], color='green') # [cite: 114]
-                
-                setup_plot(axs[3], "4. Vertical (m Indef.)")
-                axs[3].axvline(1, color='orange') # [cite: 116, 120]
-                
-                for ax in axs: ax.set_xticks([]); ax.set_yticks([])
+            st.markdown("Expandindo:")
+            st.latex(
+                r"x_By-x_By_B-x_Ay+x_Ay_B"
+                r"="
+                r"xy_B-xy_A-x_By_B+x_By_A"
+            )
+
+            st.markdown("Reorganizando os termos:")
+            st.latex(
+                r"x(y_A-y_B)"
+                r"+"
+                r"y(x_B-x_A)"
+                r"+"
+                r"(x_Ay_B-x_By_A)"
+                r"=0"
+            )
+
+            st.success("Obtivemos a forma geral Ax + By + C = 0")
+
+        # =====================================================
+        # DETERMINANTE
+        # =====================================================
+        with st.expander("📐 Dedução por Determinante e Regra de Sarrus"):
+            st.markdown("""
+            A Álgebra Linear mostra que três pontos estão alinhados quando o determinante da matriz formada por suas coordenadas é nulo.
+            """)
+
+            st.latex(
+                r"\begin{vmatrix}"
+                r"x & y & 1 \\"
+                r"x_A & y_A & 1 \\"
+                r"x_B & y_B & 1"
+                r"\end{vmatrix}=0"
+            )
+
+            st.markdown("Aplicando a Regra de Sarrus:")
+            st.latex(
+                r"xy_A+x_By+x_Ay_B"
+                r"-"
+                r"x_By_A-xy_B-x_Ay=0"
+            )
+
+            st.markdown("Agrupando:")
+            st.latex(
+                r"x(y_A-y_B)"
+                r"+"
+                r"y(x_B-x_A)"
+                r"+"
+                r"(x_Ay_B-x_By_A)"
+                r"=0"
+            )
+
+            st.success("A mesma equação obtida pela semelhança de triângulos.")
+
+        # =====================================================
+        # EXEMPLO PRÁTICO
+        # =====================================================
+        with st.expander("✍️ Exemplo Prático", expanded=True):
+            st.markdown("""
+            Considere a reta que passa pelos pontos:
+            - $A(0,2)$
+            - $B(3,0)$
+            """)
+
+            st.markdown("Substituindo os pontos no determinante:")
+            st.latex(
+                r"\begin{vmatrix}"
+                r"x & y & 1\\"
+                r"0 & 2 & 1\\"
+                r"3 & 0 & 1"
+                r"\end{vmatrix}=0"
+            )
+
+            st.markdown("Aplicando a Regra de Sarrus:")
+            st.latex(r"2x + 3y - 6 = 0")
+
+            st.success("Equação Geral da reta")
+            st.latex(r"\boxed{2x+3y-6=0}")
+
+            col1, col2 = st.columns([1, 1])
+
+            with col1:
+                st.markdown("""
+                ### Verificação Algébrica
+
+                **Ponto C(-3,4)**
+                $$2(-3)+3(4)-6=0$$
+
+                **Ponto A(0,2)**
+                $$2(0)+3(2)-6=0$$
+
+                **Ponto B(3,0)**
+                $$2(3)+3(0)-6=0$$
+
+                Todos pertencem à reta.
+                """)
+
+            with col2:
+                fig, ax = plt.subplots(figsize=(6, 4))
+
+                x = np.linspace(-4, 6, 200)
+                y = (6 - 2 * x) / 3
+
+                ax.plot(x, y, linewidth=2, label="2x + 3y - 6 = 0")
+                ax.scatter([0, 3, -3], [2, 0, 4], color="red")
+
+                ax.text(0.1, 2.2, "A(0,2)")
+                ax.text(3.1, 0.2, "B(3,0)")
+                ax.text(-2.8, 4.2, "C(-3,4)")
+
+                ax.axhline(0, color='black')
+                ax.axvline(0, color='black')
+                ax.grid(True)
+                ax.legend()
+
                 st.pyplot(fig, use_container_width=True)
 
-        # TAB 3: EQUAÇÃO SEGMENTÁRIA
-        with t_seg:
-            st.markdown("Representação otimizada para identificação imediata das interseções nos eixos, útil para calcular áreas[cite: 124, 125].")
-            st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
+    # TAB 2: EQUAÇÃO REDUZIDA
+    with t_reduzida:
+        st.markdown("Expressa a reta como função explícita de $x$. É a mais usada no Cálculo Diferencial.")
+        st.latex(r"y = mx + q")
+        st.markdown("Onde **$m$** é o coeficiente angular (inclinação) e **$q$** é o coeficiente linear (corte na origem).")
+        
+        with st.expander("🔍 Ver Dedução e Comportamento"):
+            st.markdown(r"Isolando $y$ em $Ax + By + C = 0$ (onde $B \neq 0$):")
+            st.latex(r"y = \left(-\frac{A}{B}\right)x + \left(-\frac{C}{B}\right) \implies m = -\frac{A}{B}, \, q = -\frac{C}{B}")
+            st.markdown(r"O coeficiente **$m = \tan \theta = \frac{\Delta y}{\Delta x}$** dita o comportamento:")
             
-            with st.expander("🔍 Ver Dedução"):
-                st.markdown("Na Equação Geral, transpomos a constante e dividimos tudo por $-C$[cite: 129, 131]:")
-                st.latex(r"\frac{x}{(-C/A)} + \frac{y}{(-C/B)} = 1 \implies p = -\frac{C}{A}, \, q = -\frac{C}{B}")
+            # Gráficos dinâmicos dos 4 casos de m
+            fig, axs = plt.subplots(1, 4, figsize=(10, 2.5))
+            setup_plot(axs[0], "1. Crescente (m > 0)")
+            axs[0].plot([-2, 2], [-2, 2], color='blue')
             
-            with st.expander("✍️ Exemplo e Análise Visual"):
-                col1, col2 = st.columns([1, 1])
-                with col1:
-                    st.markdown("Equação do Exemplo Prático: $\frac{x}{-2} + \frac{y}{4} = 1$[cite: 161].")
-                    st.markdown("- Intercepto em $x$: $p = -2$\n- Intercepto em $y$: $q = 4$ [cite: 162]")
-                    st.markdown("Sinais diferentes de $p$ e $q$ implicam $m > 0$ (reta crescente)[cite: 163, 164, 166].")
-                with col2:
-                    fig, ax = plt.subplots(figsize=(4, 3))
-                    setup_plot(ax)
-                    ax.plot([-3, 2], [-2, 8], color='orange')
-                    ax.plot([-2, 0], [0, 4], 'ro')
-                    ax.text(-2.5, -0.5, "(-2,0)", color='red')
-                    ax.text(0.2, 4, "(0,4)", color='red')
-                    st.pyplot(fig, use_container_width=True)
+            setup_plot(axs[1], "2. Decrescente (m < 0)")
+            axs[1].plot([-2, 2], [2, -2], color='red')
+            
+            setup_plot(axs[2], "3. Constante (m = 0)")
+            axs[2].plot([-2, 2], [1, 1], color='green')
+            
+            setup_plot(axs[3], "4. Vertical (m Indef.)")
+            axs[3].axvline(1, color='orange')
+            
+            for ax in axs: 
+                ax.set_xticks([])
+                ax.set_yticks([])
+            st.pyplot(fig, use_container_width=True)
 
-        # TAB 4: EQUAÇÃO PARAMÉTRICA
-        with t_param:
-            st.markdown("Descreve a 'história' do ponto sobre a reta usando uma variável escalar (tempo $t$), muito útil na cinemática[cite: 176, 177].")
-            st.latex(r"\begin{cases} x = f_1(t) \\ y = f_2(t) \end{cases}")
-            
-            with st.expander("✍️ Conversão para Cartesiana"):
-                st.markdown("Dado $x = 3t + 4$ e $y = 2 - 3t$[cite: 182]. Isolando $t$ em ambas:")
-                st.latex(r"t = \frac{x-4}{3} \quad \text{e} \quad t = \frac{2-y}{3}")
-                st.markdown("Igualando as expressões para eliminar o parâmetro $t$[cite: 181, 184]:")
-                st.latex(r"\frac{x-4}{3} = \frac{2-y}{3} \implies x - 4 = 2 - y \implies x + y - 6 = 0")
+    # TAB 3: EQUAÇÃO SEGMENTÁRIA
+    with t_seg:
+        st.markdown("Representação otimizada para identificação imediata das interseções nos eixos, útil para calcular áreas.")
+        st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
+        
+        with st.expander("🔍 Ver Dedução"):
+            st.markdown("Na Equação Geral, transpomos a constante e dividimos tudo por $-C$:")
+            st.latex(r"\frac{x}{(-C/A)} + \frac{y}{(-C/B)} = 1 \implies p = -\frac{C}{A}, \, q = -\frac{C}{B}")
+        
+        with st.expander("✍️ Exemplo e Análise Visual"):
+            col1, col2 = st.columns([1, 1])
+            with col1:
+                st.markdown(r"Equação do Exemplo Prático: $\frac{x}{-2} + \frac{y}{4} = 1$.")
+                st.markdown("- Intercepto em $x$: $p = -2$\n- Intercepto em $y$: $q = 4$")
+                st.markdown("Sinais diferentes de $p$ e $q$ implicam $m > 0$ (reta crescente).")
+            with col2:
+                fig, ax = plt.subplots(figsize=(4, 3))
+                setup_plot(ax)
+                ax.plot([-3, 2], [-2, 8], color='orange')
+                ax.plot([-2, 0], [0, 4], 'ro')
+                ax.text(-2.5, -0.5, "(-2,0)", color='red')
+                ax.text(0.2, 4, "(0,4)", color='red')
+                st.pyplot(fig, use_container_width=True)
+
+    # TAB 4: EQUAÇÃO PARAMÉTRICA
+    with t_param:
+        st.markdown("Descreve a 'história' do ponto sobre a reta usando uma variável escalar (tempo $t$), muito útil na cinemática.")
+        st.latex(r"\begin{cases} x = f_1(t) \\ y = f_2(t) \end{cases}")
+        
+        with st.expander("✍️ Conversão para Cartesiana"):
+            st.markdown("Dado $x = 3t + 4$ e $y = 2 - 3t$. Isolando $t$ em ambas:")
+            st.latex(r"t = \frac{x-4}{3} \quad \text{e} \quad t = \frac{2-y}{3}")
+            st.markdown("Igualando as expressões para eliminar o parâmetro $t$:")
+            st.latex(r"\frac{x-4}{3} = \frac{2-y}{3} \implies x - 4 = 2 - y \implies x + y - 6 = 0")
 
     st.markdown("---")
     
@@ -396,9 +340,12 @@ Todos pertencem à reta.
     col_botoes, col_conteudo = st.columns([1, 2])
     
     with col_botoes:
-        if st.button("Revelar Passo 1 ➡️"): st.session_state.passo_aula = max(st.session_state.passo_aula, 1)
-        if st.button("Revelar Passo 2 ➡️"): st.session_state.passo_aula = max(st.session_state.passo_aula, 2)
-        if st.button("Revelar Passo 3 ➡️"): st.session_state.passo_aula = max(st.session_state.passo_aula, 3)
+        if st.button("Revelar Passo 1 ➡️"): 
+            st.session_state.passo_aula = max(st.session_state.passo_aula, 1)
+        if st.button("Revelar Passo 2 ➡️"): 
+            st.session_state.passo_aula = max(st.session_state.passo_aula, 2)
+        if st.button("Revelar Passo 3 ➡️"): 
+            st.session_state.passo_aula = max(st.session_state.passo_aula, 3)
         st.markdown("<br>", unsafe_allow_html=True)
         if st.button("🔄 Reiniciar Lousa"):
             st.session_state.passo_aula = 0
@@ -406,7 +353,7 @@ Todos pertencem à reta.
 
     with col_conteudo:
         if st.session_state.passo_aula >= 1:
-            st.info("**Passo 1: Escolha da Equação**\n\nComo conhecemos os interceptos nos muros (eixos $x$ e $y$), a **Forma Segmentária** é a mais direta[cite: 124]:")
+            st.info("**Passo 1: Escolha da Equação**\n\nComo conhecemos os interceptos nos muros (eixos $x$ e $y$), a **Forma Segmentária** é a mais direta:")
             st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
             
         if st.session_state.passo_aula >= 2:
