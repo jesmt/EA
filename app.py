@@ -41,7 +41,7 @@ if etapa == "1. O Problema":
     img = Image.open("diagrama.jpg")
     st.image(img, caption="Esquema da quadra e a rede de proteção.", width=500)
 
-     st.markdown("""
+    st.markdown("""
      Mova o ponto A e verifique o que acontece com a distância entre os pontos A e B pertencentes à reta que passo pelo ponto P. 
     """)
 
