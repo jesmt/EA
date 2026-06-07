@@ -41,19 +41,16 @@ if etapa == "1. O Problema":
     img = Image.open("diagrama.jpg")
     st.image(img, caption="Esquema da quadra e a rede de proteção.", width=500)
 
-    st.markdown("""
-     Mova o ponto **A** e verifique o que acontece com a distância entre os pontos A e B pertencentes à reta que passa pelo ponto P. 
-    """)
+    st.warning(" Mova o ponto **A**. O que acontece com o tamanho da rede se amarrarmos a ponta muito longe da esquina?")
 
 
-    
-    st.subheader("Simulador Interativo")
+    st.subheader("Simulador")
     # AQUI VOCÊ COLOCA O LINK DE INCORPORAÇÃO DO SEU GEOGEBRA
     # Substitua a string abaixo pelo link gerado no site do GeoGebra (Compartilhar > Incorporar)
     geogebra_url = "https://www.geogebra.org/material/iframe/id/fpy3pppp/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" 
     components.iframe(geogebra_url, width=800, height=500)
     
-    st.warning("O que acontece com o tamanho da rede se amarrarmos a ponta muito longe da esquina?")
+    
 
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Modelagem":
