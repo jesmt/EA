@@ -53,9 +53,9 @@ if etapa == "1. O Problema":
     
 
 # ETAPA 2: MODELAGEM
-elif etapa == "2. Modelagem":
-    st.title("📐 Lousa Digital: A Matemática da Reta")
-    st.markdown("Bem-vindos ao laboratório matemático! Antes de resolvermos o problema da rede da cantina, precisamos construir as nossas ferramentas de trabalho. Clique nas caixas abaixo para expandir o conteúdo.")
+elif etapa == "2. Revisão":
+    st.title("📐")
+    st.markdown("Vamos fazer uma breve revisão sobre **retas** antes de seguirmos para a análise do problema.")
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -109,7 +109,7 @@ elif etapa == "2. Modelagem":
     # DIVISÃO 1: REVISÃO TEÓRICA PROGRESSIVA
     # =====================================================
     st.header("📚 Parte 1: Revisão Teórica")
-    st.markdown("Expanda as seções abaixo para revisar como as equações da reta são deduzidas e aplicadas geometricamente.")
+    st.markdown("Vamos lembrar como as equações da reta são deduzidas e aplicadas geometricamente.")
 
     # --- 1. EQUAÇÃO GERAL ---
     with st.expander("1️⃣ A Equação Geral: $Ax + By + C = 0$", expanded=False):
@@ -156,7 +156,7 @@ elif etapa == "2. Modelagem":
         
         st.markdown("Pela proporção entre as bases e alturas dos triângulos destacados, temos:")
         st.latex(r"\frac{x_B - x_A}{x - x_B} = \frac{y_B - y_A}{y - y_B}")
-        st.markdown("Multiplicando cruzado e agrupando os termos de $x$ e $y$, chegamos à estrutura polinomial da reta:")
+        st.markdown("Multiplicando cruzado e agrupando os termos de $x$ e $y$, obtemos a seguinte equação:")
         st.latex(r"x(y_A - y_B) + y(x_B - x_A) + (x_A y_B - x_B y_A) = 0")
 
         st.markdown("---")
