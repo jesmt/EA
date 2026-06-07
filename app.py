@@ -456,6 +456,14 @@ elif etapa == "4. Resultado":
     Nós encontramos o "fundo do poço" (o menor gasto de rede possível) tateando no escuro, testando números na tabela. 
     Mas, afinal, será que não dava para usar uma daquelas fórmulas mágicas que aprendemos na escola?
     """)
+
+
+
+    st.subheader("Gráfico das funções")
+    # AQUI VOCÊ COLOCA O LINK DE INCORPORAÇÃO DO SEU GEOGEBRA
+    # Substitua a string abaixo pelo link gerado no site do GeoGebra (Compartilhar > Incorporar)
+    geogebra_url = "https://www.geogebra.org/material/iframe/id/nypq2fcu/width/2560/height/1260/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false" 
+    components.iframe(geogebra_url, width=800, height=500)
     
     # Criando o adendo interativo (caixa sanfona)
     with st.expander("🤔 Adendo: Por que não usar a fórmula do Vértice da Parábola?"):
@@ -485,3 +493,10 @@ elif etapa == "4. Resultado":
         
         st.info(f"🏆 O comprimento MÍNIMO possível para poupar o dinheiro do grêmio é de **{dist_exato:.2f} metros**!")
         st.markdown("*(Dica: Voltem ao GeoGebra na Etapa 1, coloquem o controle em 'a = 2.59' e confirmem com os próprios olhos que é nessa posição que a rede fica mais esticada e curta!)*")
+
+
+
+
+
+
+
