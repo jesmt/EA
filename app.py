@@ -343,10 +343,9 @@ elif etapa == "2. Modelagem":
 elif etapa == "3. Testes":
     st.title("🧪 Laboratório de Testes ")
     st.markdown("""
-    Chegou a hora de tentar poupar o dinheiro do grêmio! 
-    Mandem no chat valores para **$a$** (a distância no muro horizontal onde vamos amarrar a primeira ponta da rede). Lembrem-se que esse valor tem que ser maior que 1.
+    Agora que temos nossa **função do comprimento $L(a)$** e sabemos que a fixação no muro vertical $b$ depende estritamente da nossa escolha em $a$, é hora de investigar o comportamento dessa função.
     
-    Vamos observar a tabela com atenção: **o tamanho da rede está diminuindo ou aumentando?**
+    Olhando para a fórmula abaixo, não é óbvio determinar qual o valor de $a$ que torna a rede o mais curta possível, pois temos variáveis no denominador e uma raiz quadrada:
     """)
     st.latex(r"\mathbf{b = \frac{2a}{a - 1}}")
     st.latex(r"\mathbf{L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}}")
