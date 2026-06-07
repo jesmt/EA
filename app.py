@@ -287,17 +287,17 @@ elif etapa == "2. Modelagem":
     # =====================================================
     # DIVISÃO 2: MODELAGEM DO PROBLEMA (INVESTIGAÇÃO)
     # =====================================================
-    st.header("🎯 Parte 2: A Modelagem Matemática (Investigação)")
-    st.markdown("Agora que dominamos o arsenal da geometria analítica, vamos construir a solução passo a passo. **Tente responder mentalmente às perguntas do professor antes de clicar para revelar a resposta!**")
+    st.header("🎯 Parte 2: O Problema")
+    st.markdown("Agora que revisamos, vamos analisar o nosso problema.")
 
     # --- PASSO 1 ---
 
     from PIL import Image
     
     img = Image.open("diagrama.jpg")
-    st.image(img, caption="Esquema da quadra e a rede de proteção.", width=500)
+    #st.image(img, caption="Esquema da quadra e a rede de proteção.", width=500)
 
-    st.info("🤔 **Pergunta 1:** Se adotarmos o canto dos muros como a origem $(0,0)$ do nosso plano cartesiano, sabemos que a rede de proteção vai cruzar o muro horizontal numa distância **$a$** e o muro vertical numa distância **$b$**. Baseado na nossa revisão, qual é a ferramenta matemática perfeita para descrever uma reta quando conhecemos exatamente onde ela 'corta' os eixos?")
+    st.info("🤔 **Pergunta 1:** Se adotarmos o canto dos muros como a origem $(0,0)$ do nosso plano cartesiano, sabemos que a rede de proteção vai cruzar o muro horizontal numa distância **$a$** e o muro vertical numa distância **$b$**. Baseado na nossa revisão, qual é a equação da reta para descrever uma reta quando conhecemos exatamente onde ela 'corta' os eixos?")
 
     with st.expander("👉 Revelar a Resposta: Escolhendo o Modelo Espacial", expanded=False):
         st.success("Se você pensou na **Equação Segmentária da Reta**, acertou na mosca! 🎯")
