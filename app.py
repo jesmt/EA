@@ -463,7 +463,7 @@ elif etapa == "4. Resultado":
     # AQUI VOCÊ COLOCA O LINK DE INCORPORAÇÃO DO SEU GEOGEBRA
     # Substitua a string abaixo pelo link gerado no site do GeoGebra (Compartilhar > Incorporar)
     geogebra_url = "https://www.geogebra.org/material/iframe/id/nypq2fcu/width/2560/height/1260/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/true" 
-    components.iframe(geogebra_url, width=400, height=800)
+    components.iframe(geogebra_url, width=800, height=800)
     
     # Criando o adendo interativo (caixa sanfona)
     with st.expander("🤔 Adendo: Por que não usar a fórmula do Vértice da Parábola?"):
