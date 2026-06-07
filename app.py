@@ -58,40 +58,37 @@ elif etapa == "2. Modelagem":
     if 'passo_aula' not in st.session_state:
         st.session_state.passo_aula = 0
 
-   with st.expander("📚 Revisão Teórica: As Formas da Reta", expanded=True):
+    # --- EXPANDER COM A REVISÃO TEÓRICA DETALHADA ---
+    # Certifique-se de que o 'with' abaixo esteja alinhado com 4 espaços
+    with st.expander("📚 Revisão Teórica: As Formas da Reta", expanded=True):
         st.markdown("Aprofundamento teórico baseado no material de referência.")
         tab1, tab2, tab3, tab4, tab5 = st.tabs(["Alinhamento", "Geral", "Reduzida", "Segmentária", "Paramétrica"])
 
-        # Função auxiliar para manter gráficos limpos
+        # Função auxiliar para configurar o gráfico de forma compacta
         def plot_compacto(fig, ax):
             ax.grid(True, linestyle='--', alpha=0.6)
             plt.tight_layout(pad=0.5)
             return fig
 
         with tab1:
-            st.markdown("### 1. Condição de Alinhamento")
-            c1, c2 = st.columns(2)
-            with c1:
-                st.markdown("Três pontos são colineares se o determinante for nulo:")
-                st.latex(r"\begin{vmatrix} x & y & 1 \\ x_A & y_A & 1 \\ x_B & y_B & 1 \end{vmatrix} = 0")
-            with c2:
-                st.markdown("Equivalente à igualdade de razões:")
-                st.latex(r"\frac{x_B-x_A}{x_C-x_B} = \frac{y_B-y_A}{y_C-y_B}")
+            st.markdown("### 1. Condição de Alinhamento (Determinante)")
+            st.markdown("Três pontos são colineares se o determinante for nulo:")
+            st.latex(r"\begin{vmatrix} x & y & 1 \\ x_A & y_A & 1 \\ x_B & y_B & 1 \end{vmatrix} = 0")
+            st.markdown("Equivalente à igualdade de razões:")
+            st.latex(r"\frac{x_B-x_A}{x_C-x_B} = \frac{y_B-y_A}{y_C-y_B}")
 
         with tab2:
             st.markdown("### 2. Equação Geral")
-            c1, c2 = st.columns([1, 1.5])
-            with c1:
-                st.latex(r"ax + by + c = 0")
-            with c2:
-                st.markdown("Representa uma reta única para todo ponto $P(x,y)$. \n*Exemplo do PDF:* Reta por $Q(4,3)$ e $R(0,7) \rightarrow 4x + 4y - 28 = 0$")
+            st.markdown("Toda reta no plano cartesiano associa-se a uma equação:")
+            st.latex(r"ax + by + c = 0")
+            st.markdown("*Exemplo:* Reta por $Q(4,3)$ e $R(0,7) \rightarrow 4x + 4y - 28 = 0$")
 
         with tab3:
             st.markdown("### 3. Forma Reduzida (Coeficiente Angular)")
             c1, c2 = st.columns([1, 1])
             with c1:
                 st.latex(r"y = \underbrace{\left(-\frac{a}{b}\right)}_{m}x + \underbrace{\left(-\frac{c}{b}\right)}_{q}")
-                st.markdown("Onde $m$ é a inclinação (declividade) e $q$ é a intersecção com o eixo Y.")
+                st.markdown("Onde $m$ é a inclinação e $q$ a intersecção com o eixo Y.")
             with c2:
                 fig, ax = plt.subplots(figsize=(3, 2))
                 x = np.linspace(-1, 3, 100)
@@ -99,32 +96,27 @@ elif etapa == "2. Modelagem":
                 st.pyplot(plot_compacto(fig, ax), use_container_width=True)
 
         with tab4:
-            st.markdown("### 4. Forma Segmentária (Interceptos)")
+            st.markdown("### 4. Forma Segmentária")
             c1, c2 = st.columns([1, 1])
             with c1:
-                st.markdown("Dada a geral $ax + by + c = 0$:")
-                st.latex(r"\frac{x}{(-c/a)} + \frac{y}{(-c/b)} = 1 \implies \frac{x}{p} + \frac{y}{q} = 1")
-                st.markdown("Interceptos: Eixo X em $p$, Eixo Y em $q$.")
+                st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
+                st.markdown("Onde $p$ e $q$ são os interceptos nos eixos.")
             with c2:
                 fig, ax = plt.subplots(figsize=(3, 2))
-                ax.plot([3, 0], [0, 2]) # Reta passando por p=3, q=2
-                ax.set_title("Interceptos (p,0) e (0,q)")
+                ax.plot([3, 0], [0, 2])
                 st.pyplot(plot_compacto(fig, ax), use_container_width=True)
         
         with tab5:
             st.markdown("### 5. Forma Paramétrica")
             st.markdown("Usa um parâmetro $t$ para definir $x$ e $y$:")
-            c1, c2 = st.columns([1, 1])
-            with c1:
-                st.latex(r"\begin{cases} x = f_1(t) \\ y = f_2(t) \end{cases}")
-            with c2:
-                st.markdown("Para converter para Geral: isole $t$ em ambas e iguale as expressões.")
-                st.latex(r"t = \frac{x-4}{3} = \frac{y-2}{-3}")
+            st.latex(r"\begin{cases} x = f_1(t) \\ y = f_2(t) \end{cases}")
+            st.markdown("Para converter: isole $t$ em ambas e iguale as expressões.")
+
     st.markdown("---")
     
     # --- FLUXO DO PROBLEMA DA REDE ---
     st.markdown("### 🎯 Voltando ao Problema da Cantina")
-    st.info("Já que nossa rede corta os eixos nos pontos **(a,0)** e **(0,b)**, qual forma acima é a mais eficiente?")
+    st.info("Já que nossa rede corta os eixos nos pontos **(a,0)** e **(0,b)**, qual forma é a mais eficiente?")
 
     if st.button("Revelar Passo 1: A Equação da Rede"):
         st.session_state.passo_aula = 1
@@ -146,12 +138,11 @@ elif etapa == "2. Modelagem":
     if st.session_state.passo_aula >= 3:
         st.markdown("O comprimento da rede (hipotenusa) depende de $a$:")
         st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
-        st.success("Modelagem concluída! Agora podemos testar valores e ver o gráfico do comprimento.")
+        st.success("Modelagem concluída!")
 
     if st.button("🔄 Reiniciar Lousa"):
         st.session_state.passo_aula = 0
         st.rerun()
-
 # ETAPA 3: TESTES
 elif etapa == "3. Testes":
     st.title("🧪 Laboratório de Testes Numéricos")
