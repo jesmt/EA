@@ -457,22 +457,26 @@ elif etapa == "4. Resultado":
     Mas, afinal, será que não dava para usar uma daquelas fórmulas mágicas que aprendemos na escola?
     """)
 
-    
-    # Use um título simples com markdown para controlar melhor a margem
+
     st.markdown("#### Gráfico das funções")
     
-    # URL ajustada (remova o width/height gigante da URL!)
-    # GeoGebra incorpora melhor se você não definir um tamanho absurdo na URL
+    # URL mantida
     geogebra_url = "https://www.geogebra.org/material/iframe/id/nypq2fcu/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/true/ctl/true"
     
-    # Renderize o iframe
-    components.iframe(geogebra_url, width=800, height=500, scrolling=False)
+    # Usamos HTML puro para criar um container responsivo
+    st.markdown(f"""
+    <div style="width: 100%; max-width: 800px; margin: 0 auto;">
+        <div style="position: relative; padding-bottom: 62.5%; height: 0;">
+            <iframe src="{geogebra_url}" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     
-
-
-
-    
+ 
     # Criando o adendo interativo (caixa sanfona)
     with st.expander("🤔 Adendo: Por que não usar a fórmula do Vértice da Parábola?"):
         st.markdown("""
