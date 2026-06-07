@@ -468,19 +468,7 @@ elif etapa == "4. Resultado":
     # Renderize o iframe
     components.iframe(geogebra_url, width=800, height=500, scrolling=False)
 
-    # CSS para "puxar" o expander para cima do espaço que sobrou
-    st.markdown("""
-        <style>
-        /* Remove o espaço do container pai do iframe */
-        .element-container:has(iframe) {
-            margin-bottom: -40px !important;
-        }
-        /* Remove espaço extra do header do expander */
-        .streamlit-expanderHeader {
-            margin-top: -10px !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
+    
 
 
 
