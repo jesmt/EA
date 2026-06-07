@@ -137,35 +137,117 @@ elif etapa == "3. Testes":
         st.pyplot(fig)
 
 # =====================================================================
-# ETAPA 4: A MÁGICA PARA O ENSINO MÉDIO (Princípio da Simetria)
+# ETAPA 4: A MÁGICA DA ÁLGEBRA (Otimização sem Derivadas)
 # =====================================================================
 elif etapa == "4. Resultado":
-    st.title("✨ A Matemática Resolve: O Segredo da Simetria")
+    st.title("✨ A Prova Matemática: Otimização com Álgebra")
     st.markdown("""
-    Nós tentamos achar o "fundo do poço" testando números. Mas não precisamos de tentativa e erro, nem de Cálculo de faculdade! Podemos resolver isso usando pura lógica geométrica.
+    Nós observamos na tabela que o menor valor parece ocorrer quando $a=4$ e $b=4$. Mas em matemática, não podemos confiar apenas no "olhômetro" ou na intuição de que "por ser simétrico, deve ser igual". Precisamos provar!
+    
+    A grande sacada aqui é que podemos encontrar esse ponto de mínimo absoluto sem usar nenhuma matemática de faculdade (Cálculo). Vamos usar apenas o que aprendemos no **1º Ano do Ensino Médio**: Equação do 2º Grau!
     """)
     
-    st.info("🤔 **O Pulo do Gato:** Vocês repararam na coordenada do poste? Ele está em **$P(2,2)$**. O que isso significa em relação aos muros?")
+    st.markdown("---")
+
+    # --- PASSO 1: SOMA E PRODUTO ---
+    st.info("🤔 **Investigação 1:** Vamos voltar à equação da nossa restrição (o poste). Se multiplicarmos toda a equação pelo MMC ($ab$), o que acontece com a relação entre $a$ e $b$?")
     
-    with st.expander("👉 Revelar o Raciocínio Geométrico (A Solução)", expanded=True):
+    with st.expander("👉 Revelar a Dedução: Soma e Produto", expanded=False):
+        st.markdown("A partir da nossa restrição do poste, vamos manipular a fração:")
+        st.latex(r"\frac{2}{a} + \frac{2}{b} = 1")
+        st.markdown("Multiplicando todos os termos por $ab$ (para sumir com os denominadores):")
+        st.latex(r"2b + 2a = ab \implies \mathbf{ab = 2(a + b)}")
+        
         st.markdown("""
-        O poste está **exatamente à mesma distância** do muro horizontal e do muro vertical (2 metros de cada). Isso significa que o nosso problema possui **Simetria Perfeita**.
+        Olhe com atenção para essa última equação. Ela nos diz que a **multiplicação** de $a$ e $b$ é igual ao dobro da **soma** deles! 
+        Se chamarmos a soma de **$S$** ($S = a+b$) e o produto de **$P$** ($P = ab$), acabamos de descobrir que:
+        """)
+        st.latex(r"\mathbf{P = 2S}")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # --- PASSO 2: A EQUAÇÃO DO 2º GRAU ---
+    st.info("🤔 **Investigação 2:** Na álgebra, se conhecemos a Soma ($S$) e o Produto ($P$) de dois números, sabemos que eles são as raízes de uma equação do 2º grau: $x^2 - Sx + P = 0$. O que acontece se trocarmos o $P$ por $2S$ nessa equação?")
+    
+    with st.expander("👉 Revelar a Dedução: O Delta de Bhaskara", expanded=False):
+        st.markdown("Substituindo $P = 2S$ na equação genérica, descobrimos que os nossos pedaços de muro ($a$ e $b$) são as raízes desta exata equação:")
+        st.latex(r"x^2 - Sx + 2S = 0")
         
-        Na natureza e na matemática, quando as condições de um problema são perfeitamente simétricas, a configuração ótima (que gasta menos energia ou menor distância) também é simétrica!
+        st.markdown("""
+        Para que os muros $a$ e $b$ existam no mundo real (como distâncias físicas), essa equação **precisa ter raízes reais**. 
+        Qual é a regra de Bhaskara para que existam raízes reais? O discriminante (Delta) tem que ser maior ou igual a zero! ($\Delta \ge 0$)
+        """)
         
-        Logo, para o tamanho da rede ser o menor possível, a amarração nos muros deve ser igual:
+        st.latex(r"\Delta = (-S)^2 - 4 \cdot 1 \cdot (2S) \ge 0")
+        st.latex(r"\mathbf{S^2 - 8S \ge 0}")
+        
+        st.markdown("Como as distâncias são positivas ($S > 0$), podemos dividir por $S$:")
+        st.latex(r"S - 8 \ge 0 \implies \mathbf{S \ge 8}")
+        
+        st.success("🚨 **Descoberta Incrível:** Nós acabamos de provar matematicamente que a **menor soma possível** para os dois pedaços de rede amarrados no muro ($a+b$) é 8 metros!")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # --- PASSO 3: O GOLPE FINAL ---
+    st.info("🤔 **Investigação 3:** Nós queremos a situação de menor gasto possível, ou seja, o limite extremo onde a soma é mínima ($S = 8$). Mas lembre-se da aula de Bhaskara: o que acontece com as duas raízes de uma equação quando o Delta é exatamente ZERO?")
+    
+    with st.expander("👉 Revelar a Prova Final: Por que a = b?", expanded=False):
+        st.markdown("Se escolhermos a soma mínima ($S = 8$), o nosso cálculo do passo anterior fica:")
+        st.latex(r"\Delta = 8^2 - 8(8) = 64 - 64 = 0")
+        
+        st.markdown("""
+        Quando $\Delta = 0$, a fórmula de Bhaskara nos dá **duas raízes idênticas** ($x_1 = x_2$). 
+        Como as nossas raízes são $a$ e $b$, isso PROVA, sem sombra de dúvidas, que no ponto de menor custo, obrigatoriamente:
         """)
         st.latex(r"\mathbf{a = b}")
         
-        st.markdown("Voltando na nossa equação do Poste:")
-        st.latex(r"\frac{2}{a} + \frac{2}{b} = 1")
+        st.markdown("Se a soma deles é 8 ($a + b = 8$) e eles são iguais:")
+        st.latex(r"\mathbf{a = 4 \quad \text{e} \quad b = 4}")
         
-        st.markdown("Como $a = b$, substituímos:")
-        st.latex(r"\frac{2}{a} + \frac{2}{a} = 1 \implies \frac{4}{a} = 1 \implies \mathbf{a = 4}")
+        st.success("🎉 **Vencemos a Otimização!** Provamos de forma irrefutável que a configuração mais econômica exige $a=4$ e $b=4$.")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # --- CONCLUSÃO E GRÁFICO ---
+    st.markdown("### 🏆 O Resultado Final para o Grêmio")
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        st.markdown("Agora que temos a prova algébrica de que $a=4$ e $b=4$, basta jogar na fórmula original de Pitágoras para descobrirmos o tamanho exato da rede de proteção a ser comprada:")
+        st.latex(r"L = \sqrt{a^2 + b^2}")
+        st.latex(r"L = \sqrt{4^2 + 4^2}")
+        st.latex(r"L = \sqrt{16 + 16} = \sqrt{32}")
+        st.latex(r"\mathbf{L \approx 5.65 \text{ metros}}")
+        st.info("Parabéns! Vocês acabaram de resolver um problema complexo de otimização de engenharia utilizando apenas as propriedades da parábola do 1º ano do Ensino Médio!")
         
-        st.success("Bingo! Se o menor caminho exige que $a=4$, consequentemente $b=4$.")
+    with col2:
+        # Gráfico final da rede posicionada
+        import matplotlib.pyplot as plt
+        import numpy as np
+        fig_final, ax_final = plt.subplots(figsize=(5, 4))
         
-        st.markdown("Para descobrir a rede exata que o grêmio deve comprar, jogamos no nosso Pitágoras:")
-        st.latex(r"L = \sqrt{4^2 + 4^2} = \sqrt{16 + 16} = \sqrt{32} \approx \mathbf{5.65 \text{ metros}}")
+        ax_final.axhline(0, color='black', linewidth=1)
+        ax_final.axvline(0, color='black', linewidth=1)
+        ax_final.set_xlim(-1, 6)
+        ax_final.set_ylim(-1, 6)
+        ax_final.grid(True, linestyle='--', alpha=0.5)
         
-        st.markdown("*(Voltem à Tabela de Testes: Vejam se o palpite a=4 não foi exatamente o 'fundo do poço' da nossa montanha-russa!)*")
+        # Muros
+        ax_final.plot([0, 5], [0, 0], color='gray', linewidth=4, label="Muro Horizontal")
+        ax_final.plot([0, 0], [0, 5], color='gray', linewidth=4, label="Muro Vertical")
+        
+        # A rede ótima
+        ax_final.plot([4, 0], [0, 4], color='magenta', linewidth=3, label="Rede de Proteção Ótima")
+        
+        # Poste e pontos
+        ax_final.plot(2, 2, 'ko', markersize=8)
+        ax_final.text(2.2, 2.2, "Poste P(2,2)", fontweight='bold')
+        ax_final.plot(4, 0, 'mo', markersize=6)
+        ax_final.text(3.5, 0.3, "a = 4")
+        ax_final.plot(0, 4, 'mo', markersize=6)
+        ax_final.text(0.2, 4.2, "b = 4")
+        
+        ax_final.set_title("O Posicionamento Perfeito", fontweight='bold')
+        ax_final.legend(loc='upper right', fontsize=8)
+        
+        st.pyplot(fig_final, use_container_width=True)
