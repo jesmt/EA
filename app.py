@@ -51,84 +51,96 @@ if etapa == "1. O Problema":
 
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Modelagem":
-    st.title("📐 Colocando no Papel")
-    st.markdown("Para descobrir o valor exato, precisamos traduzir o desenho da rede e dos muros para a linguagem da Matemática.")
-    
-    # --- NOVA SEÇÃO: A REVISÃO (O "Flashback") ---
-    with st.expander("📚 Flashback: O 'Kit de Sobrevivência' das Retas"):
-        st.markdown("A geometria analítica é como um armário: dependendo do problema, escolhemos a 'roupa' (equação) certa para a reta.")
-        
-        tab1, tab2, tab3 = st.tabs(["Segmentária (A nossa!)", "Geral (A universal)", "Reduzida (A clássica)"])
+    st.title("📐 Lousa Digital: A Matemática da Reta")
+    st.markdown("Para o nosso problema da rede, precisamos definir a reta matematicamente. Vamos relembrar as formas fundamentais conforme o nosso material de estudo:")
 
-        with tab1:
-            st.markdown("### 1. Forma Segmentária (A mais prática!)")
-            st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
-            st.markdown("""
-            * **Por que usar:** Como a rede corta os eixos (muros) em pontos específicos $a$ e $b$, essa equação já nos dá a resposta pronta.
-            * **Visual:** O $a$ e o $b$ são exatamente os lugares onde a rede toca os muros!
-            """)
-
-        with tab2:
-            st.markdown("### 2. Forma Geral")
-            st.latex(r"ax + by + c = 0")
-            st.markdown("É a forma mais bruta e universal. Toda reta pode ser escrita assim, mas não nos diz de cara onde ela corta os eixos.")
-
-        with tab3:
-            st.markdown("### 3. Forma Reduzida")
-            st.latex(r"y = mx + q")
-            st.markdown("""
-            * **$m$:** Inclinação (taxa de variação).
-            * **$q$:** Onde corta o eixo Y.
-            """)
-
-        st.markdown("---")
-        st.subheader("🛠️ Laboratório: Brincando com as Retas")
-        st.markdown("Mova os pontos no GeoGebra abaixo para ver a equação mudar. Note como a **Segmentária** se ajusta quando tocamos os eixos.")
-        
-        # Link do GeoGebra (Substitua pelo seu link correto)
-        geogebra_url = "https://www.geogebra.org/material/iframe/id/fpy3pppp/width/800/height/500/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false"
-        components.iframe(geogebra_url, width=800, height=450)
-
-    # --- LÓGICA DO PROBLEMA (Continuação) ---
+    # Inicializa o passo da aula se não existir
     if 'passo_aula' not in st.session_state:
         st.session_state.passo_aula = 0
 
-    st.markdown("---")
-    st.info("Agora que relembramos as ferramentas, vamos ao nosso problema!")
+    # --- EXPANDER COM A REVISÃO TEÓRICA DETALHADA ---
+    with st.expander("📚 Revisão Teórica: As Formas da Reta", expanded=True):
+        st.markdown("Use as abas abaixo para navegar pelos conceitos fundamentais.")
+        
+        tab1, tab2, tab3, tab4 = st.tabs(["Alinhamento", "Geral", "Reduzida", "Segmentária"])
 
-    if st.button("Revelar Passo 1: A Equação da Reta"):
+        with tab1:
+            st.markdown("### 1. Condição de Alinhamento (Determinante)")
+            st.markdown("Três pontos são colineares se o determinante formado pelas suas coordenadas for nulo[cite: 15, 21]:")
+            st.latex(r"""
+            \begin{vmatrix} 
+            x & y & 1 \\ 
+            x_A & y_A & 1 \\ 
+            x_B & y_B & 1 
+            \end{vmatrix} = 0
+            """)
+            
+            # Matplotlib exemplo: 3 pontos alinhados
+            fig, ax = plt.subplots(figsize=(5, 3))
+            ax.plot([0, 2, 4], [0, 1, 2], 'ro-')
+            ax.set_title("Pontos Colineares (Determinante = 0)")
+            ax.grid(True)
+            st.pyplot(fig)
+
+        with tab2:
+            st.markdown("### 2. Equação Geral")
+            st.markdown("Toda reta no plano cartesiano associa-se a uma equação da forma[cite: 62, 64]:")
+            st.latex(r"ax + by + c = 0")
+            st.markdown("Onde $a, b, c \in \mathbb{R}$ e pelo menos um entre $a$ ou $b$ é diferente de zero.")
+
+        with tab3:
+            st.markdown("### 3. Forma Reduzida (Isolando y)")
+            st.markdown("Dada a geral $ax + by + c = 0$, isolamos $y$ para encontrar a inclinação[cite: 96, 97]:")
+            st.latex(r"by = -ax - c \implies y = \underbrace{\left(-\frac{a}{b}\right)}_{m}x + \underbrace{\left(-\frac{c}{b}\right)}_{q}")
+            st.markdown("Onde **$m$** é o coeficiente angular e **$q$** o coeficiente linear.")
+            
+            # Matplotlib exemplo: y = mx + q
+            fig, ax = plt.subplots(figsize=(5, 3))
+            x = np.linspace(-2, 4, 100)
+            ax.plot(x, 0.5*x + 1, label="y = 0.5x + 1")
+            ax.axhline(0, color='black', linewidth=0.5); ax.axvline(0, color='black', linewidth=0.5)
+            ax.set_title("Equação Reduzida: Inclinação e Intercepto")
+            ax.legend()
+            st.pyplot(fig)
+
+        with tab4:
+            st.markdown("### 4. Forma Segmentária")
+            st.markdown("Dada pela interseção com os eixos[cite: 105, 147]:")
+            st.latex(r"\frac{x}{p} + \frac{y}{q} = 1")
+            st.markdown("Isolando o termo independente igualando a 1[cite: 105, 147]:")
+            st.latex(r"\frac{ax}{-c} + \frac{by}{-c} = 1 \implies \frac{x}{(-c/a)} + \frac{y}{(-c/b)} = 1")
+
+    st.markdown("---")
+    
+    # --- FLUXO DO PROBLEMA DA REDE ---
+    st.markdown("### 🎯 Voltando ao Problema da Cantina")
+    st.info("Já que nossa rede corta os eixos nos pontos **(a,0)** e **(0,b)**, qual forma acima é a mais eficiente?")
+
+    if st.button("Revelar Passo 1: A Equação da Rede"):
         st.session_state.passo_aula = 1
 
     if st.session_state.passo_aula >= 1:
-        st.markdown("### Passo 1: A Forma Segmentária na Prática")
-        st.markdown("Já que sabemos que a rede encosta nos muros nos pontos **A(a,0)** e **B(0,b)**, usamos a equação:")
+        st.markdown("A forma **Segmentária** é perfeita! Ela nos dá a equação pronta:")
         st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
         
-        st.warning("🗣️ **Discussão:** A rede tem um obstáculo obrigatório. Qual é o ponto que ela NÃO pode ignorar?")
-
-        if st.button("Revelar Passo 2: O Poste Central"):
+        if st.button("Revelar Passo 2: O Poste Central P(1,2)"):
             st.session_state.passo_aula = 2
 
     if st.session_state.passo_aula >= 2:
-        st.markdown("### Passo 2: Passando pelo poste P(1,2)")
-        st.markdown("Se $P(1,2)$ pertence à reta, substituímos $x=1$ e $y=2$:")
-        st.latex(r"\frac{1}{a} + \frac{2}{b} = 1")
-        st.markdown("Isolando o $b$, descobrimos a relação entre a posição dos dois muros:")
-        st.latex(r"b = \frac{2a}{a - 1}")
-
-        if st.button("Revelar Passo 3: O Comprimento da Rede"):
+        st.markdown("Substituindo o ponto $P(1,2)$ na equação para relacionar $a$ e $b$:")
+        st.latex(r"\frac{1}{a} + \frac{2}{b} = 1 \implies b = \frac{2a}{a - 1}")
+        
+        if st.button("Revelar Passo 3: Pitágoras"):
             st.session_state.passo_aula = 3
 
     if st.session_state.passo_aula >= 3:
-        st.markdown("### Passo 3: Pitágoras")
-        st.markdown("O comprimento da rede é a hipotenusa:")
-        st.latex(r"AB(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
-        
-        st.success("Modelagem pronta!")
-        
-        if st.button("🔄 Reiniciar Lousa"):
-            st.session_state.passo_aula = 0
-            st.rerun()
+        st.markdown("O comprimento da rede (hipotenusa) depende de $a$:")
+        st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
+        st.success("Modelagem concluída! Agora podemos testar valores e ver o gráfico do comprimento.")
+
+    if st.button("🔄 Reiniciar Lousa"):
+        st.session_state.passo_aula = 0
+        st.rerun()
 
 # ETAPA 3: TESTES
 elif etapa == "3. Testes":
