@@ -54,7 +54,7 @@ if etapa == "1. O Problema":
 
 # ETAPA 2: MODELAGEM
 elif etapa == "2. Modelagem":
-    st.title("📐 Revisão")
+    st.title("📐 Revisão e Modelagem")
     st.markdown("Vamos fazer uma breve revisão sobre equação da reta antes de seguirmos para a análise do problema.")
 
     import matplotlib.pyplot as plt
@@ -108,7 +108,7 @@ elif etapa == "2. Modelagem":
     # =====================================================
     # DIVISÃO 1: REVISÃO TEÓRICA PROGRESSIVA
     # =====================================================
-    st.header("📚 Parte 1: Revisão Teórica")
+    st.header("📚 Revisão")
     st.markdown("Vamos lembrar como as equações da reta são deduzidas e aplicadas geometricamente.")
 
     # --- 1. EQUAÇÃO GERAL ---
@@ -287,7 +287,7 @@ elif etapa == "2. Modelagem":
     # =====================================================
     # DIVISÃO 2: MODELAGEM DO PROBLEMA (INVESTIGAÇÃO)
     # =====================================================
-    st.header("🎯 Parte 2: O Problema")
+    st.header("🎯 Modelagem")
     st.markdown("Agora que revisamos, vamos analisar o nosso problema.")
 
     # --- PASSO 1 ---
