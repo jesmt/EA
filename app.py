@@ -499,7 +499,7 @@ elif etapa == "4. Resultado":
     # -------------------------------------------------------
 
     resposta = st.radio(
-        "Qual das afirmações descreve melhor o comportamento da curva?",
+        "📝 Qual das afirmações descreve melhor o comportamento da curva?",
         [
             "O comprimento da rede só aumenta.",
             "O comprimento da rede só diminui.",
@@ -527,32 +527,7 @@ elif etapa == "4. Resultado":
         Perceba que ela diminui, atinge um valor mínimo e depois volta a crescer.
         """)
 
-    # -------------------------------------------------------
-    # LEITURA DO GRÁFICO
-    # -------------------------------------------------------
-
-    st.subheader("🔍 O que o gráfico revela?")
-
-    st.markdown("""
-    Ao analisar a curva observamos três fatos importantes:
-
-    **1️⃣ A rede fica cada vez menor**
-
-    Quando aumentamos o valor de **a** logo após 1, o comprimento da rede diminui rapidamente.
-
-    **2️⃣ Existe um ponto mais baixo**
-
-    Em determinado momento a curva atinge seu menor valor.
-
-    Esse é o ponto de mínimo da função.
-
-    **3️⃣ Depois a rede volta a crescer**
-
-    Continuar aumentando **a** não gera economia.
-
-    Pelo contrário: a quantidade de material necessária volta a aumentar.
-    """)
-
+   
     st.markdown("""
     ### 🔍 Lendo o gráfico da função
 
