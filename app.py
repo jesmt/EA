@@ -418,6 +418,7 @@ Todos pertencem à reta.
             st.latex(r"L(a) = \sqrt{a^2 + \left(\frac{2a}{a - 1}\right)^2}")
         
 # ETAPA 3: TESTES
+
 elif etapa == "3. Testes":
     st.title("🧪 Laboratório de Testes Numéricos")
     st.markdown("""
