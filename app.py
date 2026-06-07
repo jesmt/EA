@@ -324,4 +324,3 @@ elif etapa == "4. Resultado":
 
         Ou seja: a investigação realizada pela turma chegou muito perto da solução matemática exata.
         """)
-```
