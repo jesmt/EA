@@ -640,29 +640,31 @@ elif etapa == "4. Resultado":
     # CURIOSIDADE AVANÇADA
     # -------------------------------------------------------
 
-    st.markdown("### ✨ Curiosidade Matemática")
-
     st.markdown("""
-    Será que existe uma maneira de encontrar o valor exato desse mínimo sem precisar testar vários números?
+    ### ✨ Uma curiosidade matemática
 
-    Sim.
+    A investigação que realizamos permitiu localizar com bastante precisão a região onde ocorre o mínimo da função.
 
-    Em cursos mais avançados de Matemática, Engenharia, Física e Computação existe uma área chamada **Cálculo Diferencial**, que estuda justamente como localizar pontos de máximo e mínimo em funções.
+    Em cursos mais avançados existe uma ferramenta chamada Cálculo Diferencial, capaz de confirmar matematicamente esse resultado e determinar sua posição exata.
 
-    Essa ferramenta permite encontrar o valor exato do mínimo da nossa função.
+    O interessante é perceber que o valor encontrado pelo Cálculo aparece exatamente na região que identificamos observando a tabela e o gráfico.
     """)
 
-    if st.button("Mostrar o valor exato encontrado pelo Cálculo"):
+    if st.button("Confirmar o resultado com o Cálculo"):
 
-        a_exato = 2.587
-        b_exato = (2 * a_exato) / (a_exato - 1)
-        dist_exato = np.sqrt(a_exato**2 + b_exato**2)
+    a_exato = 1 + np.cbrt(4)
 
-        st.success("""
-        O valor exato encontrado pelo Cálculo Diferencial é:
+    b_exato = (2 * a_exato) / (a_exato - 1)
 
-        a = 1 + ∛4 ≈ 2,587
-        """)
+    dist_exato = np.sqrt(a_exato**2 + b_exato**2)
+
+    st.success(
+        f"""
+        O Cálculo confirma que o ponto mínimo ocorre em:
+
+        a = 1 + ∛4 ≈ {a_exato:.3f}
+        """
+    )
 
         col1, col2 = st.columns(2)
 
