@@ -255,7 +255,7 @@ elif etapa == "2. Modelagem":
         st.latex(r"\begin{cases} x = 3t + 4 \implies t = \frac{x-4}{3} \\ y = 2 - 3t \implies t = \frac{2-y}{3} \end{cases} \implies \frac{x-4}{3} = \frac{2-y}{3} \implies \mathbf{x + y - 6 = 0}")
 
         st.markdown("---")
-        t.markdown("#### ✍️ Exemplo Prático: O Robô Entregador")
+        st.markdown("#### ✍️ Exemplo Prático: O Robô Entregador")
         st.markdown("""
         Um robô parte do ponto $(1, 1)$ e caminha em linha reta. Suas coordenadas variam conforme o tempo $t$ (em segundos):
         """)
