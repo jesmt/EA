@@ -457,7 +457,13 @@ elif etapa == "3. Testes":
         Observar apenas os dados isolados na tabela nos oferece uma visão pontual, mas limitada. A representação gráfica permite identificar o **comportamento da função** $L(a)$ em todo o intervalo testado.
         
         **Interpretando o gráfico:**
-        
+        **Como interpretar o gráfico:**
+        - **Tendência de Decréscimo:** Identifique o intervalo onde a inclinação da curva é negativa; aqui, a variação de $a$ promove uma redução no comprimento total da rede.
+        - **Ponto de Inflexão (Mínimo Local):** A curva apresenta uma região de mudança onde o comprimento da rede atinge seu valor mínimo absoluto. 
+        - **Tendência de Crescimento:** Note que, a partir de determinado ponto, o aumento de $a$ passa a exigir um comprimento maior de rede, indicando o comportamento da função após o valor crítico.
+        **Por que confiar neste resultado?**
+        O gráfico é uma representação contínua da nossa função $L(a) = \sqrt{a^2 + b^2}$. A precisão visual deste gráfico depende da densidade de pontos que vocês testaram. Quanto mais pontos coletarmos próximos ao valor crítico, mais clara será a localização do **ponto de mínimo**, que representa o valor de $a$ que otimiza o custo do material para o grêmio.
+        """)
         
         
         # Plotando a curva usando Matplotlib
