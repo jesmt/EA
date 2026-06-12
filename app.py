@@ -336,7 +336,7 @@ elif etapa == "2. Modelagem":
         st.success("Se você pensou na **Equação Segmentária da Reta**, acertou na mosca! 🎯")
         st.markdown("Neste caso, os nossos interceptos (os pontos de corte nos eixos) são exatamente as distâncias $p=a$ e $q=b$. A equação da nossa rede será:")
         st.latex(r"\frac{x}{a} + \frac{y}{b} = 1")
-        st.markdown("Mas lembre que a rede, a nossa, reta, pode ser amarrada de qualquer jeito...")
+        st.markdown("Mas lembre que a rede, a nossa reta, não pode ser amarrada de qualquer jeito...")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
